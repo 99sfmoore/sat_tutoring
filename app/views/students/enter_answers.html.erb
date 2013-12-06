@@ -1,0 +1,24 @@
+<h1>Enter Answers for <%= @student.full_name %></h1>
+<h2><%= @test.name %>
+
+  <%= form_tag entered_answers_student_path(@student) do %>
+  <%= hidden_field_tag :test, @test.id %>
+  <table class = "table">
+    <th>
+      <td>Section</td>
+      <td>Question</td>
+      <td>Answer</td>
+    </th>
+    <% @test.questions.each do |q| %>
+    <tr>
+      <td><%=q.section%><td>
+      <td><%=q.question_num%></td>
+      <td><%= text_field_tag "#{q.id}" %></td>
+    </tr>
+    <% end %>
+  </table>
+
+  <%= submit_tag "Enter Answers" %>
+  <% end %>
+
+

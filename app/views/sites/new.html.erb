@@ -1,0 +1,26 @@
+<% provide(:title, 'New Site') %>
+<h1> Create new site</h1>
+<div class="row">
+  <div class="span6 offset3">
+    <%= form_for @site, multipart: true do |f| %>
+
+      <%=f.label :name, "Site Name" %>
+      <%=f.text_field :name %>
+
+      <%=f.label :cp_contact_name, "Name of Community Partner Contact" %>
+      <%=f.text_field :cp_contact_name %>
+
+      <%=f.label :cp_email, "Community Partner Email Address" %>
+      <%=f.text_field :cp_email %>
+
+      <%=f.label :student_file, "Upload Student List" %>
+      <%= f.file_field :student_file %>
+
+      <%=f.label :tutor_file, "Upload Tutor List" %>
+      <%= f.file_field :tutor_file %>
+
+
+      <%= f.submit "Create new site", class: "btn btn-large btn-primary" %>
+    <% end %>
+  </div>
+</div>

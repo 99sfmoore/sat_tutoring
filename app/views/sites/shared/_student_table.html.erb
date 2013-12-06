@@ -1,0 +1,16 @@
+<h3>Students</h3>    
+<table class="table">
+  <thead>
+    <td>Name</td>
+    <td>Email</td>
+    <td>High School<td>
+  </thead>
+  <% @site.students.each do |s| %>
+  <tr>
+    <td><%=image_tag s.avatar.url(:thumb)%> <%=link_to s.full_name, student_path(s) %></td>
+    <td><%=s.email%></td>
+    <td><%=s.high_school %></td>
+    <td><%=link_to "edit", edit_student_path(s) %></td>
+  </tr>
+  <% end %>
+</table>

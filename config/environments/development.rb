@@ -26,4 +26,16 @@ SatApp::Application.configure do
   # This option may cause significant delays in view rendering with a large
   # number of complex assets.
   config.assets.debug = true
+
+  #use paperclip and AWS S3
+  config.paperclip_defaults = {
+    :storage => :s3,
+    :bucket => ENV['S3_BUCKET_NAME'],
+    :s3_credentials => {
+      
+      :access_key_id => ENV['AWS_ACCESS_KEY_ID'],
+      :secret_access_key => ENV['AWS_SECRET_ACCESS_KEY']
+    }
+  }
+  Paperclip.options[:command_path] = "/usr/local/bin/"
 end

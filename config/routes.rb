@@ -1,5 +1,41 @@
 SatApp::Application.routes.draw do
-  get "static_pages/home"
+  resources :sites do
+    member do
+      get :import_answers
+      post :load_answers
+      get :enter_scores
+      post :entered_scores
+    end
+  end
+  resources :students do 
+    resources :hw_assignments do
+      member do
+        get :send_hints
+      end
+    end
+    collection do 
+      post :load_answers
+      post :test_score
+    end
+    member do
+      get :enter_answers
+      post :entered_answers
+      get :check_homework
+      post :checked_homework
+    end
+  end
+  resources :tests
+  resources :tutors
+  resources :answers 
+  resources :sessions, only: [:new, :create, :destroy]
+
+  root 'static_pages#home'
+  match '/signin', to: 'sessions#new', via: 'get'
+  match '/signout', to: 'sessions#destroy', via: 'delete'
+
+  
+
+
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 

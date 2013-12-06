@@ -1,0 +1,22 @@
+<% provide(:title, @test.name) %>
+<h1><%=@test.name %> </h1>
+<table class="table">
+  <thead>
+    <td>Segment</td>
+    <td>Section</td>
+    <td>Question #</td>
+    <td>Category</td>
+    <td>Difficulty</td>
+    <td>Correct Answer</td>
+  </thead>
+  <% @test.questions.each do |q| %>
+  <tr>
+    <td><%=q.segment %></td>
+    <td><%=q.section %></td>
+    <td><%=q.question_num%></td>
+    <td><%=q.category %></td>
+    <td><%=q.difficulty %></td>
+    <td><%=q.correct_answer%></td>
+  </tr>
+  <% end %>
+</table>

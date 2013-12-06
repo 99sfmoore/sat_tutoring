@@ -1,0 +1,8 @@
+<% provide(:title, "Import Answers") %>
+
+<h2>Import Test Answers for <%= @site.name%> </h2>
+<%= form_tag load_answers_site_path(@site), multipart: true do %>
+  <%= select_tag("test", options_from_collection_for_select(Test.all,"id","name"), :prompt => "Select Test") %>
+  <%= file_field_tag :file %>
+  <%= submit_tag "Load Answers" %>
+<% end %>

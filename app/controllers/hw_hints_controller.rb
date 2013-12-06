@@ -1,0 +1,2 @@
+class HwHintsController < ApplicationController
+end

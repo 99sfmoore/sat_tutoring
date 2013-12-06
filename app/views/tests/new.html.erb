@@ -1,0 +1,19 @@
+<% provide(:title, 'New Test') %>
+<h1> Create new test</h1>
+<div class="row">
+  <div class="span6 offset3">
+    <%= form_for @test, :html => {:multipart => true } do |f| %>
+
+      <%=f.label :name, "Name of Test" %>
+      <%=f.text_field :name %>
+
+      <%=f.label :question_file, "Upload Question File" %>
+      <%= f.file_field :question_file %>
+
+      <%=f.label :conversion, "Upload Conversion Chart" %>
+      <%= f.file_field :conversion %>
+
+      <%= f.submit "Add Test", class: "btn btn-large btn-primary" %>
+    <% end %>
+  </div>
+</div>

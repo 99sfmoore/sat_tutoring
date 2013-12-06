@@ -1,0 +1,17 @@
+<%=f.label :first_name, "First Name" %>
+<%=f.text_field :first_name %>
+
+<%=f.label :last_name, "Last Name" %>
+<%=f.text_field :last_name %>
+
+<%=f.label :email, "Email" %>
+<%=f.text_field :email %>
+
+<%=f.label :high_school, "High School" %>
+<%=f.text_field :high_school %>
+
+<%=f.label :tutor_id, "Tutor" %>
+<%=f.collection_select :tutor_id, @student.site.tutors, :id, :full_name %>
+
+<%=f.label :avatar, "Upload Picture" %>
+<%= f.file_field :avatar %>
