@@ -28,10 +28,10 @@ class Section < ActiveRecord::Base
 
 
   def name
-    if self.test.nil?
     # "#{Category.find(category_id).topic_name}, pg #{page_range}" if category_id
     "hi"
   end
+
 
   # def segment
   #   category.segment
