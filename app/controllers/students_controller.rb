@@ -156,6 +156,11 @@ class StudentsController < ApplicationController
     @performance = @test.performance(@student, @segment)
   end
 
+  def send_test
+    @student = Student.find(params[:id])
+    StudentMailer.test_email(@student).deliver
+  end
+
   private
 
     def student_params
