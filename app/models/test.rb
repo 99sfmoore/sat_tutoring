@@ -1,4 +1,4 @@
-require 'pry-nav'
+
 
 class Test < ActiveRecord::Base
   has_many :sections, dependent: :destroy
