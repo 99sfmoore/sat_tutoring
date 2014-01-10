@@ -1,4 +1,4 @@
-require 'pry-nav'
+
 class Site < ActiveRecord::Base
   has_many :students
   has_many :tutors

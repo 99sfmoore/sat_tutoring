@@ -1,4 +1,4 @@
-require 'pry-nav'
+
 
 class Student < ActiveRecord::Base
   validates :email, presence: true, 

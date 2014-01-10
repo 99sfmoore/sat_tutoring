@@ -1,4 +1,4 @@
-require 'pry-nav'
+
 class RegistrationTicketsController < ApplicationController
 
   def new

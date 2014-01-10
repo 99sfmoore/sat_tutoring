@@ -1,4 +1,4 @@
-require 'pry-nav'
+
 
 class HomeworksController < ApplicationController
 
