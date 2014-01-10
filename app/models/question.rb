@@ -24,11 +24,12 @@ TOPICS = {  "Angles"=> 9,
             "Triangles" => 9}
 
 class Question < ActiveRecord::Base
-  belongs_to :section
+  belongs_to :section, dependent: :destroy
   belongs_to :category
   has_many :answers
   delegate :section_num, :segment, to: :section
   delegate :topic, to: :category
+  validates :section, presence: true
 
 
   def grid_in?
