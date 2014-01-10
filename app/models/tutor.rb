@@ -1,10 +1,11 @@
 class Tutor < ActiveRecord::Base
   belongs_to :site
   has_many :students
+  has_many :lesson_plans
   has_secure_password
   validates :email, presence: true, 
                     uniqueness: { case_sensitive: false }
-  validates :password, length: { minimum: 8 }
+  # validates :password, length: { minimum: 8 }
 
   before_create :create_remember_token
   before_save { self.email = email.downcase }
@@ -20,6 +21,7 @@ class Tutor < ActiveRecord::Base
   def full_name
     "#{self.first_name} #{self.last_name}"
   end
+
 
 
 

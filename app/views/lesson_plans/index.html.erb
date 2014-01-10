@@ -1,0 +1,20 @@
+<% provide(:title, "Calendar") %>
+
+<h1><%= @tutor.site.name %> Session Calendar</h1>
+ 
+<table class = "table"> 
+  <% @meetings.each do |meeting| %>
+    <tr>
+      <td><%=meeting.date.strftime("%B %d")%></td>
+      <% if meeting.tutors.include?(current_user) %>
+        <% plan = @lessonplans.detect{|p| p.group_meeting == meeting} %>
+        <td><%=link_to "Session \##{meeting.session_number}", lesson_plan_path(plan) %></td>
+      <% else %>
+         <td><%="Session \##{meeting.session_number}"%></td>
+         <td>
+         <%=link_to "create", new_group_meeting_lesson_plan_path(meeting) %>
+       </td>
+      <% end %>
+    </tr>
+  <% end %>
+</table>

@@ -1,0 +1,14 @@
+<h1>Write hint for Question #<%= @question.question_num %>, pg. <%= @question.book_section.page_range %></h1>
+
+<h3>The correct answer is <%= @question.correct_answer %>.</h3>
+
+<%= form_for [@question,@hint] do |f| %>
+
+  <%=f.label :answer_choice, "Leave blank for general hint, or enter wrong answer choice" %>
+  <%=f.text_field :answer_choice %>
+
+  <%=f.label :hint, "Hint" %>
+  <%=f.text_area :hint %> 
+
+  <%= f.submit "Create Hint", class: "btn btn-primary" %>
+<% end %>

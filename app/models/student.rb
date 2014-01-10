@@ -8,8 +8,8 @@ class Student < ActiveRecord::Base
   belongs_to :tutor
   has_many :answers
   has_many :questions, through: :answers
+  has_many :book_questions, through: :answers
   has_many :scores
-  has_many :hw_answers
 
   has_attached_file :avatar, styles: {
     thumb: '32x32#',
@@ -27,20 +27,23 @@ class Student < ActiveRecord::Base
       answer_hash["question_num"] = answer_hash["question_num"].to_i
       answer_hash["section"] = answer_hash["section"].to_i
       question = Question.where("test_id = ? AND section = ? AND question_num = ?", test, answer_hash["section"], answer_hash["question_num"]).first
-      self.answers.build(question_id: question.id, answer_choice: answer_hash["answer_choice"])
+      question.answers.build(student: self, answer_choice: answer_hash["answer_choice"])
+      question.save
     end
   end
 
   def enter_answers(test,param_hash)
     test.questions.each do |q|
       answer = param_hash[q.id.to_s]
-      self.answers.build(question_id: q.id, answer_choice: answer)
+      q.answers.build(student: self, answer_choice: answer)
+      q.save
     end
   end
 
   def check_homework(hw,param_hash)
-      hw.hw_questions.each do |q|
-      self.hw_answers.build(hw_question: q, answer_choice: param_hash[q.id.to_s])
+      hw.book_questions.each do |q|
+      q.answers.build(student: self, answer_choice: param_hash[q.id.to_s])
+      q.save
     end
   end
 
@@ -50,13 +53,13 @@ class Student < ActiveRecord::Base
     incorrect = 0
     omitted = 0
     penalty = 0
-    test.questions.where("segment = ?",segment).each do |q|
+    test.segment_questions(segment).each do |q|
       student_answer = Answer.where("question_id = ? AND student_id = ?", q, self).first
       unless student_answer.nil?
         student_answer = student_answer.answer_choice
-        if q.correct_answer == student_answer
+        if q.correct_answer == student_answer || (q.grid_in? && q.correct_answer.to_f == student_answer.to_f)
           correct += 1
-        elsif student_answer == "-"
+        elsif student_answer == "-" || student_answer == ""
           omitted +=1
         else
           incorrect +=1
@@ -68,6 +71,20 @@ class Student < ActiveRecord::Base
     {correct: correct, incorrect: incorrect, omitted: omitted, penalty: penalty, score: raw}
   end
 
+  def correct?(question)
+    answer = self.answers.where("question_id =?", question).last
+    answer.correct?
+  end
+
+  def incorrect?(question)
+    answer = self.answers.where("question_id =?", question).last
+    answer.incorrect?
+  end
+
+  def omitted?(question)
+    answer = self.answers.where("question_id =?", question).last
+    answer.omitted?
+  end
 
 
 

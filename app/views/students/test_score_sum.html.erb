@@ -1,0 +1,242 @@
+<% provide(:title, @student.full_name) %>
+
+<h1>
+  <%= @student.full_name %><br>
+</h1>
+
+<table class="table">
+      <tr>
+        <th></th>
+        <th>Test #1</th>
+        <th>Test #2</th>
+        <th>Test #3</th>
+        <th>Test #4</th>
+      </tr>
+        <td>Math Correct</td>
+        <td><%=@raw_math_1[:correct]%></td>
+        <td><%=@raw_math_2[:correct]%></td>
+        <td></td>
+        <td></td>
+      </tr>
+      </tr>
+        <td>Math Incorrect</td>
+        <td><%=@raw_math_1[:incorrect]%></td>
+        <td><%=@raw_math_2[:incorrect]%></td>
+        <td></td>
+        <td></td>
+      </tr>
+      </tr>
+        <td>Math Omitted</td>
+        <td><%=@raw_math_1[:omitted]%></td>
+        <td><%=@raw_math_2[:omitted]%></td>
+        <td></td>
+        <td></td>
+      </tr>
+      </tr>
+        <td><strong>Math Raw Score</strong></td>
+        <td><strong><%=@raw_math_1[:score]%></strong></td>
+        <td><strong><%=@raw_math_2[:score]%></strong></td>
+        <td></td>
+        <td></td>
+      </tr>
+      </tr>
+        <td>Reading Correct</td>
+        <td><%=@raw_reading_1[:correct]%></td>
+        <td><%=@raw_reading_2[:correct]%></td>
+        <td></td>
+        <td></td>
+      </tr>
+      </tr>
+        <td>Reading Incorrect</td>
+        <td><%=@raw_reading_1[:incorrect]%></td>
+        <td><%=@raw_reading_2[:incorrect]%></td>
+        <td></td>
+        <td></td>
+      </tr>
+      </tr>
+        <td>Reading Omitted</td>
+        <td><%=@raw_reading_1[:omitted]%></td>
+        <td><%=@raw_reading_2[:omitted]%></td>
+        <td></td>
+        <td></td>
+      </tr>
+      </tr>
+        <td><strong>Reading Raw Score</strong></td>
+        <td><strong><%=@raw_reading_1[:score]%></strong></td>
+        <td><strong><%=@raw_reading_2[:score]%></strong></td>
+        <td></td>
+        <td></td>
+      </tr>
+      </tr>
+        <td>Writing Correct</td>
+        <td><%=@raw_writing_1[:correct]%></td>
+        <td><%=@raw_writing_2[:correct]%></td>
+        <td></td>
+        <td></td>
+      </tr>
+      </tr>
+        <td>Writing Incorrect</td>
+        <td><%=@raw_writing_1[:incorrect]%></td>
+        <td><%=@raw_writing_2[:incorrect]%></td>
+        <td></td>
+        <td></td>
+      </tr>
+      </tr>
+        <td>Writing Omitted</td>
+        <td><%=@raw_writing_1[:omitted]%></td>
+        <td><%=@raw_writing_2[:omitted]%></td>
+        <td></td>
+        <td></td>
+      </tr>
+      </tr>
+        <td><strong>Writing Raw Score</strong></td>
+        <td><strong><%=@raw_writing_1[:score]%></strong></td>
+        <td><strong><%=@raw_writing_2[:score]%></strong></td>
+        <td></td>
+        <td></td>
+      </tr>
+    </table>
+
+<div class="row wtf">
+  <div class="col-sm-4" style="display: inline-block;">
+    <h4>Section 2</h4>
+    <table class="table table-condensed" style="table-layout: fixed;">
+      <thead>
+        <td>Question #</td>
+        <td>Correct Answer</td>
+        <td>Student Answer</td>
+      </thead>
+      <% @questions[2].each do |q| %>
+      <tr>
+        <td><%=q.question_num%></td>
+        <td><%=q.correct_answer%></td>
+        <td><%=q.answers.where("student_id = ?", @student).first.answer_choice%></td>
+      </tr>
+      <% end %>
+    </table>
+  </div>
+  <div class="col-sm-4" style="display: inline-block;">
+     <h4>Section 3</h4>
+    <table class="table table-condensed" style="table-layout: fixed;">
+      <thead>
+        <td>Question #</td>
+        <td>Correct Answer</td>
+        <td>Student Answer</td>
+      </thead>
+      <% @questions[3].each do |q| %>
+      <tr>
+        <td><%=q.question_num%></td>
+        <td><%=q.correct_answer%></td>
+        <td><%=q.answers.where("student_id = ?", @student).first.answer_choice%></td>
+      </tr>
+      <% end %>
+    </table>
+  </div>
+  <div class="col-sm-4" style="display: inline-block;">
+     <h4>Section 4</h4>
+    <table class="table table-condensed" style="table-layout: fixed;">
+      <thead>
+        <td>Question #</td>
+        <td>Correct Answer</td>
+        <td>Student Answer</td>
+      </thead>
+      <% @questions[4].each do |q| %>
+      <tr>
+        <td><%=q.question_num%></td>
+        <td><%=q.correct_answer%></td>
+        <td><%=q.answers.where("student_id = ?", @student).first.answer_choice%></td>
+      </tr>
+      <% end %>
+    </table>
+  </div>
+</div>
+<div class="row wtf">
+  <div class="col-sm-4" style="display: inline-block;">
+    <h4>Section 5</h4>
+    <table class="table table-condensed" style="table-layout: fixed;">
+      <thead>
+        <td>Question #</td>
+        <td>Correct Answer</td>
+        <td>Student Answer</td>
+      </thead>
+      <% @questions[5].each do |q| %>
+      <tr>
+        <td><%=q.question_num%></td>
+        <td><%=q.correct_answer%></td>
+        <td><%=q.answers.where("student_id = ?", @student).first.answer_choice%></td>
+      </tr>
+      <% end %>
+    </table>
+  </div>
+  <div class="col-sm-4" style="display: inline-block;">
+     <h4>Section 6</h4>
+    <table class="table table-condensed" style="table-layout: fixed;">
+      <thead>
+        <td>Question #</td>
+        <td>Correct Answer</td>
+        <td>Student Answer</td>
+      </thead>
+      <% @questions[6].each do |q| %>
+      <tr>
+        <td><%=q.question_num%></td>
+        <td><%=q.correct_answer%></td>
+        <td><%=q.answers.where("student_id = ?", @student).first.answer_choice%></td>
+      </tr>
+      <% end %>
+    </table>
+  </div>
+  <div class="col-sm-4" style="display: inline-block;">
+     <h4>Section 8</h4>
+    <table class="table table-condensed" style="table-layout: fixed;">
+      <thead>
+        <td>Question #</td>
+        <td>Correct Answer</td>
+        <td>Student Answer</td>
+      </thead>
+      <% @questions[8].each do |q| %>
+      <tr>
+        <td><%=q.question_num%></td>
+        <td><%=q.correct_answer%></td>
+        <td><%=q.answers.where("student_id = ?", @student).first.answer_choice%></td>
+      </tr>
+      <% end %>
+    </table>
+  </div>
+</div>
+<div class="row wtf">
+  <div class="col-sm-4" style="display: inline-block;">
+    <h4>Section 9</h4>
+    <table class="table table-condensed" style="table-layout: fixed;">
+      <thead>
+        <td>Question #</td>
+        <td>Correct Answer</td>
+        <td>Student Answer</td>
+      </thead>
+      <% @questions[9].each do |q| %>
+      <tr>
+        <td><%=q.question_num%></td>
+        <td><%=q.correct_answer%></td>
+        <td><%=q.answers.where("student_id = ?", @student).first.answer_choice%></td>
+      </tr>
+      <% end %>
+    </table>
+  </div>
+  <div class="col-sm-4" style="display: inline-block;">
+     <h4>Section 10</h4>
+    <table class="table table-condensed" style="table-layout: fixed;">
+      <thead>
+        <td>Question #</td>
+        <td>Correct Answer</td>
+        <td>Student Answer</td>
+      </thead>
+      <% @questions[10].each do |q| %>
+      <tr>
+        <td><%=q.question_num%></td>
+        <td><%=q.correct_answer%></td>
+        <td><%=q.answers.where("student_id = ?", @student).first.answer_choice%></td>
+      </tr>
+      <% end %>
+    </table>
+  </div>
+</div>
+

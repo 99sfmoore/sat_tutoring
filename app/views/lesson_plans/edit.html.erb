@@ -1,0 +1,14 @@
+<% provide(:title, @lessonplan.name) %>
+
+<h1>Edit <%= @lessonplan.name %></h1>
+
+<div class="col-md-5 col-md-offset-2">
+
+<%= form_tag lesson_plan_path(@lessonplan), method: :put do %>
+  
+  <%= render 'fields' %>
+
+  <%= submit_tag "Edit Lesson Plan", class: "btn btn-primary" %>
+
+<% end %>
+</div>

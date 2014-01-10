@@ -8,7 +8,7 @@
       <td>Question #</td>
       <td>Answer</td>
     </th>
-    <% @hw.hw_questions.each do |q| %>
+    <% @hw.book_questions.each do |q| %>
     <tr>
       <td><%=q.question_num%><td>
       <td><%= text_field_tag q.id %></td>

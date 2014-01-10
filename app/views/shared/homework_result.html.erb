@@ -1,5 +1,5 @@
 <h1>Homework results for <%= @student.full_name %></h1>
-<h2>Assignment <%= "page #{@hw.start_page} - #{@hw.end_page}" %></h2>
+<h2><%= @hw.name %></h2>
 <%=link_to "Send Hints", [:send_hints, @student, @hw], class: "btn btn-primary" %>
 
   
@@ -10,7 +10,7 @@
     <th>Student Answer</th>
     <th>Correct?</th>
   </tr>
-  <% @hw.hw_questions.each do |q| %>
+  <% @hw.book_questions.each do |q| %>
     <tr>
       <td><%=q.question_num%></td>
       <td><%=q.correct_answer%></td>

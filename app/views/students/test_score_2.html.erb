@@ -1,0 +1,48 @@
+<% provide(:title, @student.full_name) %>
+
+<h1>
+  <%= @student.full_name %><br>
+  <%= @test.name %>
+</h1>
+
+
+  <% ["Math","CR","Writing"].each do |subject| %>
+      <h3><%= subject %></h3>
+      <% raw_score = @student.raw_score(@test, subject) %>
+    <table class="table">
+    <tr>
+      <td>Correct</td><td><%= raw_score[:correct] %></td>
+    </tr>
+    <tr>
+      <td>Incorrect</td><td><%= raw_score[:incorrect]%></td>
+    </tr>
+    <tr>
+      <td>Omitted</td><td><%= raw_score[:omitted] %></td>
+    </tr>
+    <tr>
+      <td>Raw Score</td><td><%= raw_score[:score] %></td>
+    </tr>
+    <tr>
+      <td>Scaled Score</td><td>" @test.scaled_score(raw_score[:score], subject) "</td>
+    </tr>
+    </table>
+    <% end %>
+
+<table class="table">
+  <thead>
+    <td>Segment</td>
+    <td>Section</td>
+    <td>Question #</td>
+    <td>Correct Answer</td>
+    <td>Student Answer</td>
+  </thead>
+  <% @test.questions.each do |q| %>
+  <tr>
+    <td><%=q.segment %></td>
+    <td><%=q.section %></td>
+    <td><%=q.question_num%></td>
+    <td><%=q.correct_answer%></td>
+    <td><%=q.answers.where("student_id = ?", @student).first.answer_choice%></td>
+  </tr>
+  <% end %>
+

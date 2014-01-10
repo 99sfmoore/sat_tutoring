@@ -1,16 +1,21 @@
 SatApp::Application.routes.draw do
   resources :sites do
+    resources :group_meetings
     member do
       get :import_answers
       post :load_answers
       get :enter_scores
       post :entered_scores
+      get :score_summary
     end
+    resources :registration_tickets, only: [:new, :create]
   end
+
   resources :students do 
-    resources :hw_assignments do
+    resources :sections do
       member do
         get :send_hints
+        post :send_email
       end
     end
     collection do 
@@ -22,12 +27,46 @@ SatApp::Application.routes.draw do
       post :entered_answers
       get :check_homework
       post :checked_homework
+      get :hit_try_matrix
+      get :send_test
+      get :test_score_2
     end
   end
-  resources :tests
-  resources :tutors
+  resources :tests do
+    resources :segments do
+      resources :students do
+        get :segment_performance
+      end
+    end
+  end
+  resources :tutors do
+    resources :lesson_plans, only:[:index]
+  end
   resources :answers 
   resources :sessions, only: [:new, :create, :destroy]
+  resources :sections do
+    member do
+      get :enter_questions
+      post :create_questions
+    end
+  end
+  resources :book_questions do
+    resources :hw_hints
+  end
+
+  resources :group_meetings do
+    resources :lesson_plans, only: [:new, :create]
+  end
+
+  resources :lesson_plans, only: [:show, :edit, :update]
+
+  resources :homeworks do
+    member do
+      get :assignment_sheet
+    end
+  end
+
+   
 
   root 'static_pages#home'
   match '/signin', to: 'sessions#new', via: 'get'

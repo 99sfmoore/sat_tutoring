@@ -1,0 +1,23 @@
+<% provide(:title, "TEL Topics") %>
+<h1>TEL Topics</h1>
+<table class = "table">
+  <tr>
+    <th>Segment</th>
+    <th>Topic</th>
+    <th>Difficulty</th>
+    <th># of Questions</th>
+    <th>Page Range</th>
+ 
+  </tr>
+  <% @sections.each do |s| %>
+    <tr>
+      <td><%= s.category.segment %></td>
+      <td><%= s.category.topic_name %></td>
+      <td><%= s.difficulty %></td>
+      <td><%= s.num_of_questions %></td>
+      <td><%= s.page_range %></td>
+      <td><%= link_to "Make Key", enter_questions_book_section_path(s) %></td>
+     
+    </tr>
+  <% end %>
+</table>

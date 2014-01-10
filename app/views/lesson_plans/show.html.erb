@@ -1,0 +1,21 @@
+<% provide(:title, @lessonplan.name) %>
+
+<h1><%= @lessonplan.name %></h1>
+<%= link_to "Edit", edit_lesson_plan_path(@lessonplan), class: "btn btn-primary" %>
+
+<h3>Sections to Cover</h3>
+<% @lessonplan.sections.order(:start_page).each do |section|%>
+  <p><%=section.name%></p>
+<% end %>
+
+<h3>Notes</h3>
+<%= simple_format(@lessonplan.notes) %>
+
+<h3>Homework</h3>
+<% if @homework %>
+  <p> hi </p>
+  <% @homework.sections.order(:start_page).each do |section|%>
+    <p><%=section.name%></p>
+  <% end %>
+  <%= link_to "Print Assignment Sheet", homework_path(@lessonplan.homework), class: "btn btn-primary" %>
+<% end %>

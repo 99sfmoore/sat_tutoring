@@ -1,0 +1,20 @@
+<% provide(:title, "Create Sessions") %>
+
+<h1> Create Sessions </h1>
+
+<%= form_tag site_group_meetings_path(@site) do %>
+  <%= hidden_field_tag :num_of_sessions, @num_of_sessions %>
+  <table class = "table">
+    <tr>
+      <th>Session #</th>
+      <th>Date</th>
+    </tr>
+    <% @num_of_sessions.times do |n| %>
+      <tr>
+        <td><input type = "text" name="<%=n%>[number]" value = "<%=n+1%>" %></td>
+        <td><input type = "date" name="<%=n%>[date]"></td>
+      </tr>
+    <% end %>
+  </table>
+  <%= submit_tag "Create Sessions", class: "btn btn-primary" %>
+<% end %>

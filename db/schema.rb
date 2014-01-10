@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20131206175906) do
+ActiveRecord::Schema.define(version: 20140110025319) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -26,56 +26,59 @@ ActiveRecord::Schema.define(version: 20131206175906) do
 
   create_table "categories", force: true do |t|
     t.string   "name"
-    t.integer  "topic"
-    t.string   "segment"
+    t.integer  "topic_id"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
 
-  create_table "hw_answers", force: true do |t|
-    t.integer  "hw_question_id"
-    t.integer  "student_id"
-    t.string   "answer_choice"
+  create_table "group_meetings", force: true do |t|
+    t.integer  "session_number"
+    t.datetime "date"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.integer  "site_id"
   end
 
-  create_table "hw_assignments", force: true do |t|
-    t.integer  "category_id"
-    t.integer  "start_page"
-    t.integer  "end_page"
-    t.string   "difficulty"
-    t.datetime "created_at"
-    t.datetime "updated_at"
+  create_table "homeworks", force: true do |t|
+    t.integer "lesson_plan_id"
+  end
+
+  create_table "homeworks_sections", force: true do |t|
+    t.integer "section_id"
+    t.integer "homework_id"
   end
 
   create_table "hw_hints", force: true do |t|
     t.integer  "created_by"
-    t.integer  "hw_question_id"
+    t.integer  "book_question_id"
     t.string   "answer_choice"
     t.text     "hint"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
 
-  create_table "hw_questions", force: true do |t|
-    t.integer  "hw_assignment_id"
-    t.integer  "question_num"
-    t.string   "correct_answer"
+  create_table "lesson_plans", force: true do |t|
+    t.integer  "tutor_id"
+    t.integer  "group_meeting_id"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.text     "notes"
+  end
+
+  create_table "lesson_plans_sections", force: true do |t|
+    t.integer "lesson_plan_id"
+    t.integer "section_id"
   end
 
   create_table "questions", force: true do |t|
-    t.integer  "test_id"
-    t.string   "segment"
-    t.integer  "section"
     t.integer  "question_num"
-    t.string   "category"
+    t.string   "category_string"
     t.string   "difficulty"
     t.string   "correct_answer"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.integer  "section_id"
+    t.integer  "category_id"
   end
 
   create_table "scores", force: true do |t|
@@ -88,12 +91,35 @@ ActiveRecord::Schema.define(version: 20131206175906) do
     t.datetime "updated_at"
   end
 
+  create_table "sections", force: true do |t|
+    t.integer  "category_id"
+    t.integer  "start_page"
+    t.integer  "end_page"
+    t.string   "difficulty"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.integer  "num_of_questions"
+    t.integer  "section_num"
+    t.integer  "test_id"
+    t.string   "segment_string"
+    t.integer  "segment_id"
+  end
+
+  create_table "segments", force: true do |t|
+    t.string   "name"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
   create_table "sites", force: true do |t|
     t.string   "name"
     t.datetime "created_at"
     t.datetime "updated_at"
     t.string   "cp_contact_name"
     t.string   "cp_email"
+    t.integer  "team_leader_id"
+    t.string   "leader_email"
+    t.string   "cp_nickname"
   end
 
   create_table "students", force: true do |t|
@@ -118,6 +144,15 @@ ActiveRecord::Schema.define(version: 20131206175906) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.text     "conversion"
+    t.boolean  "assignable"
+  end
+
+  create_table "topics", force: true do |t|
+    t.integer  "number"
+    t.string   "name"
+    t.integer  "segment_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
   end
 
   create_table "tutors", force: true do |t|
@@ -129,6 +164,9 @@ ActiveRecord::Schema.define(version: 20131206175906) do
     t.datetime "updated_at"
     t.string   "password_digest"
     t.string   "remember_token"
+    t.boolean  "admin"
+    t.boolean  "leader"
+    t.string   "email_for_students"
   end
 
   add_index "tutors", ["email"], name: "index_tutors_on_email", unique: true, using: :btree

@@ -1,0 +1,14 @@
+Hi <%= @student.first_name %>,
+
+<%= @message %>
+
+<%= @student.tutor.first_name %>
+
+<%= @section.name %>
+<% @hints.each do |h| %>
+<% q = h.book_question %>
+
+  #<%=q.question_num %> - <%= h.hint %>
+
+<% end %>
+

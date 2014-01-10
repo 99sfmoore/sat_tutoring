@@ -1,0 +1,17 @@
+<% provide(:title, "Registation Tickets") %>
+<h1>Create Registration Tickets for <%=@site.name %></h1>
+
+<%= form_tag registration_tickets_site_path(@site) do %>
+  <%= label_tag :test, "Select Practice Test" %>
+  <%= select_tag :test, options_for_select(["1","2","3","4"]) %>
+  <%= label_tag :date, "Date of Test" %>
+  <%= text_field_tag :date %>
+  <%= label_tag :arrival, "Arrival Time" %>
+  <%= text_field_tag :arrival %>
+  <%= label_tag :start, "Start Time" %>
+  <%= text_field_tag :start %>
+  <br>
+  
+  <%= submit_tag "Create Tickets", class: "btn btn-primary" %>
+
+  <% end %>

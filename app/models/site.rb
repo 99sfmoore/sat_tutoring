@@ -1,6 +1,9 @@
+require 'pry-nav'
 class Site < ActiveRecord::Base
   has_many :students
   has_many :tutors
+  has_many :group_meetings
+  belongs_to :team_leader, class_name: 'Tutor', foreign_key: :team_leader_id
 
   def add_students_from_file(filename)
     CSV.foreach(filename.path, headers: true) do |row|
@@ -24,7 +27,7 @@ class Site < ActiveRecord::Base
       question = Question.where("test_id = ? AND section = ? AND question_num = ?", test, answer_hash["section"], answer_hash["question_num"]).first
       self.students.each do |student|
         if answer_hash[student.full_name]
-          student.answers.build(question_id: question.id, answer_choice: answer_hash[student.full_name])
+          student.answers.build(questionlike_id: question.id, questionlike_type: question.class.to_s, answer_choice: answer_hash[student.full_name])
         end
       end
     end

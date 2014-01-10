@@ -1,17 +1,24 @@
-<%=f.label :first_name, "First Name" %>
-<%=f.text_field :first_name %>
-
+<div class= "form-group">
+  <%=f.label :first_name, "First Name" %>
+  <%=f.text_field :first_name, class: "form-control" %>
+</div>
+<div class= "form-group">
 <%=f.label :last_name, "Last Name" %>
-<%=f.text_field :last_name %>
-
+<%=f.text_field :last_name, class: "form-control"%>
+</div>
+<div class= "form-group">
 <%=f.label :email, "Email" %>
-<%=f.text_field :email %>
-
+<%=f.text_field :email,class: "form-control" %>
+</div>
+<div class= "form-group">
 <%=f.label :high_school, "High School" %>
-<%=f.text_field :high_school %>
-
+<%=f.text_field :high_school, class: "form-control" %>
+</div>
+<div class= "form-group">
 <%=f.label :tutor_id, "Tutor" %>
-<%=f.collection_select :tutor_id, @student.site.tutors, :id, :full_name %>
-
+<%=f.collection_select :tutor_id, @student.site.tutors, :id, :full_name,{}, {class: "form-control"} %>
+</div>
+<div class= "form-group">
 <%=f.label :avatar, "Upload Picture" %>
-<%= f.file_field :avatar %>
+<%= f.file_field :avatar, class: "form-control" %>
+</div>

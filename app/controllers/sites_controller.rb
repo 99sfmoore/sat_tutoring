@@ -40,6 +40,25 @@ class SitesController < ApplicationController
     render 'show'
   end
 
+  def make_registration_tickets
+    @site = Site.find(params[:id])
+  end
+
+  def score_summary
+    @site = Site.find(params[:id])
+    @students = @site.students.sort_by{|s| s.tutor}
+    @tests = [Test.find(3),Test.find(5)]
+  end
+
+  # def registration_tickets
+  #   @site = Site.find(params[:id])
+  #   @test = params(:test)
+  #   @arrival = params(:arrival)
+  #   @start = params(:start)
+  #   render 'registration_tickets'
+
+  # end
+
   private
 
     def site_params

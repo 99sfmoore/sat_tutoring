@@ -17,10 +17,80 @@ section {
 textarea {
   resize: vertical;
 }
+// bootstrap changes
+.btn-primary {
+  background-color: #0058A1;
+  border-color: #004D8C;
+}
+
+.weird {
+  background-color: red;
+}
 
 .center {
   text-align: center;
   h1 {
   margin-bottom: 10px;
   }
+}
+
+
+.reg-ticket{
+  h1 {
+    padding-bottom: 50px
+  }
+}
+
+// for registration tickets
+.info-block {
+  font-size: 20px;
+  line-height: 30px;
+  margin-top: -30px;
+  margin-right: -50px;
+}
+
+.hw-section {
+  margin-left: 20px;
+}
+
+.hw-header {
+  font-weight: bold;
+}
+
+
+// print format
+
+@media print {
+
+  @page { margin:1cm}
+
+  .container {
+    margin-top: -60px;
+  }
+  #print_link {
+    display: none;
+  }
+  .navbar {
+    display: none;
+  }
+
+  .navbar-inner {
+    display: none;
+  }
+
+  .wtf {
+    page-break-before: always;
+  }
+
+  .reg-ticket {
+    page-break-after: always;
+    padding: 100px 60px 0px 60px;
+  }
+
+  .reg-ticket:last-of-type {
+    page-break-after: never;
+  } 
+
+  // div[class|=col-] {float:left;}
+  // .col-sm-4 {width:33%}
 }

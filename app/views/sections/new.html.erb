@@ -1,0 +1,24 @@
+<% provide(:title, "Create Book Section") %>
+
+<%= form_for @section, multipart: true do |f| %>
+
+  <%= f.label :category_id, "Choose Topic" %>
+  <%= f.collection_select :category_id, Category.order(:topic), :id, :topic_name %>
+
+  <%= f.label :start_page, "Start page" %>
+  <%= f.text_field :start_page %>
+
+  <%= f.label :end_page, "End page" %>
+  <%= f.text_field :end_page %>
+
+  <%= f.label :num_of_questions, "# of Questions" %>
+  <%= f.text_field :num_of_questions %>
+
+  <%= f.label :difficulty, "Difficulty Level" %>
+  <%= f.select :difficulty, options_for_select(["Low","Medium","High"]) %>
+
+  <%= f.label :tel_list_file, "OR Upload TEL Topic List" %>
+  <%= f.file_field :tel_list_file %>
+
+  <%= f.submit "Create Assignment", class: "btn btn-primary"  %>
+<% end %>

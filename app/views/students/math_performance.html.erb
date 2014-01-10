@@ -1,0 +1,31 @@
+<% provide(:title, "#{@student.full_name} Math Performance") %>
+
+<h1><%=@student.full_name %> Math Performance</h1>
+<h2><%=@test.name%></h2>
+
+
+<% @performance.each do |topic, categories| %>
+  <h3>Topic #<%=topic %></h3>
+  <table class="table">
+    <thead>
+      <tr>
+        <th>Category</th>
+        <th>Correct</th>
+        <th>Incorrect</th>
+        <th>Omitted</th>
+        <th># of Questions</th>
+      </tr>
+    </thead>
+    <tbody>
+      <%categories.each do |c, results|%>
+      <tr>
+        <td><%=c%></td>
+        <td><%=results[:correct]%>%</td>
+        <td><%=results[:incorrect]%>%</td>
+        <td><%=results[:omitted]%>%</td>
+        <td><%=results[:count]%></td>
+      </tr>
+      <%end%>
+    </tbody>
+  </table>
+<% end %>

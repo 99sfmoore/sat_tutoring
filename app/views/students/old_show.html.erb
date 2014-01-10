@@ -1,0 +1,150 @@
+<% provide(:title, @student.full_name) %>
+<div class="row">
+  <div class="col-md-4">
+    <div class = "well">
+      <h1><%= @student.full_name %><h1>
+      <h4>
+        <%= link_to "#{@student.site.name}", site_path(@student.site) %> <br>
+        <% if @student.tutor %>
+        Tutor: <%= link_to "#{@student.tutor.full_name}", tutor_path(@student.tutor) %> <br>
+        <% end %>
+        <%= @student.email %>
+        <%= image_tag @student.avatar.url(:small) %>
+      </h4>
+    </div>
+  </div>
+  <div class="col-md-6">
+    <table class="table">
+      <tr>
+        <th></th>
+        <th>Test #1</th>
+        <th>Test #2</th>
+        <th>Test #3</th>
+        <th>Test #4</th>
+      </tr>
+        <td>Math Correct</td>
+        <td><%=@raw_math_1[:correct]%></td>
+        <td><%=@raw_math_2[:correct]%></td>
+        <td></td>
+        <td></td>
+      </tr>
+      </tr>
+        <td>Math Incorrect</td>
+        <td><%=@raw_math_1[:incorrect]%></td>
+        <td><%=@raw_math_2[:incorrect]%></td>
+        <td></td>
+        <td></td>
+      </tr>
+      </tr>
+        <td>Math Omitted</td>
+        <td><%=@raw_math_1[:omitted]%></td>
+        <td><%=@raw_math_2[:omitted]%></td>
+        <td></td>
+        <td></td>
+      </tr>
+      </tr>
+        <td>Math Raw Score</td>
+        <td><%=link_to @raw_math_1[:score], test_segment_student_segment_performance_path(@test1,@math,@student)%></td>
+        <td><%=@raw_math_2[:score]%></td>
+        <td></td>
+        <td></td>
+      </tr>
+      </tr>
+        <td>Reading Correct</td>
+        <td><%=@raw_reading_1[:correct]%></td>
+        <td><%=@raw_reading_2[:correct]%></td>
+        <td></td>
+        <td></td>
+      </tr>
+      </tr>
+        <td>Reading Incorrect</td>
+        <td><%=@raw_reading_1[:incorrect]%></td>
+        <td><%=@raw_reading_2[:incorrect]%></td>
+        <td></td>
+        <td></td>
+      </tr>
+      </tr>
+        <td>Reading Omitted</td>
+        <td><%=@raw_reading_1[:omitted]%></td>
+        <td><%=@raw_reading_2[:omitted]%></td>
+        <td></td>
+        <td></td>
+      </tr>
+      </tr>
+        <td>Reading Raw Score</td>
+        <td><%=@raw_reading_1[:score]%></td>
+        <td><%=@raw_reading_2[:score]%></td>
+        <td></td>
+        <td></td>
+      </tr>
+      </tr>
+        <td>Writing Correct</td>
+        <td><%=@raw_writing_1[:correct]%></td>
+        <td><%=@raw_writing_2[:correct]%></td>
+        <td></td>
+        <td></td>
+      </tr>
+      </tr>
+        <td>Writing Incorrect</td>
+        <td><%=@raw_writing_1[:incorrect]%></td>
+        <td><%=@raw_writing_2[:incorrect]%></td>
+        <td></td>
+        <td></td>
+      </tr>
+      </tr>
+        <td>Writing Omitted</td>
+        <td><%=@raw_writing_1[:omitted]%></td>
+        <td><%=@raw_writing_2[:omitted]%></td>
+        <td></td>
+        <td></td>
+      </tr>
+      </tr>
+        <td>Writing Raw Score</td>
+        <td><%=@raw_writing_1[:score]%></td>
+        <td><%=@raw_writing_2[:score]%></td>
+        <td></td>
+        <td></td>
+      </tr>
+    </table>
+  </div>
+
+</div>
+
+<%= link_to "Hit-Try Matrix", hit_try_matrix_student_path(@student) %>
+<%= link_to "Test Score 2", test_score_2_student_path(@student) %>
+
+<h2>Import Test Answers</h2>
+<%= form_tag load_answers_students_path, multipart: true do %>
+  <%= select_tag("test", options_from_collection_for_select(Test.all,"id","name"), :prompt => "Select Test") %>
+  <%= file_field_tag :file %>
+  <%= hidden_field_tag :id, @student.id %>
+  <%= submit_tag "Load Answers" %>
+<% end %>
+
+<h2>Enter Test Answers</h2>
+<%= form_tag enter_answers_student_path(@student), method: "get" do %>
+  <%= select_tag("test", options_from_collection_for_select(Test.all,"id","name"), :prompt => "Select Test") %>
+  <%= submit_tag "Enter Answers" %>
+<% end %>
+
+<h2>Check Homework</h2>
+<%= form_tag check_homework_student_path(@student), method: "get" do %>
+  <%= select_tag(:hw, options_from_collection_for_select(Section.all,"id","name"), :prompt => "Select Assignment") %>
+  <%= submit_tag "Check Homework" %>
+<% end %>
+
+<%= link_to "Send email", send_test_student_path(@student) %>
+
+<%= link_to "Check Homework", check_homework_student_path(@student) %>
+<br>
+
+<%= link_to "Enter Test Results", enter_answers_student_path(@student) %>
+
+<h2>View Test Performance</h2>
+<%= form_tag test_score_students_path do %>
+  <%= select_tag("test", options_from_collection_for_select(Test.all,"id","name"), :prompt => "Select Test") %>
+  <%= hidden_field_tag :id, @student.id %>
+  <%= submit_tag "See Performance" %>
+<% end %>
+
+

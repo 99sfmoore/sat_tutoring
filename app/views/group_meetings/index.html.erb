@@ -1,0 +1,17 @@
+<% provide(:title, "Calendar") %>
+
+<h1><%= @site.name %> Session Calendar</h1>
+ 
+<table class = "table"> 
+  <% @site.group_meetings.each do |meeting| %>
+    <tr>
+      <td><%=meeting.date.strftime("%B %d")%></td>
+      <td>
+        <% if meeting.tutors.include?(current_user) %>
+          <%=link_to "Session \##{meeting.session_number}", "group_meeting_lesson_plan_path(meeting)" %>
+        <% else %>
+           <%=link_to "Session \##{meeting.session_number}", new_group_meeting_lesson_plan_path(meeting) %>
+        <% end %>
+    </tr>
+  <% end %>
+</table>

@@ -1,0 +1,34 @@
+<% provide(:title, "Registration Tickets") %>
+<div id="print_link"><%= link_to_function("Print", "javascript:print()") %></div>
+
+
+<% @site.students.each do |student| %>
+<div class="reg-ticket">
+  <h1 class="center"> Registration Ticket for SAT Practice Test #<%=@ticket.test%></h1>
+  <div class="row">
+    <div class="col-xs-3"> 
+      <%= image_tag student.avatar.url(:small) %>
+    </div>
+    <div class="col-xs-6">
+      <h3><%= student.full_name %></h3><br>
+        <div class="info-block">
+        <em><%= student.high_school %></em><br>
+        <strong>Registration Number:</strong> <%= "#{rand(10)}#{rand(10)}#{rand(10)}#{rand(10)}#{rand(10)}#{rand(10)}#{rand(10)}#{rand(10)}#{rand(10)}#{rand(10)}" %><br>
+        <strong>Test Date:</strong> <%= @ticket.date.strftime("%A, %B %d, %Y") %><br>
+        <strong>Test Center:</strong> <%= @site.name %> <br>
+      </div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-xs-offset-1">
+      <h4>
+        <br> <br> <br>
+        Arrive at the test center by <%= @ticket.arrival %>. Testing will begin promptly at <%=@ticket.start %>.  <br> <br> <br>
+        Do not write or make any markings on this registration ticket.
+      </h4>
+    </div>
+  </div>
+</div>
+<% end %>
+
+

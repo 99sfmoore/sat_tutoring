@@ -3,7 +3,7 @@ ruby '2.0.0'
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '4.0.0'
-gem 'bootstrap-sass', '2.3.2.0'
+gem 'bootstrap-sass', '3.0.3.0'
 gem 'bcrypt-ruby', '3.0.1'
 gem 'pg', '0.15.1'
 gem 'faker', '1.1.2'
@@ -17,6 +17,7 @@ group :development, :test do
   gem 'rspec-rails', '2.13.1'
   gem 'guard-rspec', '2.5.0'
   gem 'pry-nav'
+  gem 'mailcatcher'
 end
 
 group :test do
