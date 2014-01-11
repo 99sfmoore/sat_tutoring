@@ -54,6 +54,23 @@ class Test < ActiveRecord::Base
     end
   end
 
+  def scale(segment, hit, try)
+    hit = hit/100.0
+    try = try/100.0
+    score_conversion = ActiveSupport::JSON.decode(self.conversion)
+    if segment.name == "Math"
+      raw = ((54*try*hit)-(0.25*(54*try*(1-hit)))).round.to_s
+      return score_conversion[raw]["math"]
+    elsif segment.name == "Reading"
+      raw = ((67*try*hit)-(0.25*(67*try*(1-hit)))).round.to_s
+      return score_conversion[raw]["reading"]
+    elsif segment.name == "Writing"
+      raw = ((49*try*hit)-(0.25*(49*try*(1-hit)))).round.to_s
+      return score_conversion[raw]["writing"]
+    end
+  end
+
+
   def segment_questions(segment)
     questions.where("segment_id = ?",segment)
   end

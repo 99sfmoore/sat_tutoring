@@ -9,5 +9,8 @@
   </h4>
 <% end %>
 
-<% student_list = @tutor.students %>
-<%= render 'shared/student_table', student_list: student_list, show_tutor: false %>
+<h3>Students</h3>
+<%= render 'shared/student_table', student_list: @students, show_tutor: false %>
+
+<h3>Scores</h3>
+<%= render 'shared/student_score_table', student_list: @students, scores1: @test1_scores, scores2: @test2_scores %>

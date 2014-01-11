@@ -1,7 +1,10 @@
 SatApp::Application.routes.draw do
   resources :sites do
     resources :group_meetings
+    resources :students, only: [:index]
+    resources :tutors, only: [:index]
     member do
+      get :site_admin
       get :import_answers
       post :load_answers
       get :enter_scores

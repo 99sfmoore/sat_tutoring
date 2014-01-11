@@ -1,4 +1,4 @@
-
+require 'pry-nav'
 
 class StudentsController < ApplicationController
   def new
@@ -31,6 +31,17 @@ class StudentsController < ApplicationController
     @student = Student.find(params[:id])
     @tests = Test.find([3,5])
     @segments = Segment.all
+    @scores = @student.scores.group_by{|s| s.test}
+  end
+
+  def index
+    #sometimes nested within site
+    if params[:site_id]
+      @site = Site.find(params[:site_id])
+      @students = @site.students.sort_by {|s| s.tutor.first_name}
+    else
+      #non - nested case
+    end
   end
 
   # def old_show
@@ -111,42 +122,19 @@ class StudentsController < ApplicationController
 
   def hit_try_matrix
     @student = Student.find(params[:id])
-    # conversion = Test.find_by_name("Basic Conversion Chart")
-    conversion = Test.find(3)    
-    raw_reading = @student.raw_score(Test.find(5),"CR")
-    reading_attempts = 67.0 - raw_reading[:omitted]
-    @reading_hit = (raw_reading[:correct]/reading_attempts * 100).round
-    @reading_try = (reading_attempts/67.0*100).round
-    start = (@reading_hit / 10 * 10) - 10
-    @reading_hit_range = (start..100).step(10).to_a
-    @reading_try_range = (50..100).step(5).to_a
-    
-    @reading_matrix = Array.new(@reading_hit_range.count) {Array.new(@reading_try_range.count)}
-    @reading_matrix.each_with_index do |row,i|
-      hit_rate = @reading_hit_range[i]/100.0
-      row.each_with_index do |cell,j|
-        try_rate = @reading_try_range[j]/100.0
-        raw_score = (try_rate * 67 * hit_rate) - (0.25 * try_rate * 67 * (1-hit_rate))
-        @reading_matrix[i][j] = conversion.scaled_score(raw_score,"CR")
+    @conversion = Test.find_by_name("Basic Conversion Chart")
+    @segments = Segment.all
+    @tests = Test.find([3,5])
+    @boxes = Hash.new{Array.new}
+    @try_range = (50..100).step(5).to_a
+    @hit_range = (50..100).step(10).to_a
+    @segments.each do |seg|
+      @tests.each do |test|
+        try = @student.try_rate(test,seg)
+        hit = @student.hit_rate(test,seg)
+        @boxes[seg] = @boxes[seg]<< [hit.round(-1),(try/5.0).round*5]
       end
-    end 
-    raw_math = @student.raw_score(Test.find(5),"Math")
-    math_attempts = 54.0 - raw_math[:omitted]
-    @math_hit = (raw_math[:correct]/math_attempts * 100).round
-    @math_try = (math_attempts/54.0*100).round
-    start = (@math_hit / 10 * 10) - 10
-    @math_hit_range = (start..100).step(10).to_a
-    @math_try_range = (50..100).step(5).to_a
-    
-    @math_matrix = Array.new(@math_hit_range.count) {Array.new(@math_try_range.count)}
-    @math_matrix.each_with_index do |row,i|
-      hit_rate = @math_hit_range[i]/100.0
-      row.each_with_index do |cell,j|
-        try_rate = @math_try_range[j]/100.0
-        raw_score = (try_rate * 54 * hit_rate) - (0.25 * try_rate * 54 * (1-hit_rate))
-        @math_matrix[i][j] = conversion.scaled_score(raw_score,"Math")
-      end
-    end 
+    end
   end
 
   def segment_performance

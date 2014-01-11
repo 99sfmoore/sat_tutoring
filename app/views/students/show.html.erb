@@ -1,61 +1,74 @@
 <% provide(:title, @student.full_name) %>
 <div class="row">
-  <div class="col-md-4">
-    <div class = "well">
-      <h1><%= @student.full_name %><h1>
-      <h4>
-        <%= link_to "#{@student.site.name}", site_path(@student.site) %> <br>
+  <div class="col-sm-4">
+    <div class="panel panel-primary">
+      <div class="panel-heading">
+        <h1 class="center"><%= @student.full_name %></h1>
+      </div>
+      <div class="panel-body">
+        <div class="center">
+      <%= image_tag @student.avatar.url(:small), class: "profile-pic"%>
+        </div>
+        Email: <%= mail_to @student.email %><br>
+        
         <% if @student.tutor %>
         Tutor: <%= link_to "#{@student.tutor.full_name}", tutor_path(@student.tutor) %> <br>
         <% end %>
-        <%= @student.email %>
-        <%= image_tag @student.avatar.url(:small) %>
-      </h4>
+        Site: <%= link_to "#{@student.site.name}", site_path(@student.site) %>
+        
     </div>
   </div>
-  <div class="col-md-6">
+</div>
+
+<div class="row">
+  <div class="col-sm-4">
+      
+      
+  </div>
+  <div class="col-sm-6">
+    <h3>Test Results</h3>
     <table class="table">
-      <tr>
+      <thead>
         <th></th>
-        <th>Test #1</th>
-        <th>Test #2</th>
-        <th>Test #3</th>
-        <th>Test #4</th>
-      </tr>
+        <% @tests.each do |t| %>
+          <th><%=t.name%></th>
+        <% end %>
+        <th>Change</th>
+      </thead>
       <% @segments.each do |seg| %>
-      <tr>
-        <td><%=seg.name%> Correct</td>
-        <% @tests.each do |test| %>
-          <td><%=@student.raw_score(test,seg)[:correct]%></td>
+        <tr>
+        <td><%=seg.name%></td>
+        <% @tests.each do |t| %>
+          <% if seg.name == "Math" %>
+            <td><%=@scores[t].first.math%></td>
+            <% elsif seg.name == "Reading" %>
+            <td><%=@scores[t].first.reading%></td>
+            <% elsif seg.name == "Writing" %>
+            <td><%=@scores[t].first.writing%></td>
+          <% end %>
         <% end %>
-        <td></td>
-        <td></td>
-      </tr>
-      <tr>
-        <td><%=seg.name%> Incorrect</td>
-        <% @tests.each do |test| %>
-          <td><%=@student.raw_score(test,seg)[:incorrect]%></td>
-        <% end %>
-        <td></td>
-        <td></td>
-      </tr>
-      <tr>
-        <td><%=seg.name%> Omitted</td>
-        <% @tests.each do |test| %>
-          <td><%=@student.raw_score(test,seg)[:omitted]%></td>
-        <% end %>
-        <td></td>
-        <td></td>
-      </tr>
-      <tr>
-        <td><%=seg.name%> Raw Score</td>
-        <% @tests.each do |test| %>
-          <td><%=link_to @student.raw_score(test,seg)[:score], test_segment_student_segment_performance_path(test,seg,@student)%></td>
-        <% end %>
-        <td></td>
-        <td></td>
-      </tr>
+        <% if seg.name == "Math" %>
+          <td>
+            <%=@scores[@tests.last].first.math-@scores[@tests.first].first.math%>
+          </td>
+          <% elsif seg.name == "Reading" %>
+          <td>
+            <%=@scores[@tests.last].first.reading-@scores[@tests.first].first.reading%>
+          </td>
+          <% elsif seg.name == "Writing" %>
+          <td>
+            <%=@scores[@tests.last].first.writing-@scores[@tests.first].first.writing%>
+          </td>
+        <%end%>
+        </tr>
       <% end %>
+      <tr>
+        <th>Total</th>
+        <% @tests.each do |t| %>
+        <th><%=@scores[t].first.total%></th>
+        <% end %>
+        <th><%=@scores[@tests.last].first.total-@scores[@tests.first].first.total%></th>
+      </tr>
     </table>
   </div>
 

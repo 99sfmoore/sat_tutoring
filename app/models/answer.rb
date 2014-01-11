@@ -2,6 +2,7 @@ class Answer < ActiveRecord::Base
   belongs_to :question, dependent: :destroy
   belongs_to :student, dependent: :destroy
   validates :question, uniqueness: {scope: :student_id}, presence: true
+  validates :student, presence: true
 
   def correct?
     answer_choice == question.correct_answer

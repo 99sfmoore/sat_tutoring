@@ -86,6 +86,17 @@ class Student < ActiveRecord::Base
     answer.omitted?
   end
 
+  def try_rate(test, segment)
+    raw = raw_score(test,segment)
+    (((raw[:correct] + raw[:incorrect])/(raw[:correct] + raw[:incorrect] + raw[:omitted]).to_f)*100).round
+  end
+
+
+  def hit_rate(test, segment)
+    raw = raw_score(test,segment)
+    ((raw[:correct]/(raw[:correct] + raw[:incorrect]).to_f)*100).round
+  end
+
 
 
 

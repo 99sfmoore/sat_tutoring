@@ -1,6 +1,6 @@
 <% provide(:title, "Calendar") %>
 
-<h1><%= @site.name %> Session Calendar</h1>
+<%= render 'shared/site_header_nav', site: @site, active_tab: "calendar" %> 
  
 <table class = "table"> 
   <% @site.group_meetings.each do |meeting| %>

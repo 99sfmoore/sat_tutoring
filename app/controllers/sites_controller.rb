@@ -16,6 +16,17 @@ class SitesController < ApplicationController
 
   def show
     @site = Site.find(params[:id])
+    @students = @site.students.sort_by{|s| s.tutor.first_name}
+    @tests = Test.find([3,5])
+    @test1_scores = @students.map {|s| s.scores.where(test_id: @tests.first).first}
+    @test2_scores = @students.map {|s| s.scores.where(test_id: @tests.last).first}
+  end
+
+  def site_admin
+    @site = Site.find(params[:id])
+    if @site.team_leader != current_user
+      redirect_to @site
+    end
   end
 
   def import_answers
