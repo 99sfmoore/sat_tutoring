@@ -29,6 +29,11 @@ class SitesController < ApplicationController
     end
   end
 
+  def contact
+    @site = Site.find(params[:id])
+  end
+
+
   def import_answers
     @site = Site.find(params[:id])
   end

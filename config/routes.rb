@@ -5,6 +5,7 @@ SatApp::Application.routes.draw do
     resources :tutors, only: [:index]
     member do
       get :site_admin
+      get :contact
       get :import_answers
       post :load_answers
       get :enter_scores
@@ -44,6 +45,9 @@ SatApp::Application.routes.draw do
   end
   resources :tutors do
     resources :lesson_plans, only:[:index]
+    member do
+      get :show_scores
+    end
   end
   resources :answers 
   resources :sessions, only: [:new, :create, :destroy]

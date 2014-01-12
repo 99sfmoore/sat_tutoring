@@ -1,6 +1,9 @@
 <% provide(:title, "Create Lesson Plan") %>
 
-<h1>Create Lesson Plan for Session #<%=@meeting.session_number %>, <%= @meeting.date.strftime("%B %d")%></h1>
+<h1 class="secondary">Create Lesson Plan <br>
+<span class="small subtle">Session #<%=@meeting.session_number %>, <%= @meeting.date.strftime("%B %d")%></span></h1>
+
+<div class="col-sm-6 offset-col-sm-6">
 
 <%= form_tag group_meeting_lesson_plans_path(@meeting) do %>
   
@@ -9,3 +12,4 @@
   <%= submit_tag "Create Lesson Plan", class: "btn btn-primary" %>
 
 <% end %>
+</div>

@@ -1,8 +1,12 @@
-<% provide(:title, "Calendar") %>
+<% provide(:title, "Lesson Plans") %>
 
-<h1><%= @tutor.site.name %> Session Calendar</h1>
+<%= render 'shared/tutor_header_nav', tutor: @tutor, active_tab: "lesson_plans" %>
  
 <table class = "table"> 
+  <tr>
+    <th>Date</th>
+    <th>Lesson Plan</th>
+  </tr>
   <% @meetings.each do |meeting| %>
     <tr>
       <td><%=meeting.date.strftime("%B %d")%></td>

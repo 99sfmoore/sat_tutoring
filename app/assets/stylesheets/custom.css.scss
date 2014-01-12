@@ -2,6 +2,11 @@
 
 /* universal */
 
+$my-primary: #2e5bcd;
+$my-secondary: #19be8c;
+$my-accent: #ffd966;
+$gray: #cccccc;
+
 html {
   overflow-y: scroll;
 }
@@ -19,8 +24,8 @@ textarea {
 }
 // bootstrap changes
 .btn-primary {
-  background-color: #0058A1;
-  border-color: #004D8C;
+  background-color: $my-primary;
+  border-color: $my-primary;  //change for depth?
 }
 
 .table .td-bordered {
@@ -29,9 +34,18 @@ textarea {
 }
 
 .navbar-default {
-  background-color: #A2C5EB;
-  .nav >li > a{
-    color: #023469;
+  background-color: $my-primary;
+  .navbar-nav >li > a{
+    color: $gray;
+  }
+  .navbar-nav >li > a:hover{
+    color: white;
+  }
+  .navbar-brand{
+    color: white;
+  }
+  a.navbar-brand:hover{
+    color: $gray;
   }
 }
 
@@ -39,6 +53,65 @@ textarea {
   padding: 0px 15px 0px 0px;
   float: left;
 }
+
+.navbar-default .navbar-nav > .open > a, .navbar-default .navbar-nav > .open > a:hover, .navbar-default .navbar-nav > .open > a:focus {
+  background-color: $my-accent;
+  color: white;
+}
+
+.navbar-default .navbar-nav > li > a:focus {
+  color: $gray;
+}
+
+.secondary {
+  color: $my-secondary;
+}
+
+.panel-secondary {
+  border-color: $my-secondary;
+}
+
+.panel-secondary > .panel-heading {
+color: white;
+background-color: $my-secondary;
+border-color: $my-secondary;
+}
+
+.panel-accent {
+  border-color: $my-accent;
+}
+
+.panel-accent > .panel-heading {
+color: white;
+background-color: $my-accent;
+border-color: $my-accent;
+}
+
+.subtle {
+  color: $gray;
+}
+
+.mail {
+  color: black;
+}
+
+.nav-tabs-justified > .active > a, .nav-tabs.nav-justified > .active > a, .nav-tabs-justified > .active > a:hover, .nav-tabs.nav-justified > .active > a:hover, .nav-tabs-justified > .active > a:focus, .nav-tabs.nav-justified > .active > a:focus {
+  background-color: $my-primary;
+  border: 1px solid $my-primary;
+  color: white;
+
+}
+
+.nav-tabs {
+  border-bottom: 1px solid $my-primary;
+}
+
+.nav-tabs-justified, .nav-tabs.nav-justified {
+  border-bottom: 1px solid $my-primary; }
+
+
+
+
 
 .center {
   text-align: center;

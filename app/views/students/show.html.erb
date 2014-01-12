@@ -1,7 +1,7 @@
 <% provide(:title, @student.full_name) %>
 <div class="row">
   <div class="col-sm-4">
-    <div class="panel panel-primary">
+    <div class="panel panel-secondary">
       <div class="panel-heading">
         <h1 class="center"><%= @student.full_name %></h1>
       </div>
@@ -9,7 +9,7 @@
         <div class="center">
       <%= image_tag @student.avatar.url(:small), class: "profile-pic"%>
         </div>
-        Email: <%= mail_to @student.email %><br>
+        Email: <%= mail_to @student.email, @student.email, class: "mail" %><br>
         
         <% if @student.tutor %>
         Tutor: <%= link_to "#{@student.tutor.full_name}", tutor_path(@student.tutor) %> <br>

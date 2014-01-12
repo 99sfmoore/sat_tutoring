@@ -1,16 +1,6 @@
 <% provide(:title, @tutor.full_name) %>
 
-<% if current_user == @tutor %>
-<% else %>
-    <h1><%= @tutor.full_name %></h1>
-    <h4>
-    <%= link_to "#{@tutor.site.name}", site_path(@tutor.site) %> <br>
-    <%= @tutor.email %>
-  </h4>
-<% end %>
+<%= render 'tutor_header_nav', tutor: @tutor, active_tab: "students" %>
 
-<h3>Students</h3>
-<%= render 'shared/student_table', student_list: @students, show_tutor: false %>
 
-<h3>Scores</h3>
-<%= render 'shared/student_score_table', student_list: @students, scores1: @test1_scores, scores2: @test2_scores %>
+<%= render 'shared/student_table', student_list: @tutor.students, show_tutor: false %>

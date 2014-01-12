@@ -1,5 +1,7 @@
 <% bs = @lessonplan.sections.order(:start_page) %>
 
+<h3>Choose sections to teach in class:</h3>
+
    <% 4.times do |n| %>
     <% current = bs[n].id if bs[n] %>
 
