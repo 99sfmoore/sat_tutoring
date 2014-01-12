@@ -1,0 +1,71 @@
+<% provide(:title, @site.name) %>
+<div class="row">
+  <div class = "center">
+  <h1><%=@site.name %></h1>
+  <div class="row">
+  <div class="span 3 offset1">
+    Team Leader<br>
+    Sarah<br>
+    blah
+  </div>
+
+  <div class="span 3 offset9">
+    Community Partner<br>
+    <%=@site.cp_contact_name %><br>
+      <%=@site.cp_email %>
+    </div>
+  </div>
+  </div>
+  <%= link_to "Create Registration Tickets", new_site_registration_ticket_path(@site), class: "btn btn-primary" %>
+  <%= link_to "Upload Test Answers",import_answers_site_path(@site), class: "btn btn-primary" %>
+  <%= link_to "Enter Test Scores",enter_scores_site_path(@site), class: "btn btn-primary" %>
+
+  <%= link_to "Score Summary", score_summary_site_path(@site) %>
+
+  <h2>Create Sessions</h2>
+    <%= form_tag new_site_group_meeting_path(@site), method: "get" do %>
+      <%= label_tag :num_of_sessions, "Enter Number of Sessions" %>
+      <%= text_field_tag :num_of_sessions %>
+      <%= submit_tag "Create Sessions", class: "btn btn-primary" %>
+    <% end %>
+</div>
+<h3>Tutors</h3>    
+<table class="table">
+  <thead>
+    <td>Name</td>
+    <td>Email</td>
+  </thead>
+  <% @site.tutors.each do |t| %>
+  <tr>
+    <td><%=link_to t.full_name, tutor_path(t) %></td>
+    <td><%=t.email%></td>
+  </tr>
+  <% end %>
+</table>
+
+<table class="table">
+  <thead>
+    <td>Student</td>
+    <td>Math</td>
+    <td>Reading</td>
+    <td>Writing</td>
+    <td>Total</td>
+  </thead>
+  <% @site.students.each do |student| %>
+    <% score = Score.where("student_id = ? AND test_id = ?",student, 3).first %>
+    <% if score %>
+      <tr>
+        <td><%=student.full_name %></td>
+        <td><%= score.math %></td>
+        <td><%= score.reading %></td>
+        <td><%= score.writing %></td>
+        <td><%= score.total %></td>
+      </tr>
+    <% end %>
+  <% end %>
+</table>
+
+
+
+<% student_list = @site.students.sort_by { |s| s.tutor.first_name } %>
+<%= render 'shared/student_score_table', student_list: @students, scores1: @test1_scores, scores2: @test2_scores, show_tutor: true %>

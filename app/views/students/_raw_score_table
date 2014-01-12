@@ -1,0 +1,43 @@
+   <table class="table">
+      <tr>
+        <th></th>
+        <th>Test #1</th>
+        <th>Test #2</th>
+        <th>Test #3</th>
+        <th>Test #4</th>
+      </tr>
+      <% @segments.each do |seg| %>
+      <tr>
+        <td><%=seg.name%> Correct</td>
+        <% @tests.each do |test| %>
+          <td><%=@student.raw_score(test,seg)[:correct]%></td>
+        <% end %>
+        <td></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td><%=seg.name%> Incorrect</td>
+        <% @tests.each do |test| %>
+          <td><%=@student.raw_score(test,seg)[:incorrect]%></td>
+        <% end %>
+        <td></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td><%=seg.name%> Omitted</td>
+        <% @tests.each do |test| %>
+          <td><%=@student.raw_score(test,seg)[:omitted]%></td>
+        <% end %>
+        <td></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td><%=seg.name%> Raw Score</td>
+        <% @tests.each do |test| %>
+          <td><%=link_to @student.raw_score(test,seg)[:score], test_segment_student_segment_performance_path(test,seg,@student)%></td>
+        <% end %>
+        <td></td>
+        <td></td>
+      </tr>
+      <% end %>
+    </table>

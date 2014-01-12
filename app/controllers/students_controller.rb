@@ -75,7 +75,7 @@ class StudentsController < ApplicationController
 
   def check_homework
     @student = Student.find(params[:id])
-    @hw = BookSection.find(params[:hw])
+    @hw = Section.find(params[:hw])
   end
 
   def checked_homework

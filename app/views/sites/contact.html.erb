@@ -1,0 +1,26 @@
+<% provide(:title, @site.name) %>
+
+
+<%= render 'shared/site_header_nav', site: @site, active_tab: "contact" %> 
+
+
+ <div class="col-sm-6">
+      <div class="panel panel-secondary">
+      <div class="panel-heading">
+        Contact Information:
+      </div>
+      <div class="panel-body small">
+        <div class="col-sm-6">
+          <strong>Team Leader:</strong><br>
+          <%=@site.team_leader.full_name %><br>
+          <%=mail_to @site.team_leader.email, @site.team_leader.email, class: "mail" %><br>
+          <%=mail_to @site.leader_email,@site.leader_email, class: "mail" %>
+        </div>
+        <div class="col-sm-6">
+          <strong>Community Partner:</strong><br>
+          <%=@site.cp_contact_name %><br>
+          <%=mail_to @site.cp_email, @site.cp_email, class: "mail" %>
+        </div>
+      </div>
+      </div>
+    </div>

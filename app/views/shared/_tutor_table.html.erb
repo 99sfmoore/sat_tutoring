@@ -1,0 +1,12 @@
+<table class="table">
+  <thead>
+    <th>Name</th>
+    <th>Email</th>
+  </thead>
+  <% tutors.each do |t| %>
+  <tr>
+    <td><%=link_to t.full_name, tutor_path(t) %></td>
+    <td><%=t.email%></td>
+  </tr>
+  <% end %>
+</table>

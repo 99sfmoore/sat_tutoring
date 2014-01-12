@@ -1,0 +1,9 @@
+<h1><%=site.name %></h1>
+<ul class="nav nav-tabs">
+  <li class="active"><a href="#">Scores</a></li>
+  <li><%= link_to "Students", site_students_path(site) %></li>
+  <li><a href="#">Tutors</a></li>
+  <% if site.team_leader == current_user %>
+    <li><a href="#">Team Leader</a></li>
+  <% end %>
+</ul>

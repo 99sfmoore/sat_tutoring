@@ -1,0 +1,22 @@
+
+<div class="row">
+  <h1 class="secondary"><%=site.name %></h1>
+</div>
+<br>
+<br>
+
+
+<ul class="nav nav-tabs nav-justified">
+  <% if site.team_leader == current_user %>
+    <li <%= 'class=active' if active_tab == "admin" %>><%= link_to "Team Leader", site_admin_site_path(site) %></li>
+  <% end %>
+  <li <%= 'class=active' if active_tab == "scores" %>> <%= link_to "Scores", site_path(site)%></li>
+  <li <%= 'class=active' if active_tab == "students" %>><%= link_to "Students", site_students_path(site) %></li>
+  <li <%= 'class=active' if active_tab == "tutors" %>><%= link_to "Tutors", site_tutors_path(site) %></li>
+  <li <%= 'class=active' if active_tab == "calendar" %>><%= link_to "Calendar", site_group_meetings_path(site) %></li>
+  <li <%= 'class=active' if active_tab == "contact" %>><%= link_to "Contact", contact_site_path(site) %></li>
+</ul>
+
+<br>
+<br>
+   

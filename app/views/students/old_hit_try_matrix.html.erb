@@ -1,0 +1,45 @@
+<% provide(:title, "Matrix for #{@student.full_name}") %>
+<h1>Hit-Try Matrix for <%= @student.full_name %></h1>
+<h3>Reading</h3>
+<h5> Your try rate was <%= @reading_try %>% and your hit rate was <%= @reading_hit %>%.
+<h4 class="center">Try Rate</h4>
+<table class="table">
+  <thead>
+    <tr>
+      <th>Hit Rate</th>
+      <% @reading_try_range.each do |try| %>
+        <th><%=try %>%</th>
+      <% end %>
+    </tr>
+  </thead>
+  </tbody>  
+  <% @reading_hit_range.each_with_index do |hit,i| %>
+    <tr>
+      <th><%=hit %>%</th>
+      <% @reading_try_range.each_with_index do |try,j| %>
+        <td <%= 'class=weird' if @reading_matrix[i][j] >= 500 %>> <%= @reading_matrix[i][j] %> </td>
+        <% end %>
+    </tr>
+  <% end %>
+</tbody>
+</table>
+
+<h3>Math</h3>
+<h5> Your try rate was <%= @math_try %>% and your hit rate was <%= @math_hit %>%.
+<h4 class="center">Try Rate</h4>
+<table class="table">
+  <tr>
+    <th>Hit Rate</th>
+    <% @math_try_range.each do |try| %>
+      <th><%=try %>%</th>
+    <% end %>
+  </tr>
+  <% @math_hit_range.each_with_index do |hit,i| %>
+    <tr>
+      <th><%=hit %>%</th>
+      <% @math_try_range.each_with_index do |try,j| %>
+        <td <%= 'class=warning' if @math_matrix[i][j] >= 500 %>> <%= @math_matrix[i][j] %> </td>
+        <% end %>
+    </tr>
+  <% end %>
+</table>

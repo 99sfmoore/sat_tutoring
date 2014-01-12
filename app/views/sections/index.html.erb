@@ -11,8 +11,8 @@
   </tr>
   <% @sections.each do |s| %>
     <tr>
-      <td><%= s.category.segment %></td>
-      <td><%= s.category.topic_name %></td>
+      <td><%= s.segment.name %></td>
+      <td><%= s.topic.topic_name %></td>
       <td><%= s.difficulty %></td>
       <td><%= s.num_of_questions %></td>
       <td><%= s.page_range %></td>

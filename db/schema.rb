@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140112055527) do
+ActiveRecord::Schema.define(version: 20140112064240) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -97,18 +97,16 @@ ActiveRecord::Schema.define(version: 20140112055527) do
   add_index "scores", ["test_id", "student_id"], name: "index_scores_on_test_id_and_student_id", using: :btree
 
   create_table "sections", force: true do |t|
-    t.integer  "category_id"
     t.integer  "start_page"
     t.integer  "end_page"
-    t.string   "difficulty"
     t.datetime "created_at"
     t.datetime "updated_at"
     t.integer  "num_of_questions"
     t.integer  "section_num"
     t.integer  "test_id"
-    t.string   "segment_string"
     t.integer  "segment_id"
     t.boolean  "assignable"
+    t.integer  "topic_id"
   end
 
   create_table "segments", force: true do |t|

@@ -1,24 +1,36 @@
-<% provide(:title, "Create Book Section") %>
+<% provide(:title, "Create Sections") %>
 
+<h1 class="secondary">Create Sections</h1>
+
+<div class="col-sm-6 offset-col-sm-3">
 <%= form_for @section, multipart: true do |f| %>
+  
+  <%= select_tag :topic_id, options_from_collection_for_select(Topic.order(:number), :id, :name), prompt: "Select Topic", class: "form-control"%>
 
-  <%= f.label :category_id, "Choose Topic" %>
-  <%= f.collection_select :category_id, Category.order(:topic), :id, :topic_name %>
+  <div class= "form-group">
+    <%= f.label :start_page, "Start page" %>
+    <%= f.text_field :start_page, class: "form-control"%>
+  </div>
 
-  <%= f.label :start_page, "Start page" %>
-  <%= f.text_field :start_page %>
+  <div class= "form-group">
+    <%= f.label :end_page, "End page" %>
+    <%= f.text_field :end_page, class: "form-control"%>
+  </div>
 
-  <%= f.label :end_page, "End page" %>
-  <%= f.text_field :end_page %>
+  <div class= "form-group">
+    <%= f.label :num_of_questions, "# of Questions" %>
+    <%= f.text_field :num_of_questions, class: "form-control"%>
+  </div>
 
-  <%= f.label :num_of_questions, "# of Questions" %>
-  <%= f.text_field :num_of_questions %>
 
-  <%= f.label :difficulty, "Difficulty Level" %>
-  <%= f.select :difficulty, options_for_select(["Low","Medium","High"]) %>
+  <%= select_tag :difficulty, options_for_select(["Low","Medium","High"]), prompt: "Difficulty", class: "form-control"%>
 
-  <%= f.label :tel_list_file, "OR Upload TEL Topic List" %>
-  <%= f.file_field :tel_list_file %>
+
+  <div class= "form-group">
+    <%= f.label :tel_list_file, "OR Upload TEL Topic List" %>
+    <%= f.file_field :tel_list_file, class: "form-control"%>
+  </div>
 
   <%= f.submit "Create Assignment", class: "btn btn-primary"  %>
 <% end %>
+</div>

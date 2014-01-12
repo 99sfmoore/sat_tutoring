@@ -1,6 +1,6 @@
 <% provide(:title, @tutor.full_name) %>
 
-<%= render 'tutor_header_nav', tutor: @tutor, active_tab: "students" %>
+<%= render 'shared/tutor_header_nav', tutor: @tutor, active_tab: "students" %>
 
 
 <%= render 'shared/student_table', student_list: @tutor.students, show_tutor: false %>

@@ -1,0 +1,17 @@
+
+<div class="row">
+  <h1 class="secondary"><%=tutor.full_name %><br>
+  <%= link_to tutor.site.name, site_path(tutor.site), class: "small subtle" %></h1>
+</div>
+<br>
+
+
+<ul class="nav nav-tabs nav-justified">
+  <li <%= 'class=active' if active_tab == "students" %>><%= link_to "Students", tutor_path(tutor) %></li>
+  <li <%= 'class=active' if active_tab == "scores" %>> <%= link_to "Scores", show_scores_tutor_path(tutor) %></li>
+  <li <%= 'class=active' if active_tab == "lesson_plans" %>> <%= link_to "Lesson Plans", tutor_lesson_plans_path(tutor) %></li>
+</ul>
+
+<br>
+
+   

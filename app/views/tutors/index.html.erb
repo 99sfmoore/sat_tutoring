@@ -1,0 +1,6 @@
+<% if @site %>
+  <%provide(:title, @site.name) %>
+  <%= render 'shared/site_header_nav', site: @site, active_tab: "tutors" %> 
+<% end %>
+
+<%= render 'shared/tutor_table', tutors: @tutors %>
