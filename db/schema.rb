@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140112064240) do
+ActiveRecord::Schema.define(version: 20140116035228) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -26,6 +26,14 @@ ActiveRecord::Schema.define(version: 20140112064240) do
   end
 
   add_index "answers", ["question_id", "student_id"], name: "index_answers_on_question_id_and_student_id", using: :btree
+
+  create_table "assignments", force: true do |t|
+    t.integer  "student_id"
+    t.boolean  "complete"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.integer  "homework_id"
+  end
 
   create_table "categories", force: true do |t|
     t.string   "name"
@@ -44,6 +52,7 @@ ActiveRecord::Schema.define(version: 20140112064240) do
 
   create_table "homeworks", force: true do |t|
     t.integer "lesson_plan_id"
+    t.integer "segment_id"
   end
 
   create_table "homeworks_sections", force: true do |t|
@@ -53,7 +62,7 @@ ActiveRecord::Schema.define(version: 20140112064240) do
 
   create_table "hw_hints", force: true do |t|
     t.integer  "created_by"
-    t.integer  "book_question_id"
+    t.integer  "question_id"
     t.string   "answer_choice"
     t.text     "hint"
     t.datetime "created_at"
@@ -101,7 +110,6 @@ ActiveRecord::Schema.define(version: 20140112064240) do
     t.integer  "end_page"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.integer  "num_of_questions"
     t.integer  "section_num"
     t.integer  "test_id"
     t.integer  "segment_id"

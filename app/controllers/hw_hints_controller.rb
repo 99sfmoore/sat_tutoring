@@ -2,12 +2,12 @@ class HwHintsController < ApplicationController
 
   def new
     @hint = HwHint.new
-    @question = BookQuestion.find(params[:book_question_id])
+    @question = Question.find(params[:question_id])
     session[:return_to] ||= request.referer
   end
 
   def create
-    @question = BookQuestion.find(params[:book_question_id])
+    @question = Question.find(params[:question_id])
     @question.hw_hints.build(hw_hint_params)
     @question.save
     redirect_to session.delete(:return_to)

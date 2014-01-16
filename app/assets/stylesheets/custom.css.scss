@@ -28,6 +28,12 @@ textarea {
   border-color: $my-primary;  //change for depth?
 }
 
+.btn-secondary {
+  background-color: $my-secondary;
+  border-color: $my-secondary;  //change for depth?
+  color: white;
+}
+
 .table .td-bordered {
   border: 3px solid black;
   // border-top: 3px solid black;
@@ -138,8 +144,9 @@ border-color: $my-accent;
   margin-right: -50px;
 }
 
-.hw-section {
+ul.hw-section {
   margin-left: 20px;
+  list-style-image: url('checkbox.png');
 }
 
 .hw-header {
@@ -147,7 +154,7 @@ border-color: $my-accent;
 }
 
 .profile-pic {
-  border: 3px solid gray;
+  border: 3px solid $my-primary;
 }
 // print format
 

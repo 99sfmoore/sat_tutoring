@@ -20,14 +20,16 @@
   <p> &#10065; "Reply All" to SAT Vocabulary Homework #<%=@homework.number %> email with 6 sentences that each use 1 vocabulary word by <%=(@homework.lesson_plan.group_meeting.date + 6.days).strftime("%A, %B %e")%>.</p>
 </div>
 
-<% unless @sections["Math"].empty?  %>
-  <p class="hw-header">Math</p>
-  <div class="hw-section">
-    <% @sections["Math"].each do |s| %>
-      <p> &#10065; Do all questions on <%= s.page_range %> of Kaplan Book. </p> 
+<% @segments.each do |seg, sections| %>
+  <p class="hw-header"><%= seg.name%></p>
+  <ul class="hw-section">
+    <% sections.each do |s| %>
+    <li> Do all questions on <%= s.page_range %> of Kaplan Book. </li> 
     <%end%>
-      <p> &#10065;"Reply All" to SAT Math Homework #<%=@homework.number %> email with your answers by <%=(@homework.lesson_plan.group_meeting.date + 6.days).strftime("%A, %B %e")%>.</p>
-  </div>
+    <li> "Reply All" to SAT <%=seg.name%> Homework #<%=@homework.number %> email with your answers by <%=(@homework.lesson_plan.group_meeting.date + 6.days).strftime("%A, %B %e")%>.</li>
+  </ul>
+<%end %>
 
-<%end%>
+<%= link_to image_tag('checkbox.png'), "hi" %>
+
 

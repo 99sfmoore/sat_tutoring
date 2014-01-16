@@ -4,11 +4,13 @@ Hi <%= @student.first_name %>,
 
 <%= @student.tutor.first_name %>
 
-<%= @section.name %>
-<% @hints.each do |h| %>
-<% q = h.book_question %>
+<% @hints.each do |section, hints| %>
+<%= section.name %>
 
-  #<%=q.question_num %> - <%= h.hint %>
+  <% hints.each do |h| %>
+    <% q = h.question %>
+#<%=q.question_num %> - <%= h.hint %>
 
+  <% end %>
 <% end %>
 

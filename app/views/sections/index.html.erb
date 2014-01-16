@@ -12,11 +12,10 @@
   <% @sections.each do |s| %>
     <tr>
       <td><%= s.segment.name %></td>
-      <td><%= s.topic.topic_name %></td>
+      <td><%= s.name %></td>
       <td><%= s.difficulty %></td>
-      <td><%= s.num_of_questions %></td>
       <td><%= s.page_range %></td>
-      <td><%= link_to "Make Key", enter_questions_book_section_path(s) %></td>
+      <td><%= link_to "Make Key", edit_questions_section_path(s) %></td>
      
     </tr>
   <% end %>

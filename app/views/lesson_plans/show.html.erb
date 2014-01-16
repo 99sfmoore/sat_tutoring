@@ -12,10 +12,11 @@
 <%= simple_format(@lessonplan.notes) %>
 
 <h3>Homework</h3>
-<% if @homework %>
-  <p> hi </p>
-  <% @homework.sections.order(:start_page).each do |section|%>
-    <p><%=section.name%></p>
+<% if @homeworks %>
+  <% @homeworks.each do |hw| %>
+    <% hw.sections.order(:start_page).each do |section|%>
+        <p><%=section.name%></p>
+    <% end %>
   <% end %>
-  <%= link_to "Print Assignment Sheet", homework_path(@lessonplan.homework), class: "btn btn-primary" %>
+  <%= link_to "Print Assignment Sheet", homework_sheet_lesson_plan_path(@lessonplan), class: "btn btn-primary" %>
 <% end %>

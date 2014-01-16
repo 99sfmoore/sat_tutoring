@@ -16,12 +16,15 @@ SatApp::Application.routes.draw do
   end
 
   resources :students do 
-    resources :sections do
+    resources :homeworks do
       member do
+        get :check_homework
+        post :checked_homework
         get :send_hints
         post :send_email
       end
     end
+
     collection do 
       post :load_answers
       post :test_score
@@ -53,24 +56,23 @@ SatApp::Application.routes.draw do
   resources :sessions, only: [:new, :create, :destroy]
   resources :sections do
     member do
-      get :enter_questions
-      post :create_questions
+      get :edit_questions
+      post :update_questions
     end
-  end
-  resources :book_questions do
-    resources :hw_hints
   end
 
   resources :group_meetings do
     resources :lesson_plans, only: [:new, :create]
   end
 
-  resources :lesson_plans, only: [:show, :edit, :update]
-
-  resources :homeworks do
+  resources :lesson_plans, only: [:show, :edit, :update] do
     member do
-      get :assignment_sheet
+      get :homework_sheet
     end
+  end
+
+  resources :questions do
+    resources :hw_hints
   end
 
    

@@ -2,6 +2,7 @@ class Tutor < ActiveRecord::Base
   belongs_to :site
   has_many :students
   has_many :lesson_plans
+  has_many :homeworks, through: :lesson_plans
   has_secure_password
   validates :email, presence: true, 
                     uniqueness: { case_sensitive: false }

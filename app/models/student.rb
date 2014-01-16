@@ -1,5 +1,3 @@
-
-
 class Student < ActiveRecord::Base
   validates :email, presence: true, 
                     uniqueness: { case_sensitive: false }
@@ -8,8 +6,9 @@ class Student < ActiveRecord::Base
   belongs_to :tutor
   has_many :answers
   has_many :questions, through: :answers
-  has_many :book_questions, through: :answers
   has_many :scores
+  has_many :assignments
+  has_many :sections, through: :assignments
 
   has_attached_file :avatar, styles: {
     thumb: '32x32#',
@@ -41,12 +40,15 @@ class Student < ActiveRecord::Base
   end
 
   def check_homework(hw,param_hash)
-      hw.book_questions.each do |q|
-      q.answers.build(student: self, answer_choice: param_hash[q.id.to_s])
-      q.save
+    hw.sections.each do |section|
+      section.questions.each do |q|
+        q.answers.build(student: self, answer_choice: param_hash[q.id.to_s])
+        q.save
+      end
     end
+    self.assignments.build(homework: hw, complete: true)
+    self.save
   end
-
 
   def raw_score(test, segment)
     correct = 0
@@ -97,6 +99,13 @@ class Student < ActiveRecord::Base
     ((raw[:correct]/(raw[:correct] + raw[:incorrect]).to_f)*100).round
   end
 
+  def open_homeworks
+    result = []
+    tutor.homeworks.each do |hw|
+      result << hw unless Assignment.where("student_id = ? AND homework_id = ?",self.id, hw.id).first
+    end
+    result
+  end
 
 
 

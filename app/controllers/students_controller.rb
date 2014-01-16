@@ -73,12 +73,12 @@ class StudentsController < ApplicationController
 
   def check_homework
     @student = Student.find(params[:id])
-    @hw = Section.find(params[:hw])
+    @hw = Homework.find(params[:homework_id])
   end
 
   def checked_homework
     @student = Student.find(params[:id])
-    @hw = BookSection.find(params[:hw])
+    @hw = Homework.find(params[:homework_id])
     @student.check_homework(@hw,params)
     @student.save
     render 'shared/homework_result'

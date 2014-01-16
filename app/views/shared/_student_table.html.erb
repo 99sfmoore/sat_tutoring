@@ -17,10 +17,7 @@
     <td><%=s.email%></td>
     <td><%=s.high_school %></td>
     <% unless show_tutor %>
-      <td><%= form_tag check_homework_student_path(s), method: "get" do %>
-        <%= select_tag(:hw, options_from_collection_for_select(Section.all,"id","name"), :prompt => "Select Assignment") %>
-        <%= submit_tag "Check Homework", class: "btn btn-primary" %>
-        <% end %>
+      <td><%= render 'shared/check_homework_dropdown', student: s%>
       </td>
     <% end%>
     <td><%=link_to "edit", edit_student_path(s), class: "subtle" %></td>

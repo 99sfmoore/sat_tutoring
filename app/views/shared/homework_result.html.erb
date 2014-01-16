@@ -1,27 +1,29 @@
-<h1>Homework results for <%= @student.full_name %></h1>
-<h2><%= @hw.name %></h2>
-<%=link_to "Send Hints", [:send_hints, @student, @hw], class: "btn btn-primary" %>
+<h1 class="secondary">Homework results for <%= @student.full_name %><br>
+<small><%= @hw.name %></small></h1>
+<%=link_to "Send Hints", send_hints_student_homework_path(@student, @hw), class: "btn btn-primary" %>
 
-  
-<table class = "table">
-  <tr>
-    <th>Question #</th>
-    <th>Correct Answer</th>
-    <th>Student Answer</th>
-    <th>Correct?</th>
-  </tr>
-  <% @hw.book_questions.each do |q| %>
+<% @hw.sections.each do |section| %>
+  <%= section.name %>  
+  <table class = "table">
     <tr>
-      <td><%=q.question_num%></td>
-      <td><%=q.correct_answer%></td>
-      <td><%= q.student_answer(@student) %></td>
-      <td>
-        <% if q.correct?(@student) %> YES
-        <% else %> NO
-        <%end %>
-      </td>
+      <th>Question #</th>
+      <th>Correct Answer</th>
+      <th>Student Answer</th>
+      <th>Correct?</th>
     </tr>
-  <% end %>
-</table>
+    <% section.questions.each do |q| %>
+      <tr>
+        <td><%=q.question_num%></td>
+        <td><%=q.correct_answer%></td>
+        <td><%= q.student_answer(@student) %></td>
+        <td>
+          <% if q.correct?(@student) %> YES
+          <% else %> NO
+          <%end %>
+        </td>
+      </tr>
+    <% end %>
+  </table>
+<%end %>
 
 

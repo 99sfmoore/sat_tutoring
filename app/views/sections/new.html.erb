@@ -17,12 +17,6 @@
     <%= f.text_field :end_page, class: "form-control"%>
   </div>
 
-  <div class= "form-group">
-    <%= f.label :num_of_questions, "# of Questions" %>
-    <%= f.text_field :num_of_questions, class: "form-control"%>
-  </div>
-
-
   <%= select_tag :difficulty, options_for_select(["Low","Medium","High"]), prompt: "Difficulty", class: "form-control"%>
 
 

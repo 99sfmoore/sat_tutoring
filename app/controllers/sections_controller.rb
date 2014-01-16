@@ -24,14 +24,14 @@ class SectionsController < ApplicationController
     render 'shared/homework_result'
   end
 
-  def enter_questions
+  def edit_questions
     @section = Section.find(params[:id])
   end
 
-  def create_questions
+  def update_questions
     @section = Section.find(params[:id])
-    @section.num_of_questions.times do |n|
-      @section.book_questions.build(question_num: params[n.to_s][:question], correct_answer: params[n.to_s][:answer].upcase)
+    @section.questions.each do |q|
+      q.update_attributes(correct_answer: params[q.id.to_s].upcase)
     end
     @section.save
   end
@@ -48,7 +48,7 @@ class SectionsController < ApplicationController
     @student = Student.find(params[:student_id])
     @message = params[:message]
     @hints = []
-    @section.book_questions.each do |q|
+    @section.questions.each do |q|
       unless q.correct?(@student)
         @hints << q.hw_hints.first
       end
@@ -58,13 +58,13 @@ class SectionsController < ApplicationController
     redirect_to current_user
   end
 
-  def section_params
-      params.require(:section).permit(:category_id,
-                                      :section_num,
-                                      :start_page,
-                                      :end_page,
-                                      :num_of_questions)
-    end
+  # def section_params #this is wrong
+  #     params.require(:section).permit(:category_id,
+  #                                     :section_num,
+  #                                     :start_page,
+  #                                     :end_page,
+  #                                     :num_of_questions)
+  #   end
 
 
 

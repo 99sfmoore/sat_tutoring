@@ -13,24 +13,27 @@ class LessonPlansController < ApplicationController
   def create
     @meeting = GroupMeeting.find(params[:group_meeting_id])
     @lessonplan = LessonPlan.create(tutor: current_user, group_meeting: @meeting, notes: params[:notes])
-    @lessonplan.build_homework
     4.times do |n|
-      @lessonplan.book_sections << BookSection.find(params["section#{n}"]) unless params["section#{n}"] == ""
-      @lessonplan.homework.book_sections << BookSection.find(params["homework#{n}"]) unless params["homework#{n}"] == ""
+      @lessonplan.sections << Section.find(params["section#{n}"]) unless params["section#{n}"] == ""
+      unless params["homework#{n}"] == ""
+        hw_section = Section.find(params["homework#{n}"])
+        hw = Homework.find_or_create_by(lessonplan: @lessonplan, segment: hw_section.segment)
+        hw.sections << hw_section 
+      end
     end
     @lessonplan.save
-    render 'show'
+    redirect_to @lessonplan
   end
 
   def show
     @lessonplan = LessonPlan.find(params[:id])
-    @homework = @lessonplan.homework
+    @homeworks = @lessonplan.homeworks
   end
 
   def edit
     @lessonplan = LessonPlan.find(params[:id])
     if @lessonplan.homework
-      @homework_sections = @lessonplan.homework.book_sections.order(:start_page)
+      @homework_sections = @lessonplan.homework.sections.order(:start_page)
     else
       @homework_sections = []
     end
@@ -39,15 +42,20 @@ class LessonPlansController < ApplicationController
   def update
     @lessonplan = LessonPlan.find(params[:id])
     @lessonplan.update_attributes(notes: params[:notes])
-    @lessonplan.book_sections.destroy_all
-    @lessonplan.homework.book_sections.destroy_all 
+    @lessonplan.sections = []
+    @lessonplan.homework.sections = []
     4.times do |n|
-      @lessonplan.book_sections << BookSection.find(params["section#{n}"]) unless params["section#{n}"] == ""
-      @lessonplan.homework.book_sections << BookSection.find(params["homework#{n}"]) unless params["homework#{n}"] == ""
+      @lessonplan.sections << Section.find(params["section#{n}"]) unless params["section#{n}"] == ""
+      @lessonplan.homework.sections << Section.find(params["homework#{n}"]) unless params["homework#{n}"] == ""
     end
     @lessonplan.save
     @homework = @lessonplan.homework
     render 'show'
+  end
+
+  def homework_sheet
+    @lessonplan = LessonPlan.find(params[:id])
+    @homeworks = @lessonplan.homeworks
   end
 
 

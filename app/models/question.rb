@@ -27,6 +27,7 @@ class Question < ActiveRecord::Base
   belongs_to :section
   belongs_to :category
   has_many :answers
+  has_many :hw_hints
   delegate :section_num, :segment, to: :section
   delegate :topic, to: :category
   validates :section, presence: true
@@ -34,6 +35,15 @@ class Question < ActiveRecord::Base
 
   def grid_in?
     !["A","B","C","D","E"].include?(correct_answer)
+  end
+
+  def student_answer(student)
+    a = self.answers.where(student: student).first
+    a ? a.answer_choice : "-"
+  end
+
+  def correct?(student)
+    student_answer(student).upcase == self.correct_answer.upcase
   end
 
   private
