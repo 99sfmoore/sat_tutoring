@@ -1,0 +1,40 @@
+
+<h1 class="secondary">Send hints to  <%= @student.full_name %><br>
+<small><%= @hw.name %></small></h2>
+
+<% @hw.sections.each do |section| %>
+  <h4><%=section.name %></h4>
+  <table class = "table">
+    <tr>
+      <th>Question #</th>
+      <th>Correct Answer</th>
+      <th>Student Answer</th>
+      <th>Hint</th>
+    </tr>
+    <% section.questions.each do |q| %>
+      <% unless q.correct?(@student) %>
+      <tr>
+        <td><%=q.question_num%></td>
+        <td><%=q.correct_answer%></td>
+        <td><%= q.student_answer(@student) %></td>
+        <td><% if q.hw_hints.first %>
+            <%= q.hw_hints.first.hint %>
+            <% else %>
+            <%= link_to "Write hint", new_question_hw_hint_path(q) %>
+            <% end %>
+        </td>
+      </tr>
+      <%end%>
+    <% end %>
+  </table>
+<% end %>
+
+<%= form_tag [:send_email, @student, @hw] do %>
+  <div class="form-group">
+    <%= label_tag :message, "Message to Student" %>
+    <%= text_area_tag :message, @message_default, rows: 10, class: "form-control" %>
+  </div>
+  <%= submit_tag "Send email", class: "btn btn-primary" %>
+<% end %>
+
+

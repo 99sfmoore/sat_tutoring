@@ -1,0 +1,35 @@
+<% provide(:title, "Homework #{@lessonplan.number}") %>
+
+<div class="row">
+  <div class="col-xs-6">
+    <strong><%="Homework \##{@lessonplan.number}"%></strong><br>
+    <em>E-mail me if you have any questions or need help!</em><br>
+    <em>Remember to include KingsbridgeSAT & <%= @current_user.site.cp_nickname %> on the e-mail!</em><br>
+  </div> 
+  <div class="col-xs-offset-8">
+    <%= current_user.email_for_students %><br>
+    <%= current_user.site.leader_email %><br>
+    <%= current_user.site.cp_email%><br>
+  </div>
+</div>
+<br><br>
+
+<p class="hw-header">Vocabulary</p>
+<ul class="hw-section">
+  <li> Make flashcards for and learn this week's words in the Vocabulary Book. </li>
+  <li> "Reply All" to SAT Vocabulary Homework #<%=@lessonplan.number %> email with 6 sentences that each use 1 vocabulary word by <%=(@lessonplan.group_meeting.date + 6.days).strftime("%A, %B %e")%>.</li>
+</div>
+
+<% @homeworks.each do |hw| %>
+  <p class="hw-header"><%= hw.segment.name %></p>
+  <ul class="hw-section">
+    <% hw.sections.each do |s| %>
+    <li> Do all questions on <%= s.page_range %> of Kaplan Book. </li> 
+    <%end%>
+    <li> "Reply All" to SAT <%= hw.segment.name%> Homework #<%=@lessonplan.number %> email with your answers by <%=(@lessonplan.group_meeting.date + 6.days).strftime("%A, %B %e")%>.</li>
+  </ul>
+<%end %>
+
+
+
+

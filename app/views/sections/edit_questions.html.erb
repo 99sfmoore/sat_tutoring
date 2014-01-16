@@ -1,0 +1,19 @@
+<% provide(:title, "Enter Answers") %>
+<h1>Enter Answers for <%=@section.name%></h1>
+
+<%= form_tag update_questions_section_path(@section) do %>
+  <table class ="table">
+    <tr>
+      <th>Question #</th>
+      <th>Answer</th>
+    </tr>
+    <% @section.questions.each do |q| %>
+      <tr>
+        <td><%=q.question_num%></td>
+        <td><%=text_field_tag q.id, q.correct_answer %></td>
+      </tr>
+    <% end %>
+  </table>
+  <%= submit_tag "Submit", class: "btn btn-primary" %>
+<% end %>
+

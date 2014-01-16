@@ -1,0 +1,28 @@
+<h1 class="secondary">Check homework for <%= @student.full_name %><br>
+<small><%=@hw.name%></small></h1>
+
+<div class="col-sm-8 offset-col-sm-2">
+  <%= form_tag checked_homework_student_homework_path(@student, @hw) do %>
+  <% @hw.sections.each do |section| %>
+  <h4><%=section.name%></h4>
+  <table class = "table">
+    <tr>
+      <th>Question #</th>
+      <th>Correct Answer</th>
+      <th>Student Answer</th>
+    </tr>
+    <% section.questions.each do |q| %>
+    <tr>
+      <td class="center"><%=q.question_num%></td>
+      <td class="center"><%=q.correct_answer%></td>
+      <td><%= text_field_tag q.id, q.student_answer(@student) %></td>
+    </tr>
+    <% end %>
+  </table>
+  <% end %>
+
+  <%= submit_tag "Check homework", class: "btn btn-primary" %>
+  <% end %>
+</div>
+
+
