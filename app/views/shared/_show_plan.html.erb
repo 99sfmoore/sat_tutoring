@@ -1,0 +1,16 @@
+<h4>Sections to Cover</h4>
+<% plan.sections.order(:start_page).each do |section|%>
+  <p><%=section.name%></p>
+<% end %>
+
+<h4>Notes</h4>
+<%= simple_format(plan.notes) %>
+
+<h4>Homework</h4>
+<% unless plan.homeworks.empty? %>
+  <% plan.homeworks.each do |hw| %>
+    <% hw.sections.order(:start_page).each do |section|%>
+        <p><%=section.name%></p>
+    <% end %>
+  <% end %>
+<% end %>

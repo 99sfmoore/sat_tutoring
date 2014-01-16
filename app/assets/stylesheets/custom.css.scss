@@ -6,6 +6,7 @@ $my-primary: #2e5bcd;
 $my-secondary: #19be8c;
 $my-accent: #ffd966;
 $gray: #cccccc;
+$dark-gray: #999999;
 
 html {
   overflow-y: scroll;
@@ -85,6 +86,20 @@ textarea {
 color: white;
 background-color: $my-secondary;
 border-color: $my-secondary;
+}
+
+.panel-plan {
+  border-color: #dddddd;
+}
+
+.panel-plan > .panel-heading {
+color: $my-secondary;
+background-color: #dddddd;
+border-color: #dddddd;
+}
+
+.panel-default > .panel-heading {
+color: $my-secondary;
 }
 
 .panel-accent {

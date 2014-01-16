@@ -32,10 +32,9 @@ class LessonPlansController < ApplicationController
 
   def edit
     @lessonplan = LessonPlan.find(params[:id])
-    if @lessonplan.homework
-      @homework_sections = @lessonplan.homework.sections.order(:start_page)
-    else
-      @homework_sections = []
+    @homework_sections = []
+    @lessonplan.homeworks.each do |hw|
+      @homework_sections.concat(hw.sections)
     end
   end
 

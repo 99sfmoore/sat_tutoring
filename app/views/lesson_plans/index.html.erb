@@ -1,24 +1,34 @@
 <% provide(:title, "Lesson Plans") %>
 
 <%= render 'shared/tutor_header_nav', tutor: @tutor, active_tab: "lesson_plans" %>
- 
-<table class = "table"> 
-  <tr>
-    <th>Date</th>
-    <th>Lesson Plan</th>
-  </tr>
-  <% @meetings.each do |meeting| %>
-    <tr>
-      <td><%=meeting.date.strftime("%B %d")%></td>
-      <% if meeting.tutors.include?(current_user) %>
-        <% plan = @lessonplans.detect{|p| p.group_meeting == meeting} %>
-        <td><%=link_to "Session \##{meeting.session_number}", lesson_plan_path(plan) %></td>
-      <% else %>
-         <td><%="Session \##{meeting.session_number}"%></td>
-         <td>
-         <%=link_to "create", new_group_meeting_lesson_plan_path(meeting) %>
-       </td>
-      <% end %>
-    </tr>
-  <% end %>
-</table>
+
+<div class= "col-sm-9 col-sm-offset-1">
+
+
+  <div class="panel-group">
+    <% @meetings.each_with_index do |meeting, index| %>
+    <div class="panel panel-plan">
+      <div class="panel-heading">
+        <h4 class="panel-title">
+          <a data-toggle="collapse" href=<%="\#collapse#{index}"%>>
+            Session #<%= meeting.session_number%> - <%=meeting.date.strftime("%B %d")%>
+          </a>
+        </h4>
+      </div>
+      <div id="collapse<%=index%>" class="panel-collapse collapse">
+        <div class="panel-body">
+          <% if meeting.tutors.include?(@tutor) %>
+            <% plan = @lessonplans.detect{|p| p.group_meeting == meeting} %>
+            <div class="pull-right">
+              <%= link_to "edit", edit_lesson_plan_path(plan) %>
+            </div>
+            <%= render 'shared/show_plan', plan: plan %>
+          <% else %>
+            <%=link_to "create", new_group_meeting_lesson_plan_path(meeting) %>
+          <% end %>
+        </div>
+      </div>
+    </div>
+    <% end %>
+  </div>
+</div>
