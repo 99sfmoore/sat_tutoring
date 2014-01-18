@@ -82,6 +82,10 @@ textarea {
   border-color: $my-secondary;
 }
 
+.wrong {
+  color: red;
+}
+
 .panel-secondary > .panel-heading {
 color: white;
 background-color: $my-secondary;
@@ -113,7 +117,7 @@ border-color: $my-accent;
 }
 
 .subtle {
-  color: $gray;
+  color: #aaaaaa;
 }
 
 .mail {

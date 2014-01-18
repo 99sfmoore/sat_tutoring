@@ -17,8 +17,8 @@
         <td><%=q.correct_answer%></td>
         <td><%= q.student_answer(@student) %></td>
         <td>
-          <% if q.correct?(@student) %> YES
-          <% else %> NO
+          <% if q.correct?(@student) %>YES
+          <% else %> <span class="wrong">NO</span>
           <%end %>
         </td>
       </tr>

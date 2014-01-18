@@ -1,0 +1,16 @@
+<% provide(:title,"New Tutor")%>
+
+<h1> Create New Tutor</h1>
+
+<div class="col-md-5 col-md-offset-2">
+  <%= form_for @tutor do |f| %>
+    <div class= "form-group">
+      <%=f.label :site_id, "Site" %>
+      <%=f.collection_select :site_id, Site.all, :id, :name,{}, {class: "form-control"} %>
+    </div>
+    <%= render 'fields', f: f %>
+
+    <br>
+    <%=f.submit "Create Tutor", class: "btn btn-primary" %>
+  <% end %>
+</div>

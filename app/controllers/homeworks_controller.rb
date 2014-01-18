@@ -16,6 +16,7 @@ class HomeworksController < ApplicationController
   def send_hints
     @hw = Homework.find(params[:id])
     @student = Student.find(params[:student_id])
+    @assignment = @hw.assignments.where("student_id = ?",@student.id).first
     @tutor = current_user
     @message_default = "Great job on the homework.  There are a few questions that I want you to look at again.  Please see the hints below.\n\nSee you soon!"
   end
@@ -23,12 +24,13 @@ class HomeworksController < ApplicationController
   def send_email
     @hw = Homework.find(params[:id])
     @student = Student.find(params[:student_id])
+    @assignment = @hw.assignments.where("student_id = ?",@student.id).first
     @message = params[:message]
     @hints = Hash.new{[]}
     @hw.sections.each do |section|
       section.questions.each do |q|
         unless q.correct?(@student)
-          @hints[section] = @hints[section] << q.hw_hints.first
+          @hints[section] = @hints[section] << HwHint.best(q, @student, current_user, @assignment)
         end
       end
     end

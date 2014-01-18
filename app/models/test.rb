@@ -1,5 +1,3 @@
-
-
 class Test < ActiveRecord::Base
   has_many :sections, dependent: :destroy
   has_many :questions, through: :sections
@@ -9,7 +7,10 @@ class Test < ActiveRecord::Base
     sections = []
     CSV.foreach(filename.path, headers: true) do |row|
       question_hash = row.to_hash
-      current_section = self.sections.find_or_initialize_by(section_num: question_hash["section"], segment: question_hash["segment"])
+      segment = Segment.find_by(name: question_hash["segment"])
+      category = Category.find_by(name: question_hash["category"])
+      question_hash["category"] = category
+      current_section = self.sections.find_or_create_by(section_num: question_hash["section"], segment: segment)
       current_section.questions.build(question_hash.except("section", "segment"))
       current_section.save
     end

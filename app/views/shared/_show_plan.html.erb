@@ -1,3 +1,4 @@
+
 <h4>Sections to Cover</h4>
 <% plan.sections.order(:start_page).each do |section|%>
   <p><%=section.name%></p>
@@ -14,3 +15,7 @@
     <% end %>
   <% end %>
 <% end %>
+<%= simple_format(plan.other_hw) %>
+
+<h4>Post-Session Notes</h4>
+<%= simple_format(plan.post_notes) %>

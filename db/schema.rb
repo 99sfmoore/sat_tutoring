@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140116035228) do
+ActiveRecord::Schema.define(version: 20140118071403) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -25,7 +25,7 @@ ActiveRecord::Schema.define(version: 20140116035228) do
     t.string   "second_try"
   end
 
-  add_index "answers", ["question_id", "student_id"], name: "index_answers_on_question_id_and_student_id", using: :btree
+  add_index "answers", ["question_id", "student_id"], name: "index_answers_on_question_id_and_student_id", unique: true, using: :btree
 
   create_table "assignments", force: true do |t|
     t.integer  "student_id"
@@ -34,6 +34,13 @@ ActiveRecord::Schema.define(version: 20140116035228) do
     t.datetime "updated_at"
     t.integer  "homework_id"
   end
+
+  create_table "assignments_hw_hints", force: true do |t|
+    t.integer "assignment_id"
+    t.integer "hw_hint_id"
+  end
+
+  add_index "assignments_hw_hints", ["assignment_id", "hw_hint_id"], name: "index_assignments_hw_hints_on_assignment_id_and_hw_hint_id", unique: true, using: :btree
 
   create_table "categories", force: true do |t|
     t.string   "name"
@@ -61,7 +68,7 @@ ActiveRecord::Schema.define(version: 20140116035228) do
   end
 
   create_table "hw_hints", force: true do |t|
-    t.integer  "created_by"
+    t.integer  "tutor_id"
     t.integer  "question_id"
     t.string   "answer_choice"
     t.text     "hint"
@@ -75,6 +82,8 @@ ActiveRecord::Schema.define(version: 20140116035228) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.text     "notes"
+    t.text     "post_notes"
+    t.text     "other_hw"
   end
 
   create_table "lesson_plans_sections", force: true do |t|

@@ -10,7 +10,7 @@ class SectionsController < ApplicationController
     else
       Section.make_from_file(params[:section][:tel_list_file])
     end
-    render 'index'
+    redirect_to 'index'
   end
 
   def index

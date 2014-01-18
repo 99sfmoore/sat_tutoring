@@ -1,0 +1,14 @@
+<% if hint.nil? %>
+  <%= link_to "Write hint", new_question_hw_hint_path(q) %>
+<% else %>
+  <%= hint.hint %>
+  <div class="small subtle">
+    <br>
+    <% if ["","-",nil].include?(hint.answer_choice) %>
+      general hint,
+    <% else %>
+      hint for <%= hint.answer_choice %>,
+    <% end %>
+     written by: <%= hint.tutor.full_name %>
+  </div>
+<% end %>

@@ -6,10 +6,11 @@
   <h4><%=section.name %></h4>
   <table class = "table">
     <tr>
-      <th>Question #</th>
-      <th>Correct Answer</th>
-      <th>Student Answer</th>
-      <th>Hint</th>
+      <th width="10%">Question #</th>
+      <th width="10%">Correct Answer</th>
+      <th width="10%">Student Answer</th>
+      <th width="55%">Hint</th>
+      <th width="15%"></th>
     </tr>
     <% section.questions.each do |q| %>
       <% unless q.correct?(@student) %>
@@ -17,11 +18,14 @@
         <td><%=q.question_num%></td>
         <td><%=q.correct_answer%></td>
         <td><%= q.student_answer(@student) %></td>
-        <td><% if q.hw_hints.first %>
-            <%= q.hw_hints.first.hint %>
-            <% else %>
-            <%= link_to "Write hint", new_question_hw_hint_path(q) %>
-            <% end %>
+        <td>
+          <% hint = HwHint.best(q, @student, current_user, @assignment)%>
+          <%= render 'shared/hint_display', hint: hint, q: q %>
+        </td>
+        <td>
+          <% if hint %>
+            <%= link_to "See all hints or write your own", question_assignment_hw_hints_path(q,@assignment) %>
+          <%end%>
         </td>
       </tr>
       <%end%>

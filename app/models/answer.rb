@@ -1,6 +1,6 @@
 class Answer < ActiveRecord::Base
-  belongs_to :question, dependent: :destroy
-  belongs_to :student, dependent: :destroy
+  belongs_to :question
+  belongs_to :student
   validates :question, uniqueness: {scope: :student_id}, presence: true
   validates :student, presence: true
 

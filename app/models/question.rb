@@ -26,7 +26,7 @@ TOPICS = {  "Angles"=> 9,
 class Question < ActiveRecord::Base
   belongs_to :section
   belongs_to :category
-  has_many :answers
+  has_many :answers, dependent: :destroy
   has_many :hw_hints
   delegate :section_num, :segment, to: :section
   delegate :topic, to: :category

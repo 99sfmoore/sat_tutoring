@@ -1,0 +1,38 @@
+<h1 class="secondary">Hints<br>
+  <small>Question #<%= @question.question_num %>, <%= @question.section.name %></small></h1>
+
+<h4>The correct answer is <%= @question.correct_answer %>.<br>
+<%=@student.first_name%>'s answer was <%=@question.student_answer(@student)%>.</h4>
+
+<%= form_tag choose_hint_question_assignment_hw_hints_path(@question,@assignment) do %>
+  <table class="table">
+    <thead>
+      <th>Choose Hint</th>
+      <th>For Wrong Answer</th>
+      <th>Hint</th>
+      <th>Written By</th>
+    </thead>
+    <div class="radio"> 
+      <% @question.hw_hints.each do |h| %>
+        <tr>
+          <td><input type="radio" name="hint" value=<%=h.id%>></td>
+          <td><%=h.answer_choice%></td>
+          <td><%=h.hint%></td>
+          <td class="subtle"><%=h.tutor.full_name%></td>
+        </tr>
+      <%end%>
+      <tr>
+        <th>Write New</th>
+        <th>Answer-Specific?</th>
+        <th>Hint</th>
+      </tr>
+      <tr>
+        <td><input type="radio" name="hint" value="new"></td>
+        <td><input type="text" name="answer_choice" class="form-control"></td>
+        <td><textarea name="hint_text" rows="5" class="form-control"></textarea></td>
+      </tr>
+
+    </div>
+  </table>
+  <%= submit_tag "Save", class: "btn btn-primary" %>
+<% end %>

@@ -12,12 +12,12 @@ class LessonPlansController < ApplicationController
 
   def create
     @meeting = GroupMeeting.find(params[:group_meeting_id])
-    @lessonplan = LessonPlan.create(tutor: current_user, group_meeting: @meeting, notes: params[:notes])
+    @lessonplan = LessonPlan.create(tutor: current_user, group_meeting: @meeting, notes: params[:notes], other_hw: params[:other_hw], post_notes: params[:post_notes])
     4.times do |n|
       @lessonplan.sections << Section.find(params["section#{n}"]) unless params["section#{n}"] == ""
       unless params["homework#{n}"] == ""
         hw_section = Section.find(params["homework#{n}"])
-        hw = Homework.find_or_create_by(lessonplan: @lessonplan, segment: hw_section.segment)
+        hw = Homework.find_or_create_by(lesson_plan: @lessonplan, segment: hw_section.segment)
         hw.sections << hw_section 
       end
     end
@@ -36,20 +36,33 @@ class LessonPlansController < ApplicationController
     @lessonplan.homeworks.each do |hw|
       @homework_sections.concat(hw.sections)
     end
+    session[:return_to] ||= request.referer
   end
 
   def update
     @lessonplan = LessonPlan.find(params[:id])
-    @lessonplan.update_attributes(notes: params[:notes])
+    @lessonplan.update_attributes(notes: params[:notes], other_hw: params[:other_hw], post_notes: params[:post_notes])
     @lessonplan.sections = []
-    @lessonplan.homework.sections = []
+    hw_sections = []
     4.times do |n|
       @lessonplan.sections << Section.find(params["section#{n}"]) unless params["section#{n}"] == ""
-      @lessonplan.homework.sections << Section.find(params["homework#{n}"]) unless params["homework#{n}"] == ""
+      hw_sections << Section.find(params["homework#{n}"]) unless params["homework#{n}"] == ""
     end
+    hw_segments = hw_sections.group_by {|sec| sec.segment}
+    @lessonplan.homeworks.each do |hw|
+      if hw_segments[hw.segment]
+        hw.sections = hw_segments[hw.segment]
+      else
+        hw.destroy
+      end
+    end
+    hw_segments.each do |segment, sections|
+      hw = Homework.find_or_create_by(lesson_plan: @lessonplan, segment: segment)
+      hw.sections = sections
+      hw.save
+    end 
     @lessonplan.save
-    @homework = @lessonplan.homework
-    render 'show'
+    redirect_to session.delete(:return_to)
   end
 
   def homework_sheet

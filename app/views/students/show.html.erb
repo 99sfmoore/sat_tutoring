@@ -29,11 +29,11 @@
     <h3>Test Results</h3>
     <table class="table">
       <thead>
-        <th></th>
+        <th width="25%"></th>
         <% @tests.each do |t| %>
-          <th><%=t.name%></th>
+          <th width="15%"><%=t.name%></th>
         <% end %>
-        <th>Change</th>
+        <th width="15%">Change</th>
       </thead>
       <% @segments.each do |seg| %>
         <tr>
@@ -70,46 +70,53 @@
         <th><%=@scores[@tests.last].first.total-@scores[@tests.first].first.total%></th>
       </tr>
     </table>
+    <table class="table">
+      <tr>
+        <th width="25%"></th>
+        <th width="15%">Test #1</th>
+        <th width="15%">Test #2</th>
+        <th width="15%">Test #3</th>
+        <th width="15%">Test #4</th>
+        <th width="15%">Change</th>
+      </tr>
+      <% @segments.each do |seg| %>
+      <tr>
+        <td><%=seg.name%> Correct</td>
+        <% @tests.each do |test| %>
+          <td><%=@student.raw_score(test,seg)[:correct]%></td>
+        <% end %>
+        <td></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td><%=seg.name%> Incorrect</td>
+        <% @tests.each do |test| %>
+          <td><%=@student.raw_score(test,seg)[:incorrect]%></td>
+        <% end %>
+        <td></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td><%=seg.name%> Omitted</td>
+        <% @tests.each do |test| %>
+          <td><%=@student.raw_score(test,seg)[:omitted]%></td>
+        <% end %>
+        <td></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td><%=seg.name%> Raw Score</td>
+        <% @tests.each do |test| %>
+          <td><%=link_to @student.raw_score(test,seg)[:score], test_segment_student_segment_performance_path(test,seg,@student)%></td>
+        <% end %>
+        <td></td>
+        <td></td>
+      </tr>
+      <% end %>
+    </table>
   </div>
 
 </div>
 
 <%= link_to "Hit-Try Matrix", hit_try_matrix_student_path(@student) %>
-<%= link_to "Test Score 2", test_score_2_student_path(@student) %>
-
-<h2>Import Test Answers</h2>
-<%= form_tag load_answers_students_path, multipart: true do %>
-  <%= select_tag("test", options_from_collection_for_select(Test.all,"id","name"), :prompt => "Select Test") %>
-  <%= file_field_tag :file %>
-  <%= hidden_field_tag :id, @student.id %>
-  <%= submit_tag "Load Answers" %>
-<% end %>
-
-<h2>Enter Test Answers</h2>
-<%= form_tag enter_answers_student_path(@student), method: "get" do %>
-  <%= select_tag("test", options_from_collection_for_select(Test.all,"id","name"), :prompt => "Select Test") %>
-  <%= submit_tag "Enter Answers" %>
-<% end %>
-
-<h2>Check Homework</h2>
-<%= form_tag check_homework_student_path(@student), method: "get" do %>
-  <%= select_tag(:hw, options_from_collection_for_select(Section.all,"id","name"), :prompt => "Select Assignment") %>
-  <%= submit_tag "Check Homework" %>
-<% end %>
-
-<%= link_to "Send email", send_test_student_path(@student) %>
-
-<%= link_to "Check Homework", check_homework_student_path(@student) %>
-<br>
-
-<%= link_to "Enter Test Results", enter_answers_student_path(@student) %>
-
-<h2>View Test Performance</h2>
-<%= form_tag test_score_students_path do %>
-  <%= select_tag("test", options_from_collection_for_select(Test.all,"id","name"), :prompt => "Select Test") %>
-  <%= hidden_field_tag :id, @student.id %>
-  <%= submit_tag "See Performance" %>
-<% end %>
-
-
 

@@ -3,6 +3,7 @@ class Homework < ActiveRecord::Base
   has_one :tutor, through: :lesson_plan
   has_and_belongs_to_many :sections
   belongs_to :segment
+  has_many :assignments
 
   VOCABULARY_OPTIONS = {"Story" => "Write a story using at least 20 vocabulary words.",
                         "Sentences" => "Write 6 sentences that each use 1 vocabulary word."}

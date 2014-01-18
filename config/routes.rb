@@ -72,7 +72,14 @@ SatApp::Application.routes.draw do
   end
 
   resources :questions do
-    resources :hw_hints
+    resources :hw_hints, only: [:new, :create]
+    resources :assignments do
+      resources :hw_hints, only: [:index] do
+        collection do
+          post :choose_hint
+        end
+      end
+    end
   end
 
    

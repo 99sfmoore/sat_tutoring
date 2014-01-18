@@ -21,4 +21,12 @@
     <%= select_tag("homework#{n}", options_from_collection_for_select(Section.order(:start_page),:id,:name, current), prompt: "Assign Homework", class: "form-control") %>
     <br>
   <% end %>
+  <div class="form-group">
+    <%= label_tag :other_hw, "Other Homework" %>
+    <%= text_area_tag :other_hw, @lessonplan.other_hw, rows: 10, class: "form-control" %>
+  </div>
+  <div class="form-group">
+    <%= label_tag :post_notes, "Post-Session Notes" %>
+    <%= text_area_tag :post_notes, @lessonplan.post_notes, rows: 10, class: "form-control" %>
+  </div>
   <br>

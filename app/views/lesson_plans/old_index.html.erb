@@ -1,0 +1,33 @@
+<% provide(:title, "Lesson Plans") %>
+
+<%= render 'shared/tutor_header_nav', tutor: @tutor, active_tab: "lesson_plans" %>
+
+<button type="button" class="btn btn-danger" data-toggle="collapse" data-target="#demo">
+  simple collapsible
+</button>
+
+<div id="demo" class="collapse in">
+  <h1>Hi</h1>
+  <h3>bye</h3>
+</div>
+ 
+<table class = "table"> 
+  <tr>
+    <th>Date</th>
+    <th>Lesson Plan</th>
+  </tr>
+  <% @meetings.each do |meeting| %>
+    <tr>
+      <td><%=meeting.date.strftime("%B %d")%></td>
+      <% if meeting.tutors.include?(current_user) %>
+        <% plan = @lessonplans.detect{|p| p.group_meeting == meeting} %>
+        <td><%=link_to "Session \##{meeting.session_number}", lesson_plan_path(plan) %></td>
+      <% else %>
+         <td><%="Session \##{meeting.session_number}"%></td>
+         <td>
+         <%=link_to "create", new_group_meeting_lesson_plan_path(meeting) %>
+       </td>
+      <% end %>
+    </tr>
+  <% end %>
+</table>

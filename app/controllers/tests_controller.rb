@@ -4,7 +4,7 @@ class TestsController < ApplicationController
   end
 
   def create 
-    @test = Test.new(test_params)
+    @test = Test.create(test_params)
     @test.load_questions_from_file(params[:test][:question_file]) if params[:test][:question_file]
     @test.set_conversion(params[:test][:conversion]) if params[:test][:conversion]
     if @test.save
