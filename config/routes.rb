@@ -24,6 +24,8 @@ SatApp::Application.routes.draw do
         post :send_email
       end
     end
+    resources :tests, only: [:show] 
+    
 
     collection do 
       post :load_answers
@@ -36,7 +38,6 @@ SatApp::Application.routes.draw do
       post :checked_homework
       get :hit_try_matrix
       get :send_test
-      get :test_score_2
     end
   end
   resources :tests do

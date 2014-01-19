@@ -75,18 +75,22 @@ class Student < ActiveRecord::Base
   end
 
   def correct?(question)
-    answer = self.answers.where("question_id =?", question).last
-    answer.correct?
+    answer = self.answers.find_by(question: question)
+    answer && answer.correct?
   end
 
   def incorrect?(question)
-    answer = self.answers.where("question_id =?", question).last
-    answer.incorrect?
+    answer = self.answers.find_by(question: question)
+    answer && answer.incorrect?
   end
 
   def omitted?(question)
-    answer = self.answers.where("question_id =?", question).last
-    answer.omitted?
+    answer = self.answers.find_by(question: question)
+    if answer
+      return answer.omitted?
+    else
+      true
+    end
   end
 
   def try_rate(test, segment)

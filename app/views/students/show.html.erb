@@ -65,7 +65,7 @@
       <tr>
         <th>Total</th>
         <% @tests.each do |t| %>
-        <th><%=@scores[t].first.total%></th>
+        <th><%=link_to @scores[t].first.total, student_test_path(@student,t)%></th>
         <% end %>
         <th><%=@scores[@tests.last].first.total-@scores[@tests.first].first.total%></th>
       </tr>

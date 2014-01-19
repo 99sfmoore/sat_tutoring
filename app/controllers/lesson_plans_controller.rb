@@ -2,6 +2,7 @@ class LessonPlansController < ApplicationController
   def new
     @lessonplan = LessonPlan.new
     @meeting = GroupMeeting.find(params[:group_meeting_id])
+    session[:return_to] ||= request.referer
   end
 
   def index
@@ -22,7 +23,7 @@ class LessonPlansController < ApplicationController
       end
     end
     @lessonplan.save
-    redirect_to @lessonplan
+    redirect_to session.delete(:return_to)
   end
 
   def show

@@ -16,6 +16,7 @@ class TestsController < ApplicationController
 
   def show
     @test = Test.find(params[:id])
+    @student = Student.find(params[:student_id])
   end
 
   def delete

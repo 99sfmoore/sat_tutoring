@@ -1,15 +1,24 @@
 <% provide(:title, @test.name) %>
-<h1><%=@test.name %> </h1>
+<% if @student %>
+  <h1><%=link_to @student.full_name, @student, class: "secondary" %><br>
+  <small><%=@test.name %></small></h1>
+<% else %>
+  <h1 class="secondary"><%=@test.name %></h1>
+<% end %>
+
 <table class="table">
   <thead>
-    <td>Segment</td>
-    <td>Section</td>
-    <td>Question #</td>
-    <td>Category</td>
-    <td>Difficulty</td>
-    <td>Correct Answer</td>
+    <th>Segment</th>
+    <th>Section</th>
+    <th>Question #</th>
+    <th>Category</th>
+    <th>Difficulty</th>
+    <th>Correct Answer</th>
+    <% if @student %>
+      <th>Student Answer</th>
+    <% end %>
   </thead>
-  <% @test.questions.each do |q| %>
+  <% @test.questions.order("section_num ASC, question_num ASC").each do |q| %>
   <tr>
     <td><%=q.segment.name %></td>
     <td><%=q.section_num %></td>
@@ -17,6 +26,14 @@
     <td><%=q.category.name if q.category%></td>
     <td><%=q.difficulty %></td>
     <td><%=q.correct_answer%></td>
+    <% if @student %>
+      <% answer = q.student_answer(@student) %>
+      <% if answer == q.correct_answer %>
+        <td><%= answer %></td>
+      <% else %>
+        <td class="wrong"><%= answer %></td>
+      <% end %>
+    <% end %>
   </tr>
   <% end %>
 </table>

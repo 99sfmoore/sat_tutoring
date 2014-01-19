@@ -11,7 +11,7 @@ class SessionsController < ApplicationController
       flash[:success] = "Welcome, #{tutor.first_name}!"
       redirect_to tutor
     else
-      flash.now[:error] = 'Invalid email/password combination'
+      flash.now[:danger] = 'Invalid email/password combination'
       render 'new'
     end
   end
