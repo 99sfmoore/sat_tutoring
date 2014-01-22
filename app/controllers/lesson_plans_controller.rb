@@ -2,6 +2,7 @@ class LessonPlansController < ApplicationController
   def new
     @lessonplan = LessonPlan.new
     @meeting = GroupMeeting.find(params[:group_meeting_id])
+    @tutor = Tutor.find(params[:tutor_id])
     session[:return_to] ||= request.referer
   end
 
@@ -13,7 +14,8 @@ class LessonPlansController < ApplicationController
 
   def create
     @meeting = GroupMeeting.find(params[:group_meeting_id])
-    @lessonplan = LessonPlan.create(tutor: current_user, group_meeting: @meeting, notes: params[:notes], other_hw: params[:other_hw], post_notes: params[:post_notes])
+    @tutor = Tutor.find(params[:tutor_id])
+    @lessonplan = LessonPlan.create(tutor: @tutor, group_meeting: @meeting, notes: params[:notes], other_hw: params[:other_hw], post_notes: params[:post_notes])
     4.times do |n|
       @lessonplan.sections << Section.find(params["section#{n}"]) unless params["section#{n}"] == ""
       unless params["homework#{n}"] == ""
@@ -33,6 +35,9 @@ class LessonPlansController < ApplicationController
 
   def edit
     @lessonplan = LessonPlan.find(params[:id])
+    unless current_user == lessonplan.tutor || current_user.leader? || current_user.admin?
+      redirect_to root_url
+    end
     @homework_sections = []
     @lessonplan.homeworks.each do |hw|
       @homework_sections.concat(hw.sections)

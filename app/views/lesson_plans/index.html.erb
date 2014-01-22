@@ -24,7 +24,7 @@
             </div>
             <%= render 'shared/show_plan', plan: plan %>
           <% else %>
-            <%=link_to "create", new_group_meeting_lesson_plan_path(meeting) %>
+            <%=link_to "create", new_group_meeting_tutor_lesson_plan_path(meeting, @tutor) %>
           <% end %>
         </div>
       </div>

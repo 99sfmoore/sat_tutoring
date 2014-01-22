@@ -63,7 +63,9 @@ SatApp::Application.routes.draw do
   end
 
   resources :group_meetings do
-    resources :lesson_plans, only: [:new, :create]
+    resources :tutors do
+      resources :lesson_plans, only: [:new, :create]
+    end
   end
 
   resources :lesson_plans, only: [:show, :edit, :update] do
