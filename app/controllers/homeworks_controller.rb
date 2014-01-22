@@ -34,7 +34,7 @@ class HomeworksController < ApplicationController
         end
       end
     end
-    StudentMailer.hint_email(@student,@hw,@message, @hints).deliver
+    StudentMailer.hint_email(@student, current_user, @hw,@message, @hints).deliver
     flash[:success] = "Homework hint email sent to #{@student.first_name}."
     redirect_to current_user
   end
