@@ -12,9 +12,9 @@ class StudentMailer < ActionMailer::Base
     @message = message
     @hints = hints
     mail(to: @student.email,
-          from: @student.tutor.email_for_students,
-          cc: [@student.site.leader_email, @student.site.cp_email],
-          bcc: @student.tutor.email_for_students,
+          from: current_user.email_for_students,
+          cc: [@student.site.leader_email, @student.site.cp_email, (@student.tutor.email_for_students unless @student.tutor == current_user)],
+          bcc: current_user.email_for_students,
           subject: @hw.email_subject)
   end
 end
