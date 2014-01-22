@@ -45,7 +45,15 @@ class Section < ActiveRecord::Base
     if test
       "#{test.name} - Section \##{section_num} - #{segment.name}"
     else
-      "Topic \##{topic.number} - #{topic.name} - pg. #{self.page_range}- #{self.difficulty}"
+      "Topic \##{topic.number} - #{topic.name} - pg. #{self.page_range} - #{self.difficulty}"
+    end
+  end
+
+  def name_for_students
+    if test
+      "#{test.name} - Section \##{section_num} - #{segment.name}"
+    else
+      "Kaplan - pg. #{self.page_range}"
     end
   end
 
