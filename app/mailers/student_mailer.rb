@@ -15,7 +15,7 @@ class StudentMailer < ActionMailer::Base
     mail(to: @student.email,
           from: @sender.email_for_students,
           cc: [@student.site.leader_email, @student.site.cp_email, (@student.tutor.email_for_students unless @student.tutor == @sender)],
-          bcc: current_user.email_for_students,
+          bcc: @sender.email_for_students,
           subject: @hw.email_subject)
   end
 end
