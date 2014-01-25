@@ -1,0 +1,6 @@
+<% provide(:title, "Group #{@segment.name} Performance") %>
+
+<h1 class="secondary"><%=@tutor.full_name %> Group <%=@segment.name %> Performance<br>
+<small><%=@test.name%></small></h1>
+
+<%= render 'shared/performance_table', performance: @performance %>
