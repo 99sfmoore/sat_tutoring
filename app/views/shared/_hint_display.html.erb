@@ -1,5 +1,5 @@
 <% if hint.nil? %>
-  <%= link_to "Write hint", new_question_hw_hint_path(q) %>
+  <%= link_to "Write hint", question_assignment_hw_hints_path(q,assignment) %>
 <% else %>
   <%= hint.hint %>
   <div class="small subtle">

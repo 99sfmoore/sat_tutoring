@@ -20,7 +20,7 @@
         <td><%= q.student_answer(@student) %></td>
         <td>
           <% hint = HwHint.best(q, @student, current_user, @assignment)%>
-          <%= render 'shared/hint_display', hint: hint, q: q %>
+          <%= render 'shared/hint_display', hint: hint, q: q, assignment: @assignment %>
         </td>
         <td>
           <% if hint %>

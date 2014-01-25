@@ -13,12 +13,23 @@ class HwHintsController < ApplicationController
     redirect_to session.delete(:return_to)
   end
 
+  def edit
+    @hint = HwHint.find(params[:id])
+    @question = @hint.question
+    session[:return_to_2] = request.referer
+  end
+
+  def update
+    @hint = HwHint.find(params[:id])
+    @hint.update_attributes(hw_hint_params)
+    redirect_to session.delete(:return_to_2)
+  end
+
   def index
     @question = Question.find(params[:question_id])
     @assignment = Assignment.find(params[:assignment_id])
     @student = @assignment.student
     @hint = HwHint.new
-    session.delete(:return_to)
     session[:return_to] ||= request.referer
   end
 

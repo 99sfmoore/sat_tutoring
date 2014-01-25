@@ -1,35 +1,30 @@
-<% provide(:title, @homework.name) %>
-
-<div class="row">
-  <div class="col-xs-6">
-    <strong><%=@homework.name%></strong><br>
-    <em>E-mail me if you have any questions or need help!</em><br>
-    <em>Remember to include KingsbridgeSAT & <%= @current_user.site.cp_nickname %> on the e-mail!</em><br>
-  </div> 
-  <div class="col-xs-offset-8">
-    <%= current_user.email_for_students %><br>
-    <%= current_user.site.leader_email %><br>
-    <%= current_user.site.cp_email%><br>
-  </div>
-</div>
+<h1 class="secondary">Homework results for <%= @student.full_name %><br>
+<small><%= @hw.name %></small></h1>
+<%=link_to "Send Hints", send_hints_student_homework_path(@student, @hw), class: "btn btn-primary" %>
 <br><br>
-
-<p class="hw-header">Vocabulary</p>
-<div class="hw-section">
-  <p> &#10065; Make flashcards for and learn this week's words in the Vocabulary Book. </p>
-  <p> &#10065; "Reply All" to SAT Vocabulary Homework #<%=@homework.number %> email with 6 sentences that each use 1 vocabulary word by <%=(@homework.lesson_plan.group_meeting.date + 6.days).strftime("%A, %B %e")%>.</p>
-</div>
-
-<% @segments.each do |seg, sections| %>
-  <p class="hw-header"><%= seg.name%></p>
-  <ul class="hw-section">
-    <% sections.each do |s| %>
-    <li> Do all questions on <%= s.page_range %> of Kaplan Book. </li> 
-    <%end%>
-    <li> "Reply All" to SAT <%=seg.name%> Homework #<%=@homework.number %> email with your answers by <%=(@homework.lesson_plan.group_meeting.date + 6.days).strftime("%A, %B %e")%>.</li>
-  </ul>
+<% @hw.sections.each do |section| %>
+  <strong><%= section.name %></strong> 
+  <table class = "table">
+    <tr>
+      <th>Question #</th>
+      <th>Correct Answer</th>
+      <th>Student Answer</th>
+      <th>Correct?</th>
+    </tr>
+    <% section.questions.each do |q| %>
+      <tr>
+        <td><%=q.question_num%></td>
+        <td><%=q.correct_answer%></td>
+        <td><%= q.student_answer(@student) %></td>
+        <td>
+          <% if q.correct?(@student) %>YES
+          <% else %> <span class="wrong">NO</span>
+          <%end %>
+        </td>
+      </tr>
+    <% end %>
+  </table>
 <%end %>
-
-<%= link_to image_tag('checkbox.png'), "hi" %>
+<%=link_to "Send Hints", send_hints_student_homework_path(@student, @hw), class: "btn btn-primary" %>
 
 

@@ -10,7 +10,7 @@
         <% if meeting.tutors.include?(current_user) %>
           <%=link_to "Session \##{meeting.session_number}", "group_meeting_lesson_plan_path(meeting)" %>
         <% else %>
-           <%=link_to "Session \##{meeting.session_number}", new_group_meeting_lesson_plan_path(meeting) %>
+           <%=link_to "Session \##{meeting.session_number}", new_group_meeting_tutor_lesson_plan_path(meeting, current_user) %>
         <% end %>
     </tr>
   <% end %>

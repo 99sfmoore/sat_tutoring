@@ -43,7 +43,7 @@ class Student < ActiveRecord::Base
     hw.sections.each do |section|
       section.questions.each do |q|
         a = q.answers.find_or_initialize_by(student: self)
-        a.update_attributes(answer_choice: param_hash[q.id.to_s])
+        a.update_attributes(answer_choice: param_hash[q.id.to_s].upcase)
         q.save
       end
     end
@@ -110,6 +110,10 @@ class Student < ActiveRecord::Base
       result << hw unless Assignment.where("student_id = ? AND homework_id = ?",self.id, hw.id).first
     end
     result.sort_by{|hw| hw.number}
+  end
+
+  def past_homeworks
+    (tutor.homeworks - open_homeworks).sort_by{|hw| hw.number}
   end
 
 

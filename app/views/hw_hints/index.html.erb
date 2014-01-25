@@ -5,29 +5,39 @@
 <%=@student.first_name%>'s answer was <%=@question.student_answer(@student)%>.</h4>
 
 <%= form_tag choose_hint_question_assignment_hw_hints_path(@question,@assignment) do %>
-  <table class="table">
-    <thead>
-      <th>Choose Hint</th>
-      <th>For Wrong Answer</th>
-      <th>Hint</th>
-      <th>Written By</th>
-    </thead>
-    <div class="radio"> 
-      <% @question.hw_hints.each do |h| %>
-        <tr>
-          <td><input type="radio" name="hint" value=<%=h.id%>></td>
-          <td><%=h.answer_choice%></td>
-          <td><%=h.hint%></td>
-          <td class="subtle"><%=h.tutor.full_name%></td>
-        </tr>
-      <%end%>
+  <% if @question.hw_hints.empty? %>
+    No hints written yet
+    <div class="radio">
+      <table class="table">
+  <% else %>
+    <table class="table">
+      <thead>
+        <th>Choose Hint</th>
+        <th>For Wrong Answer</th>
+        <th>Hint</th>
+        <th>Written By</th>
+      </thead>
+      <div class="radio"> 
+        <% @question.hw_hints.each do |h| %>
+          <tr>
+            <td><input type="radio" name="hint" value=<%=h.id%>></td>
+            <td><%=h.answer_choice%></td>
+            <td><%=h.hint%></td>
+            <td class="subtle"><%=h.tutor.full_name%></td>
+            <% if h.tutor == current_user %>
+              <td><%= link_to "edit", edit_hw_hint_path(h) %>
+              </td>
+            <%end%>
+          </tr>
+        <%end%>
+  <% end %>
       <tr>
         <th>Write New</th>
         <th>Answer-Specific?</th>
         <th>Hint</th>
       </tr>
       <tr>
-        <td><input type="radio" name="hint" value="new"></td>
+        <td><input type="radio" name="hint" value="new" checked></td>
         <td><input type="text" name="answer_choice" class="form-control"></td>
         <td><textarea name="hint_text" rows="5" class="form-control"></textarea></td>
       </tr>

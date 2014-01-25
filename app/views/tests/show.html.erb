@@ -28,7 +28,7 @@
     <td><%=q.correct_answer%></td>
     <% if @student %>
       <% answer = q.student_answer(@student) %>
-      <% if answer == q.correct_answer %>
+      <% if q.correct?(@student) %>
         <td><%= answer %></td>
       <% else %>
         <td class="wrong"><%= answer %></td>

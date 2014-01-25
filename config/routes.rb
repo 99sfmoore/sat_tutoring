@@ -74,6 +74,8 @@ SatApp::Application.routes.draw do
     end
   end
 
+  resources :hw_hints, only: [:edit, :update]
+
   resources :questions do
     resources :hw_hints, only: [:new, :create]
     resources :assignments do
