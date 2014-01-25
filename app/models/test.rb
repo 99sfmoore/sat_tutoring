@@ -89,7 +89,28 @@ class Test < ActiveRecord::Base
   #   topic_hash.sort_by {|k,v| k}
   # end
 
-  def performance(student, segment)
+  def performance(students, segment)
+    performance_hash = {}
+    topic_list = segment_questions(segment).group_by {|q| q.topic}
+    topic_list.each do |t, topic_qs|
+      performance_hash[t.number] = {}
+      category_list = topic_qs.group_by {|q| q.category}
+      category_list.each do |c, q_list|
+        count = q_list.count * students.count
+        correct = students.inject(0){|sum, s| sum + q_list.count {|q| s.correct?(q)}}
+        omitted = students.inject(0){|sum, s| sum + q_list.count {|q| s.omitted?(q)}}
+        incorrect = students.inject(0){|sum, s| sum + q_list.count {|q| s.incorrect?(q)}}
+        performance_hash[t.number][c.name] = {count: count/ students.count,
+                                  correct: (correct.to_f/count*100).round,
+                                  omitted: (omitted.to_f/count*100).round,
+                                  incorrect: (incorrect.to_f/count*100).round}
+
+      end
+    end
+    performance_hash.sort_by {|k,v| k}
+  end
+
+  def old_performance(student, segment)
     performance_hash = {}
     topic_list = segment_questions(segment).group_by {|q| q.topic}
     topic_list.each do |t, topic_qs|

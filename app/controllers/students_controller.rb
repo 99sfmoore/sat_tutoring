@@ -139,7 +139,7 @@ class StudentsController < ApplicationController
     @test = Test.find(params[:test_id])
     @segment = Segment.find(params[:segment_id])
     @student = Student.find(params[:student_id])
-    @performance = @test.performance(@student, @segment)
+    @performance = @test.performance([@student], @segment)
   end
 
   def send_test

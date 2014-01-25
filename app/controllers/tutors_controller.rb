@@ -44,6 +44,13 @@ class TutorsController < ApplicationController
     @test2_scores = @students.map {|s| s.scores.where(test_id: @tests.last).first}
   end
 
+  def segment_performance
+    @test = Test.find(params[:test_id])
+    @segment = Segment.find(params[:segment_id])
+    @tutor = Tutor.find(params[:tutor_id])
+    @performance = @test.performance(@tutor.students, @segment)
+  end
+
   private
    
     def tutor_params

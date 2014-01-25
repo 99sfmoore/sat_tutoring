@@ -45,6 +45,9 @@ SatApp::Application.routes.draw do
       resources :students do
         get :segment_performance
       end
+      resources :tutors do
+        get :segment_performance
+      end
     end
   end
   resources :tutors do
