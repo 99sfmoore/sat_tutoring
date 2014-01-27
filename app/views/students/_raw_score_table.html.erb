@@ -1,43 +1,51 @@
    <table class="table">
-      <tr>
+      <thead>
         <th></th>
         <th>Test #1</th>
         <th>Test #2</th>
         <th>Test #3</th>
         <th>Test #4</th>
-      </tr>
-      <% @segments.each do |seg| %>
+      </thead>
+      <% segments.each do |seg| %>
       <tr>
         <td><%=seg.name%> Correct</td>
-        <% @tests.each do |test| %>
-          <td><%=@student.raw_score(test,seg)[:correct]%></td>
+        <% tests.each do |test| %>
+          <td><%=student.raw_score(test,seg)[:correct]%></td>
         <% end %>
         <td></td>
         <td></td>
       </tr>
       <tr>
         <td><%=seg.name%> Incorrect</td>
-        <% @tests.each do |test| %>
-          <td><%=@student.raw_score(test,seg)[:incorrect]%></td>
+        <% tests.each do |test| %>
+          <td><%=student.raw_score(test,seg)[:incorrect]%></td>
         <% end %>
         <td></td>
         <td></td>
       </tr>
       <tr>
         <td><%=seg.name%> Omitted</td>
-        <% @tests.each do |test| %>
-          <td><%=@student.raw_score(test,seg)[:omitted]%></td>
+        <% tests.each do |test| %>
+          <td><%=student.raw_score(test,seg)[:omitted]%></td>
         <% end %>
         <td></td>
         <td></td>
       </tr>
       <tr>
-        <td><%=seg.name%> Raw Score</td>
-        <% @tests.each do |test| %>
-          <td><%=link_to @student.raw_score(test,seg)[:score], test_segment_student_segment_performance_path(test,seg,@student)%></td>
+        <th><%=seg.name%> Raw Score</th>
+        <% tests.each do |test| %>
+          <th><a href=<%= test_segment_student_segment_performance_path(test,seg,student)%> rel="tooltip" data-toggle="tooltip" title="See Performance by Topic" data-placement="bottom"><%=student.raw_score(test,seg)[:score]%></a></th>
         <% end %>
-        <td></td>
-        <td></td>
+        <th></th>
+        <th></th>
       </tr>
+
       <% end %>
     </table>
+
+
+<script type="text/javascript">
+  $(function () {
+      $('a[rel=tooltip]').tooltip();
+  });
+</script>

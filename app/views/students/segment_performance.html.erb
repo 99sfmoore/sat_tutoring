@@ -1,6 +1,6 @@
 <% provide(:title, "#{@student.full_name} #{@segment.name} Performance") %>
 
-<h1 class="secondary"><%=@student.full_name %> <%=@segment.name %> Performance <br>
-<small><%=@test.name%></small></h1>
+<h1><%=link_to @student.full_name, @student, class: "secondary" %> <br>
+<small><%=@test.name%> - <%=@segment.name %> Performance </small></h1>
 
 <%= render 'shared/performance_table', performance: @performance %>

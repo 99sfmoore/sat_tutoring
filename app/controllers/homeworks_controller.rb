@@ -10,6 +10,11 @@ class HomeworksController < ApplicationController
     @student = Student.find(params[:student_id])
   end
 
+  def index
+    @student = Student.find(params[:student_id])
+    @hws = @student.past_homeworks
+  end
+
   def checked_homework
     @hw = Homework.find(params[:id])
     @student = Student.find(params[:student_id])

@@ -26,14 +26,16 @@ class SectionsController < ApplicationController
 
   def edit_questions
     @section = Section.find(params[:id])
+    session[:return_to] ||= request.referer
   end
-
+ 
   def update_questions
     @section = Section.find(params[:id])
     @section.questions.each do |q|
       q.update_attributes(correct_answer: params[q.id.to_s].upcase)
     end
     @section.save
+    redirect_to session.delete(:return_to)
   end
 
   def send_hints

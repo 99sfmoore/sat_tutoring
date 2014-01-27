@@ -1,0 +1,33 @@
+
+<div class="row">
+  <h1 class="secondary"><%=student.full_name %><br>
+  <%= link_to student.site.name, site_path(student.site), class: "small subtle" %></h1>
+</div>
+<br>
+
+<ul class="nav nav-tabs nav-justified">
+  <li <%= 'class=active' if active_tab == "info" %>><%= link_to "Info", student_path(student) %></li>
+  <li <% if active_tab == "homework"%>
+        <%= 'class=active' %>
+      <% else %>
+        <%= 'class = dropdown' %>
+      <% end %>
+      >
+    <a class="dropdown-toggle" data-toggle="dropdown" href="#">
+      Homework <span class="caret"></span>
+    </a>
+    <ul class="dropdown-menu">
+      <% student.open_homeworks.each do |hw| %>
+        <li> <%= link_to "Check #{hw.name}", check_homework_student_homework_path(student, hw)%>
+        <li>
+      <% end %>
+      <li class="divider"></li>
+      <li> <%= link_to "Past Homeworks", student_homeworks_path(student) %></li>
+    </ul>
+  </li>
+  <li <%= 'class=active' if active_tab == "scores" %>> <%= link_to "Scores", scaled_scores_student_path(student) %></li>
+</ul>
+
+<br>
+
+   

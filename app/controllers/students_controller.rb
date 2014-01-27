@@ -147,6 +147,15 @@ class StudentsController < ApplicationController
     StudentMailer.test_email(@student).deliver
   end
 
+  def scaled_scores
+    @student = Student.find(params[:id])
+    @tests = Test.find([3,5])
+    @segments = Segment.all
+    @scores = @student.scores.group_by{|s| s.test}
+  end
+
+
+
   private
 
     def student_params

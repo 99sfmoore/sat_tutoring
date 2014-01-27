@@ -25,6 +25,7 @@ SatApp::Application.routes.draw do
       end
     end
     resources :tests, only: [:show] 
+    resources :scores, only: [:index]
     
 
     collection do 
@@ -38,6 +39,7 @@ SatApp::Application.routes.draw do
       post :checked_homework
       get :hit_try_matrix
       get :send_test
+      get :scaled_scores
     end
   end
   resources :tests do

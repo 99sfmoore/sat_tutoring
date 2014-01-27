@@ -97,13 +97,13 @@ border-color: $my-secondary;
 }
 
 .panel-plan > .panel-heading {
-color: $my-secondary;
-background-color: #dddddd;
-border-color: #dddddd;
+  color: $my-secondary;
+  background-color: #dddddd;
+  border-color: #dddddd;
 }
 
 .panel-default > .panel-heading {
-color: $my-secondary;
+  color: $my-secondary;
 }
 
 .panel-accent {
@@ -111,9 +111,17 @@ color: $my-secondary;
 }
 
 .panel-accent > .panel-heading {
-color: white;
-background-color: $my-accent;
-border-color: $my-accent;
+  color: white;
+  background-color: $my-accent;
+  border-color: $my-accent;
+}
+.nav-pills > li.active > a, .nav-pills > li.active > a:hover, .nav-pills  > li.active > a:focus  {
+  background-color: $my-secondary;
+  color: white;
+}
+
+.nav-pills > li > a {
+  color: $my-secondary;
 }
 
 .subtle {
@@ -122,6 +130,14 @@ border-color: $my-accent;
 
 .mail {
   color: black;
+}
+
+.black {
+  color: black;
+}
+
+.gray {
+  color: $dark-gray;
 }
 
 .nav-tabs-justified > .active > a, .nav-tabs.nav-justified > .active > a, .nav-tabs-justified > .active > a:hover, .nav-tabs.nav-justified > .active > a:hover, .nav-tabs-justified > .active > a:focus, .nav-tabs.nav-justified > .active > a:focus {
