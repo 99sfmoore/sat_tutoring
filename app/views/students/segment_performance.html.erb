@@ -3,4 +3,4 @@
 <h1><%=link_to @student.full_name, @student, class: "secondary" %> <br>
 <small><%=@test.name%> - <%=@segment.name %> Performance </small></h1>
 
-<%= render 'shared/performance_table', performance: @performance %>
+<%= render 'shared/performance_table', performance: @performance, student: @student, test: @test %>

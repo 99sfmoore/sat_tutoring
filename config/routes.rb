@@ -51,6 +51,9 @@ SatApp::Application.routes.draw do
         get :segment_performance
       end
     end
+    resources :students do
+      resources :categories, only:[:show]
+    end
   end
   resources :tutors do
     resources :lesson_plans, only:[:index]
@@ -91,6 +94,7 @@ SatApp::Application.routes.draw do
       end
     end
   end
+
 
    
 

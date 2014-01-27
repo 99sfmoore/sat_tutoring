@@ -1,0 +1,25 @@
+<% provide(:title, @test.name) %>
+  <h1><%=link_to @student.full_name, @student, class: "secondary" %><br>
+  <small><%=@test.name%> - <%=@category.name %> Performance</small></h1>
+
+
+<table class="table">
+  <thead>
+    <th>Section</th>
+    <th>Question #</th>
+    <th>Difficulty</th>
+    <th>Correct Answer</th>
+    <th>Student Answer</th>
+  </thead>
+  <% @questions.each do |q| %>
+  <tr>
+    <td><%=q.section_num %></td>
+    <td><%=q.question_num%></td>
+    <td><%=q.difficulty %></td>
+    <td><%=q.correct_answer%></td>
+    <td <%='class=wrong' unless q.correct?(@student)%>>
+      <%= q.student_answer(@student) %>
+    </td>
+  </tr>
+  <% end %>
+</table>

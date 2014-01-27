@@ -6,7 +6,7 @@
 <br>
 
 <ul class="nav nav-tabs nav-justified">
-  <li <%= 'class=active' if active_tab == "info" %>><%= link_to "Info", student_path(student) %></li>
+  <li <%= 'class=active' if active_tab == "info" %>><%= link_to "Student Info", student_path(student) %></li>
   <li <% if active_tab == "homework"%>
         <%= 'class=active' %>
       <% else %>
