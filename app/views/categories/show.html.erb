@@ -11,7 +11,7 @@
     <th>Correct Answer</th>
     <th>Student Answer</th>
   </thead>
-  <% @questions.each do |q| %>
+  <% @questions.sort_by {|x| each do |q| %>
   <tr>
     <td><%=q.section_num %></td>
     <td><%=q.question_num%></td>

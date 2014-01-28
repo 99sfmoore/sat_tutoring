@@ -25,6 +25,14 @@ class Question < ActiveRecord::Base
     end
   end
 
+  def omitted?(student)
+    student_answer(student).nil? || student_answer(student) == "-" || student_answer(student) == ""
+  end
+
+  def incorrect?(student)
+    !correct?(student) && !omitted?(student)
+  end
+
   private
     def question_params
       params.require(:question).permit(:question_num,

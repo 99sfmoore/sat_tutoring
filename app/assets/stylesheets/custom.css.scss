@@ -115,6 +115,16 @@ border-color: $my-secondary;
   background-color: $my-accent;
   border-color: $my-accent;
 }
+
+.panel-primary {
+  border-color: $my-primary;
+}
+
+.panel-primary > .panel-heading {
+  color: white;
+  background-color: $my-primary;
+  border-color: $my-primary;
+}
 .nav-pills > li.active > a, .nav-pills > li.active > a:hover, .nav-pills  > li.active > a:focus  {
   background-color: $my-secondary;
   color: white;
@@ -153,6 +163,21 @@ border-color: $my-secondary;
 
 .nav-tabs-justified, .nav-tabs.nav-justified {
   border-bottom: 1px solid $my-primary; }
+
+.tooltip-inner {
+  background-color: $my-primary;
+}
+
+.tooltip {
+  &.bottom .tooltip-arrow,
+  &.bottom-left .tooltip-arrow,
+  &.bottom-right .tooltip-arrow {
+    border-bottom-color: $my-primary;
+  }
+}
+
+
+
 
 
 

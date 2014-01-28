@@ -1,0 +1,26 @@
+<table class="table">
+  <thead>
+    <th>Section</th>
+    <th>Question #</th>
+    <th>Difficulty</th>
+    <th>Correct Answer</th>
+    <% students.each do |s| %>
+      <th><%=s.first_name%> Answer</th>
+    <% end %>
+  </thead>
+  <% questions.each do |q| %>
+  <tr>
+    <td><%=q.section_num %></td>
+    <td><%=q.question_num%></td>
+    <td><%=q.difficulty %></td>
+    <td><%=q.correct_answer%></td>
+    <% students.each do |s| %>
+      <td <%='class=success' if q.correct?(s)%>
+          <%= 'class=warning' if q.omitted?(s)%>
+          <%= 'class=danger' if q.incorrect?(s)%>>
+      <%= q.student_answer(s) %>
+      </td>
+    <% end %>
+  </tr>
+  <% end %>
+</table>

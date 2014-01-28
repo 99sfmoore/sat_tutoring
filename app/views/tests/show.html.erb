@@ -2,6 +2,9 @@
 <% if @student %>
   <h1><%=link_to @student.full_name, @student, class: "secondary" %><br>
   <small><%=@test.name %></small></h1>
+<% elsif @tutor %>
+  <h1><%=link_to "#{@tutor.full_name} Group", @tutor, class: "secondary" %><br>
+  <small><%=@test.name %></small></h1>
 <% else %>
   <h1 class="secondary"><%=@test.name %></h1>
 <% end %>
@@ -14,8 +17,10 @@
     <th>Category</th>
     <th>Difficulty</th>
     <th>Correct Answer</th>
-    <% if @student %>
-      <th>Student Answer</th>
+    <% if @students %>
+      <% @students.each do |s| %>
+        <th><%= s.first_name %> Answer</th>
+      <% end %>
     <% end %>
   </thead>
   <% @test.questions.order("section_num ASC, question_num ASC").each do |q| %>
@@ -26,12 +31,13 @@
     <td><%=q.category.name if q.category%></td>
     <td><%=q.difficulty %></td>
     <td><%=q.correct_answer%></td>
-    <% if @student %>
-      <% answer = q.student_answer(@student) %>
-      <% if q.correct?(@student) %>
-        <td><%= answer %></td>
-      <% else %>
-        <td class="wrong"><%= answer %></td>
+    <% if @students %>
+      <% @students.each do |s| %>
+      <td <%='class=success' if q.correct?(s)%>
+          <%= 'class=warning' if q.omitted?(s)%>
+          <%= 'class=danger' if q.incorrect?(s)%>>
+        <%= q.student_answer(s) %>
+      </td>
       <% end %>
     <% end %>
   </tr>

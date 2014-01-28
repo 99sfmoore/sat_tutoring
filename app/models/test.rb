@@ -97,9 +97,9 @@ class Test < ActiveRecord::Base
       category_list = topic_qs.group_by {|q| q.category}
       category_list.each do |c, q_list|
         count = q_list.count * students.count
-        correct = students.inject(0){|sum, s| sum + q_list.count {|q| s.correct?(q)}}
-        omitted = students.inject(0){|sum, s| sum + q_list.count {|q| s.omitted?(q)}}
-        incorrect = students.inject(0){|sum, s| sum + q_list.count {|q| s.incorrect?(q)}}
+        correct = students.inject(0){|sum, s| sum + q_list.count {|q| q.correct?(s)}}
+        omitted = students.inject(0){|sum, s| sum + q_list.count {|q| q.omitted?(s)}}
+        incorrect = students.inject(0){|sum, s| sum + q_list.count {|q| q.incorrect?(s)}}
         performance_hash[t.number][c.name] = {count: count/ students.count,
                                   correct: (correct.to_f/count*100).round,
                                   omitted: (omitted.to_f/count*100).round,

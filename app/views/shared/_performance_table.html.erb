@@ -14,11 +14,14 @@
       <%categories.each do |c, results|%>
       <tr>
         <% cat = Category.find_by(name: c) %>
-        <td><%=link_to c, test_student_category_path(test,student, cat)%></td>
-        <td><%=results[:correct]*results[:count]/100%>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<em><%=results[:correct]%>%</em></td>
-        <td><%=results[:incorrect]*results[:count]/100%>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<em><%=results[:incorrect]%>%</em></td>
-        <td><%=results[:omitted]*results[:count]/100%>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<em><%=results[:omitted]%>%</em></td>
-        <td><%=results[:count]%></td>
+        <td><a data-toggle="collapse" href=<%="\#show-#{cat.id}"%>><%=c%></a></td>
+        <%= render 'shared/results_row', results: results, single: students.count == 1 %>
+      </tr>
+      <tr>
+
+         <td colspan="5" id="show-<%=cat.id%>" class="collapse">
+          <%=render 'shared/category_table', students: students, questions: test.questions.where(category: cat).order(:difficulty_num, :section_id, :question_num)%>
+        </td>
       </tr>
       <%end%>
     </tbody>

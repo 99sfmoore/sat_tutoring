@@ -12,11 +12,12 @@
 </div>
 <div class="row">
   <div class="col-sm-8 h4">
-    <span class="gray">Email:  </span> <%= mail_to @student.email, @student.email, class: "secondary" %><br>
+    <br>
+    <p><span class="gray">Email:  </span> <%= mail_to @student.email, @student.email, class: "secondary" %></p>
     <% if @student.tutor %>
-    <span class="gray">Tutor:  </span><%= link_to "#{@student.tutor.full_name}", tutor_path(@student.tutor), class: "secondary" %> <br>
+    <p><span class="gray">Tutor:  </span><%= link_to "#{@student.tutor.full_name}", tutor_path(@student.tutor), class: "secondary" %> </p>
     <% end %>
-    <span class="gray">High School:  </span> <span class="secondary"><%= @student.high_school %></span>
+    <p><span class="gray">High School:  </span> <span class="secondary"><%= @student.high_school %></span></p>
   </div>
 </div>
   

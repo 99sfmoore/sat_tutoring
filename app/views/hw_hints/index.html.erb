@@ -41,8 +41,63 @@
         <td><input type="text" name="answer_choice" class="form-control"></td>
         <td><textarea name="hint_text" rows="5" class="form-control"></textarea></td>
       </tr>
-
     </div>
+      <tr>
+        <td></td>
+        <td></td>
+        <td>
+          <div class="panel panel-secondary">
+            <div class="panel-heading">
+              <h4 class="panel-title">
+                <a data-toggle="collapse" href=<%="\#help"%>>
+                    How can I type math symbols?
+                </a>
+              </h4>
+            </div>
+            <div id="help" class="panel-collapse collapse">
+              <div class="panel-body">
+                <table class="table">
+                  <thead>
+                    <th>Symbol</th>
+                    <th>Mac</th>
+                    <th>PC</th>
+                  </thead>
+                  <tr>
+                    <td>√</td>
+                    <td>Option + V</td>
+                    <td>ALT + 251<br>
+                      (must use number pad)</td>
+                  </tr>
+                  <tr>
+                    <td>π</td>
+                    <td>Option + P</td>
+                    <td>ALT + 227<br>
+                      (must use number pad)</td>
+                  <tr>
+                  <tr>
+                    <td>Exponents</td>
+                    <td>Menubar: Edit > Special Characters<br>
+                      Choose Digits-All, which will give you access to superscript and subscript 0-9.  (There are some other useful symbols in Math Symbols.  You may need to click the gearwheel and "Customize List" to add Digits-All and Math Symbols.) </td>
+                    <td>² = ALT + 253<br>
+                      ³ = ALT + 0179<br>
+                      Again, you must use the number pad.  For other exponents & symbols, you may want to type them in Word and then copy-paste.
+                    </td>
+                  </tr>
+                </table>
+              </div>
+            </div>
+          </div>
+        </td>
+      </tr>
   </table>
   <%= submit_tag "Save", class: "btn btn-primary" %>
 <% end %>
+
+<br>
+<br>
+<div class="col-sm-5 col-sm-offset1">
+  
+
+
+
+

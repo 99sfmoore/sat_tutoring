@@ -4,3 +4,14 @@
 
 
 <%= render 'shared/student_score_table', student_list: @students, scores1: @test1_scores, scores2: @test2_scores %>
+
+<% @tests.each do |t| %>
+  <p>
+  <%= link_to "View Group Answers for #{t.name}", "#" %>
+  </p>
+  <% Segment.all.each do |s| %>
+    <p>
+      <%= link_to "View #{s.name} Group Performance by Topic for #{t.name}", test_segment_tutor_segment_performance_path(t,s,@tutor) %>
+    </p>
+  <% end %>
+<% end %>
