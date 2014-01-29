@@ -16,7 +16,7 @@ class HwHintsController < ApplicationController
   def edit
     @hint = HwHint.find(params[:id])
     @question = @hint.question
-    session[:return_to_2] = request.referer
+    session[:return_to_2] = request.referer #request.referer does not work on Heroku
   end
 
   def update
@@ -30,7 +30,7 @@ class HwHintsController < ApplicationController
     @assignment = Assignment.find(params[:assignment_id])
     @student = @assignment.student
     @hint = HwHint.new
-    session[:return_to] = request.referer
+    session[:return_to] = send_hints_student_homework_path(@student, @assignment.homework) 
   end
 
   def choose_hint
