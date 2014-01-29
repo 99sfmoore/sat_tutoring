@@ -40,4 +40,37 @@
    
   </tr>
   <% end %>
+  <tr>
+    <th>Average</th>
+    <th><% m = Score.average(:math, :conditions => {test_id: 3, student_id: student_list}).round%><%=m%></th>
+    <th><% r = Score.average(:reading, :conditions => {test_id: 3, student_id: student_list}).round%><%=r%></th>
+    <th><% w = Score.average(:writing, :conditions => {test_id: 3, student_id: student_list}).round%><%=w%></th>
+    <th><%= m + r + w %></th>
+    <th><% m = Score.average(:math, :conditions => {test_id: 5, student_id: student_list}).round%><%=m%></th>
+    <th><% r = Score.average(:reading, :conditions => {test_id: 5, student_id: student_list}).round%><%=r%></th>
+    <th><% w = Score.average(:writing, :conditions => {test_id: 5, student_id: student_list}).round%><%=w%></th>
+    <th><%= m + r + w %></th>
+  </tr>
+  <tr>
+    <th>Maximum</th>
+    <th><% m = Score.maximum(:math, :conditions => {test_id: 3, student_id: student_list}).round%><%=m%></th>
+    <th><% r = Score.maximum(:reading, :conditions => {test_id: 3, student_id: student_list}).round%><%=r%></th>
+    <th><% w = Score.maximum(:writing, :conditions => {test_id: 3, student_id: student_list}).round%><%=w%></th>
+    <th></th>
+    <th><% m = Score.maximum(:math, :conditions => {test_id: 5, student_id: student_list}).round%><%=m%></th>
+    <th><% r = Score.maximum(:reading, :conditions => {test_id: 5, student_id: student_list}).round%><%=r%></th>
+    <th><% w = Score.maximum(:writing, :conditions => {test_id: 5, student_id: student_list}).round%><%=w%></th>
+    <th></th>
+  </tr>
+  <tr>
+    <th>Minimum</th>
+    <th><% m = Score.minimum(:math, :conditions => {test_id: 3, student_id: student_list}).round%><%=m%></th>
+    <th><% r = Score.minimum(:reading, :conditions => {test_id: 3, student_id: student_list}).round%><%=r%></th>
+    <th><% w = Score.minimum(:writing, :conditions => {test_id: 3, student_id: student_list}).round%><%=w%></th>
+    <th></th>
+    <th><% m = Score.minimum(:math, :conditions => {test_id: 5, student_id: student_list}).round%><%=m%></th>
+    <th><% r = Score.minimum(:reading, :conditions => {test_id: 5, student_id: student_list}).round%><%=r%></th>
+    <th><% w = Score.minimum(:writing, :conditions => {test_id: 5, student_id: student_list}).round%><%=w%></th>
+    <th></th>
+  </tr>
 </table>

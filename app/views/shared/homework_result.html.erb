@@ -1,3 +1,5 @@
+<% provide(:title, @student.full_name) %>
+
 <h1 class="secondary">Homework results for <%= @student.full_name %><br>
 <small><%= @hw.name %></small></h1>
 <%=link_to "Send Hints", send_hints_student_homework_path(@student, @hw), class: "btn btn-primary" %>

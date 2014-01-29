@@ -1,0 +1,24 @@
+<div class= "form-group">
+  <%=f.label :name, "Site Name" %>
+  <%=f.text_field :name, class: "form-control" %>
+</div>
+<div class= "form-group">
+  <%=f.label :abbreviation, "Abbreviation for Site Name" %>
+  <%=f.text_field :abbreviation, class: "form-control" %>
+</div>
+<div class= "form-group">
+  <%=f.label :cp_contact_name, "Name of Community Partner Contact" %>
+  <%=f.text_field :cp_contact_name, class: "form-control" %>
+</div>
+<div class= "form-group">
+  <%=f.label :cp_email, "Community Partner Email Address" %>
+  <%=f.text_field :cp_email, class: "form-control" %>
+</div>
+<div class= "form-group">
+  <%=f.label :student_file, "Upload Student List" %>
+  <%= f.file_field :student_file, class: "form-control" %>
+</div>
+<div class= "form-group">
+  <%=f.label :tutor_file, "Upload Tutor List" %>
+  <%= f.file_field :tutor_file, class: "form-control" %>
+</div>

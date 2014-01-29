@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140127010411) do
+ActiveRecord::Schema.define(version: 20140128054820) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -142,6 +142,7 @@ ActiveRecord::Schema.define(version: 20140127010411) do
     t.integer  "team_leader_id"
     t.string   "leader_email"
     t.string   "cp_nickname"
+    t.string   "abbreviation"
   end
 
   create_table "students", force: true do |t|

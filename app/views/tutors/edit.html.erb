@@ -1,12 +1,12 @@
 <% provide(:title,"Update Profile")%>
 
-<h1> Update Profile 
+<h1 class="secondary"> Update Profile 
   <% if @tutor !=current_user %>
     for <%= @tutor.full_name %>
   <% end %>
 </h1>
 
-<div class="col-md-5 col-md-offset-2">
+<div class="col-sm-5 col-sm-offset-1">
   <%= form_for @tutor do |f| %>
 
     <%= render 'fields', f: f %>

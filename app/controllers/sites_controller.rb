@@ -14,6 +14,16 @@ class SitesController < ApplicationController
     end
   end
 
+  def edit
+    @site = Site.find(params[:id])
+  end
+
+  def update
+    @site = Site.find(params[:id])
+    @site.update_attributes(site_params)
+    redirect_to @site
+  end
+
   def show
     @site = Site.find(params[:id])
     @students = @site.students.sort_by{|s| s.tutor.first_name}
@@ -78,6 +88,6 @@ class SitesController < ApplicationController
   private
 
     def site_params
-      params.require(:site).permit(:name, :cp_contact_name, :cp_email)
+      params.require(:site).permit(:name, :abbreviation, :cp_contact_name, :cp_email)
     end
 end
