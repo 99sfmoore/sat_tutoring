@@ -58,6 +58,7 @@ SatApp::Application.routes.draw do
   resources :tutors do
     resources :lesson_plans, only:[:index]
     resources :tests, only: [:show]
+    resources :homeworks, only: [:show]
     member do
       get :show_scores
     end

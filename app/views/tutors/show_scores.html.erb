@@ -7,7 +7,7 @@
 
 <% @tests.each do |t| %>
   <p>
-  <%= link_to "View Group Answers for #{t.name}", "#" %>
+  <%= link_to "View Group Answers for #{t.name}", tutor_test_path(@tutor, t) %>
   </p>
   <% Segment.all.each do |s| %>
     <p>

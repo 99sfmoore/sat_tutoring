@@ -7,7 +7,14 @@ class HomeworksController < ApplicationController
 
   def show
     @hw = Homework.find(params[:id])
-    @student = Student.find(params[:student_id])
+    if params[:student_id]
+      @student = Student.find(params[:student_id])
+      @students = [@student]
+    elsif params[:tutor_id]
+      @tutor = Tutor.find(params[:tutor_id])
+      @students = @tutor.students
+      render 'group_homework'
+    end
   end
 
   def index

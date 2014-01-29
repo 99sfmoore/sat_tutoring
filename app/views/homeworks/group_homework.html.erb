@@ -1,0 +1,25 @@
+<h1 class="secondary">Homework to Review for <%= @tutor.full_name %>'s Group<br>
+<small><%= @hw.name %></small></h1>
+
+<br><br>
+<% @hw.sections.each do |section| %>
+  <strong><%= section.name %></strong> 
+  <table class = "table">
+    <tr>
+      <th>Question #</th>
+      <th>Correct Answer</th>
+      <% @students.each do |s| %>
+        <th><%= s.first_name %> Answer</th>
+      <% end %>
+    </tr>
+    <% section.questions.each do |q| %>
+      <tr>
+        <td><%=q.question_num%></td>
+        <td><%=q.correct_answer%></td>
+        <% @students.each do |s| %>
+        <td><%= q.student_answer(s) unless q.correct?(s) %></td>
+          <% end %>
+      </tr>
+    <% end %>
+  </table>
+<%end %>
