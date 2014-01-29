@@ -1,6 +1,6 @@
 class HwHintsController < ApplicationController
 
-  def new
+  def new #not sure if I use this anymore
     @hint = HwHint.new
     @question = Question.find(params[:question_id])
     session[:return_to] ||= request.referer
@@ -30,7 +30,7 @@ class HwHintsController < ApplicationController
     @assignment = Assignment.find(params[:assignment_id])
     @student = @assignment.student
     @hint = HwHint.new
-    session[:return_to] ||= request.referer
+    session[:return_to] = request.referer
   end
 
   def choose_hint

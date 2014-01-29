@@ -6,6 +6,8 @@ class Score < ActiveRecord::Base
   validates :math, numericality: { greater_than_or_equal_to: 200, less_than_or_equal_to: 800 }
   validates :reading, numericality: { greater_than_or_equal_to: 200, less_than_or_equal_to: 800 }
   validates :writing, numericality: { greater_than_or_equal_to: 200, less_than_or_equal_to: 800 }
+  
+
   def total
     math + reading + writing
   end
