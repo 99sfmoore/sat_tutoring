@@ -1,8 +1,9 @@
 <% provide(:title, @lessonplan.name) %>
 
-<h1>Edit <%= @lessonplan.name %></h1>
+<h1 class="secondary">Edit Lesson Plan<br>
+<small><%= @lessonplan.name %></h1>
 
-<div class="col-md-5 col-md-offset-2">
+<div class="col-md-6 col-md-offset-2">
 
 <%= form_tag lesson_plan_path(@lessonplan), method: :put do %>
   

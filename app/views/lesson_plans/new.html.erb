@@ -3,7 +3,7 @@
 <h1 class="secondary">Create Lesson Plan <br>
 <span class="small subtle">Session #<%=@meeting.session_number %>, <%= @meeting.date.strftime("%B %d")%></span></h1>
 
-<div class="col-sm-6 offset-col-sm-6">
+<div class="col-sm-6 offset-col-sm-2">
 
 <%= form_tag group_meeting_tutor_lesson_plans_path(@meeting, @tutor) do %>
   

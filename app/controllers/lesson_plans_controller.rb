@@ -3,7 +3,7 @@ class LessonPlansController < ApplicationController
     @lessonplan = LessonPlan.new
     @meeting = GroupMeeting.find(params[:group_meeting_id])
     @tutor = Tutor.find(params[:tutor_id])
-    session[:return_to] ||= request.referer
+    session[:return_lp] = tutor_lesson_plans_path(current_user)
   end
 
   def index
@@ -25,7 +25,7 @@ class LessonPlansController < ApplicationController
       end
     end
     @lessonplan.save
-    redirect_to session.delete(:return_to)
+    redirect_to session.delete(:return_lp)
   end
 
   def show
@@ -35,14 +35,14 @@ class LessonPlansController < ApplicationController
 
   def edit
     @lessonplan = LessonPlan.find(params[:id])
-    unless current_user == lessonplan.tutor || current_user.leader? || current_user.admin?
+    unless current_user == @lessonplan.tutor || current_user.leader? || current_user.admin?
       redirect_to root_url
     end
     @homework_sections = []
     @lessonplan.homeworks.each do |hw|
       @homework_sections.concat(hw.sections)
     end
-    session[:return_to] ||= request.referer
+    session[:return_lp] = tutor_lesson_plans_path(current_user)
   end
 
   def update
@@ -68,7 +68,7 @@ class LessonPlansController < ApplicationController
       hw.save
     end 
     @lessonplan.save
-    redirect_to session.delete(:return_to)
+    redirect_to session.delete(:return_lp)
   end
 
   def homework_sheet

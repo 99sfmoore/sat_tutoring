@@ -20,4 +20,11 @@ class GroupMeetingsController < ApplicationController
     @site = Site.find(params[:site_id])
   end
 
+  def find_lesson_plan
+    @groupmeeting = GroupMeeting.find(params[:id])
+    @lessonplan = current_user.lesson_plans.find_by(group_meeting: @groupmeeting)
+    redirect_to @lessonplan
+  end
+    
+
 end

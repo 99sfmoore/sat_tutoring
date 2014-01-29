@@ -5,7 +5,7 @@ class LessonPlan < ActiveRecord::Base
   has_many :homeworks, dependent: :destroy
 
   def name
-    "Session \##{group_meeting.session_number} Lesson Plan"
+    "Session \##{group_meeting.session_number} - #{group_meeting.date.strftime("%B %d")}"
   end
 
   def number
