@@ -13,13 +13,17 @@ class HomeworksController < ApplicationController
     elsif params[:tutor_id]
       @tutor = Tutor.find(params[:tutor_id])
       @students = @tutor.students
-      render 'group_homework'
     end
   end
 
   def index
-    @student = Student.find(params[:student_id])
-    @hws = @student.past_homeworks
+    if params[:student_id]
+      @student = Student.find(params[:student_id])
+      @hws = @student.past_homeworks
+    elsif params[:tutor_id]
+      @tutor = Tutor.find(params[:tutor_id])
+      @hws = @tutor.homeworks.sort_by{|hw| hw.number}
+    end
   end
 
   def checked_homework

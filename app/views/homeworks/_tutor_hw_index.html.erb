@@ -1,0 +1,10 @@
+<% provide(:title, "#{@tutor.full_name} Homework") %>
+
+<%= render 'shared/tutor_header_nav', tutor: @tutor, active_tab: "homework" %>
+
+
+    <% @hws.each do |hw| %>
+      <%= link_to hw.name, tutor_homework_path(@tutor, hw)%>
+      <br>
+      <br>
+    <% end %>

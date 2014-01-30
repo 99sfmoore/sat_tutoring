@@ -10,6 +10,7 @@
   <li <%= 'class=active' if active_tab == "students" %>><%= link_to "Students", tutor_path(tutor) %></li>
   <li <%= 'class=active' if active_tab == "scores" %>> <%= link_to "Scores", show_scores_tutor_path(tutor) %></li>
   <li <%= 'class=active' if active_tab == "lesson_plans" %>> <%= link_to "Lesson Plans", tutor_lesson_plans_path(tutor) %></li>
+  <li <%= 'class=active' if active_tab == "homework" %>> <%= link_to "Homework", tutor_homeworks_path(tutor) %></li>
 </ul>
 
 <br>

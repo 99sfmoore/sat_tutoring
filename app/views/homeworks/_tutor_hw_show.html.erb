@@ -8,7 +8,7 @@
     <tr>
       <th>Question #</th>
       <th>Correct Answer</th>
-      <% @students.each do |s| %>
+      <% @tutor.students.each do |s| %>
         <th><%= s.first_name %> Answer</th>
       <% end %>
     </tr>
@@ -16,7 +16,7 @@
       <tr>
         <td><%=q.question_num%></td>
         <td><%=q.correct_answer%></td>
-        <% @students.each do |s| %>
+        <% @tutor.students.each do |s| %>
         <td><%= q.student_answer(s) unless q.correct?(s) %></td>
           <% end %>
       </tr>

@@ -1,0 +1,31 @@
+<h1 class="secondary">Homework results for <%= @student.full_name %><br>
+<small><%= @hw.name %></small></h1>
+<%=link_to "Send Hints", send_hints_student_homework_path(@student, @hw), class: "btn btn-primary" %>
+<br><br>
+<% @hw.sections.each do |section| %>
+  <strong><%= section.name %></strong> 
+  <table class = "table">
+    <tr>
+      <th>Question #</th>
+      <th>Correct Answer</th>
+      <th><%= @student.first_name %> Answer</th>
+      <th>Correct?</th>
+    </tr>
+    <% section.questions.each do |q| %>
+      <tr>
+        <td><%=q.question_num%></td>
+        <td><%=q.correct_answer%></td>
+        <td><%= q.student_answer(@student) %></td>
+        <td>
+          <% if q.correct?(@student) %>YES
+          <% else %> <span class="wrong">NO</span>
+          <%end %>
+        </td>
+      </tr>
+    <% end %>
+  </table>
+<%end %>
+<%=link_to "Send Hints", send_hints_student_homework_path(@student, @hw), class: "btn btn-primary" %>
+
+
+

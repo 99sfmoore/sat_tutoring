@@ -1,0 +1,26 @@
+<% provide(:title, Homework) %>
+
+<h1 class="secondary">Send Homework Emails<br>
+  <small>Homework #<%= @lessonplan.number %></small>
+</h1>
+
+<%= form_tag send_hw_emails_lesson_plan_path(@lessonplan) do %>
+  <% @homeworks.each do |hw| %>
+    <h4 class="primary"><%= hw.name %></h4>
+    <h5 class="strong">Send to:</h5>
+    <%= render 'student_checkboxes', students: @tutor.students, hw:hw %>
+    <h5 class="strong">Assignment:</h5>
+    <% hw.sections.each do |section|%>
+      <p>
+        <%=section.name%>
+      </p>
+    <% end %>
+
+    <div class="form-group">
+      <%= label_tag "#{hw.id}[message]", "Message to students" %>
+      <%= text_area_tag "#{hw.id}[message]", "", rows: 10, class: "form-control" %>
+    </div>
+  <% end %>
+
+  <%= submit_tag "Send Emails", class: "btn btn-primary" %>
+<% end %>

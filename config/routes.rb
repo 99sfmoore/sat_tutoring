@@ -58,7 +58,7 @@ SatApp::Application.routes.draw do
   resources :tutors do
     resources :lesson_plans, only:[:index]
     resources :tests, only: [:show]
-    resources :homeworks, only: [:show]
+    resources :homeworks, only: [:show, :index]
     member do
       get :show_scores
     end
@@ -84,6 +84,8 @@ SatApp::Application.routes.draw do
   resources :lesson_plans, only: [:show, :edit, :update] do
     member do
       get :homework_sheet
+      get :hw_email
+      post :send_hw_emails
     end
   end
 

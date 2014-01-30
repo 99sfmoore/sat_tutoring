@@ -1,3 +1,4 @@
+require 'pry-nav'
 class LessonPlansController < ApplicationController
   def new
     @lessonplan = LessonPlan.new
@@ -74,6 +75,29 @@ class LessonPlansController < ApplicationController
   def homework_sheet
     @lessonplan = LessonPlan.find(params[:id])
     @homeworks = @lessonplan.homeworks
+  end
+
+  def hw_email
+    @lessonplan = LessonPlan.find(params[:id])
+    @homeworks = @lessonplan.homeworks
+    @tutor = @lessonplan.tutor
+  end
+
+  def send_hw_emails
+    lessonplan = LessonPlan.find(params[:id])
+    lessonplan.homeworks.each do |hw|
+      if params[hw.id.to_s]
+        info = params[hw.id.to_s]
+        info.each do |key, value|
+          unless key == "message"
+            s = Student.find(key.to_i)
+            StudentMailer.hw_email(s, current_user, hw, info["message"]).deliver
+          end
+        end
+      end
+    end
+    flash[:success] = "Homework emails sent"
+    redirect_to current_user
   end
 
 

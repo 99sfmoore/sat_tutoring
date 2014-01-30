@@ -1,11 +1,8 @@
-<% provide(:title, "#{@student.full_name} Homework") %>
+<% if @student %>
+  <%= render 'student_hw_index', student: @student, hws: @hws %>
+<% elsif @tutor %>
+  <%= render 'tutor_hw_index', tutor: @tutor, hws: @hws %>
+<% end %>
 
-<%= render 'shared/student_header_nav', student: @student, active_tab: "homework" %>
 
-
-    <% @hws.each do |hw| %>
-      <%= link_to hw.name, student_homework_path(@student, hw)%>
-      <br>
-      <br>
-    <% end %>
  

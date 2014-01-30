@@ -1,47 +1,5 @@
-<h1 class="secondary">Homework results for 
-  <% if @student %>
-    <%= @student.full_name %><br>
-  <% elsif @tutor %>
-    <%= @tutor.full_name %> Group<br>
-  <%end %>
-<small><%= @hw.name %></small></h1>
 <% if @student %>
-  <%=link_to "Send Hints", send_hints_student_homework_path(@student, @hw), class: "btn btn-primary" %>
+  <%= render 'student_hw_show', student: @student, hw: @hw %>
+<% elsif @tutor %>
+  <%= render 'tutor_hw_show', tutor: @tutor, hw: @hw %>
 <% end %>
-<br><br>
-<% @hw.sections.each do |section| %>
-  <strong><%= section.name %></strong> 
-  <table class = "table">
-    <tr>
-      <th>Question #</th>
-      <th>Correct Answer</th>
-      <% @students.each do |s| %>
-        <th><%= s.first_name %> Answer</th>
-      <% end %>
-      <% @students.each do |s| %>
-        <th><%= s.first_name %> Correct?</th>
-      <% end %>
-    </tr>
-    <% section.questions.each do |q| %>
-      <tr>
-        <td><%=q.question_num%></td>
-        <td><%=q.correct_answer%></td>
-        <% @students.each do |s| %>
-        <td><%= q.student_answer(s) %></td>
-          <% end %>
-        <% @students.each do |s| %>
-        <td>
-          <% if q.correct?(s) %>YES
-          <% else %> <span class="wrong">NO</span>
-          <%end %>
-        </td>
-        <% end %>
-      </tr>
-    <% end %>
-  </table>
-<%end %>
-<% if @student %>
-<%=link_to "Send Hints", send_hints_student_homework_path(@student, @hw), class: "btn btn-primary" %>
-<% end %>
-
-
