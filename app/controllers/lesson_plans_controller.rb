@@ -1,4 +1,3 @@
-require 'pry-nav'
 class LessonPlansController < ApplicationController
   def new
     @lessonplan = LessonPlan.new
