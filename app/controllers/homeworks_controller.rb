@@ -60,6 +60,19 @@ class HomeworksController < ApplicationController
     redirect_to current_user
   end
 
+  def second_try
+    @hw = Homework.find(params[:id])
+    @student = Student.find(params[:student_id])
+  end
+
+  def second_checked_homework
+    @hw = Homework.find(params[:id])
+    @student = Student.find(params[:student_id])
+    @student.check_second(@hw, params)
+    @student.save
+    redirect_to [@student, @hw]
+  end
+
 
 
 end

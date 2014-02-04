@@ -22,6 +22,8 @@ SatApp::Application.routes.draw do
         post :checked_homework
         get :send_hints
         post :send_email
+        get :second_try
+        post :second_checked_homework
       end
     end
     resources :tests, only: [:show] 

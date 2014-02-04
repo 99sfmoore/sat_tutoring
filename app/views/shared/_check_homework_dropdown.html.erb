@@ -4,7 +4,14 @@
   </button>
   <ul class="dropdown-menu", role="menu">
     <% student.open_homeworks.each do |hw| %>
-    <li><%= link_to hw.name, check_homework_student_homework_path(student, hw)%></li>
+      <li><%= link_to hw.name, check_homework_student_homework_path(student, hw)%></li>
+    <% end %>
+    <% if student.second_try_homeworks %>
+      <li class="divider"></li>
+      <li><em>Second Try</em></li>
+    <% student.second_try_homeworks.each do |hw| %>
+      <li><%= link_to hw.name, second_try_student_homework_path(student, hw) %></li>
+    <% end %>
     <% end %>
   </ul>
 </div>

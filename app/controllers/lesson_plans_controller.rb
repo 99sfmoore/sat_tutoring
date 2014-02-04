@@ -21,7 +21,8 @@ class LessonPlansController < ApplicationController
       unless params["homework#{n}"] == ""
         hw_section = Section.find(params["homework#{n}"])
         hw = Homework.find_or_create_by(lesson_plan: @lessonplan, segment: hw_section.segment)
-        hw.sections << hw_section 
+        hw.sections << hw_section
+        hw.update_attributes(second_try: true) if params["second_try#{n}"]
       end
     end
     @lessonplan.save
@@ -39,8 +40,10 @@ class LessonPlansController < ApplicationController
       redirect_to root_url
     end
     @homework_sections = []
+    @second_try = {}
     @lessonplan.homeworks.each do |hw|
       @homework_sections.concat(hw.sections)
+      @second_try[hw.segment] = hw.second_try
     end
     session[:return_lp] = tutor_lesson_plans_path(current_user)
   end
@@ -50,9 +53,11 @@ class LessonPlansController < ApplicationController
     @lessonplan.update_attributes(notes: params[:notes], other_hw: params[:other_hw], post_notes: params[:post_notes])
     @lessonplan.sections = []
     hw_sections = []
+    second_tries = {}
     4.times do |n|
       @lessonplan.sections << Section.find(params["section#{n}"]) unless params["section#{n}"] == ""
       hw_sections << Section.find(params["homework#{n}"]) unless params["homework#{n}"] == ""
+      second_tries[hw_sections.last.segment] = true if params["second_try#{n}"] 
     end
     hw_segments = hw_sections.group_by {|sec| sec.segment}
     @lessonplan.homeworks.each do |hw|
@@ -65,6 +70,7 @@ class LessonPlansController < ApplicationController
     hw_segments.each do |segment, sections|
       hw = Homework.find_or_create_by(lesson_plan: @lessonplan, segment: segment)
       hw.sections = sections
+      hw.second_try = second_tries[segment]
       hw.save
     end 
     @lessonplan.save

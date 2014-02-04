@@ -47,8 +47,21 @@ class Student < ActiveRecord::Base
         q.save
       end
     end
-    self.assignments.build(homework: hw, complete: true)
+    a = self.assignments.build(homework: hw, complete: true)
+    a.update_attributes(second_try: "pending") if hw.second_try?
     self.save
+  end
+
+  def check_second(hw,param_hash)
+    hw.sections.each do |section|
+      section.questions.each do |q|
+        unless q.correct?(self)
+          a = answers.find_by(question: q)
+          a.update_attributes(second_try: param_hash[q.id.to_s].upcase)
+        end
+      end
+    end
+    assignments.find_by(homework: hw).update_attributes(second_try: "complete")
   end
 
   def raw_score(test, segment)
@@ -110,6 +123,10 @@ class Student < ActiveRecord::Base
       result << hw unless Assignment.where("student_id = ? AND homework_id = ?",self.id, hw.id).first
     end
     result.sort_by{|hw| hw.number}
+  end
+
+  def second_try_homeworks
+    self.assignments.where("second_try = ?", "pending").map {|a| a.homework}
   end
 
   def past_homeworks

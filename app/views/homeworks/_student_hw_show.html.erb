@@ -10,6 +10,10 @@
       <th>Correct Answer</th>
       <th><%= @student.first_name %> Answer</th>
       <th>Correct?</th>
+      <% if @hw.second_try? %>
+        <th>Second Try</th>
+        <th>Second Try Correct?</th>
+      <% end %>
     </tr>
     <% section.questions.each do |q| %>
       <tr>
@@ -19,8 +23,15 @@
         <td>
           <% if q.correct?(@student) %>YES
           <% else %> <span class="wrong">NO</span>
-          <%end %>
+          <% end %>
         </td>
+        <% if @hw.second_try %>
+          <td><%= q.second_try(@student) %></td>
+          <td><% if q.second_correct?(@student) %>YES
+            <% elsif q.second_try(@student) %> <span class="wrong">NO</span>
+            <%end%>
+          </td>
+        <% end %>
       </tr>
     <% end %>
   </table>

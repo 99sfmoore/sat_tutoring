@@ -17,6 +17,8 @@ class Question < ActiveRecord::Base
     a ? a.answer_choice : "-"
   end
 
+ 
+  
   def correct?(student)
     if grid_in?
       student_answer(student).to_f == self.correct_answer.to_f
@@ -32,6 +34,14 @@ class Question < ActiveRecord::Base
   def incorrect?(student)
     !correct?(student) && !omitted?(student)
   end
+
+  def second_try(student)
+    answers.find_by(student: student).second_try
+  end
+
+  def second_correct?(student)
+    second_try(student) == correct_answer
+  end 
 
   private
     def question_params
