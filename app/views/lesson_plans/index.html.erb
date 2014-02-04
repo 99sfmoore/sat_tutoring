@@ -21,7 +21,8 @@
             <% plan = @lessonplans.detect{|p| p.group_meeting == meeting} %>
             <div class="pull-right">
               <%= link_to "edit", edit_lesson_plan_path(plan) %><br>
-              <%= link_to "send homework emails", hw_email_lesson_plan_path(plan) %>
+              <%= link_to "send homework emails", hw_email_lesson_plan_path(plan) %><br>
+              <%= link_to "print homework sheet", homework_sheet_lesson_plan_path(plan) %>
             </div>
             <%= render 'shared/show_plan', plan: plan %>
           <% else %>

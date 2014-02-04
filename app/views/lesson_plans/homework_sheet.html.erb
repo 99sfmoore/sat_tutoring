@@ -19,8 +19,10 @@
   <p class="hw-header">Vocabulary</p>
   <ul class="hw-section">
     <li> Make flashcards for and learn this week's words from the Vocabulary Book. </li>
-    <li> <%= @lessonplan.vocab_hw %></li>
-    <li> "Reply All" to SAT Vocabulary Homework #<%=@lessonplan.number %> email with your work by <strong><%=(@lessonplan.group_meeting.date + 6.days).strftime("%A, %B %e")%></strong>.</li>
+    <% unless @lessonplan.vocab_hw.nil? || @lessonplan.vocab_hw == "" %>
+      <li> <%= @lessonplan.vocab_hw %></li>
+      <li> "Reply All" to SAT Vocabulary Homework #<%=@lessonplan.number %> email with your work by <strong><%=(@lessonplan.group_meeting.date + 6.days).strftime("%A, %B %e")%></strong>.</li>
+    <% end %>
   </ul>
 
   <% @homeworks.each do |hw| %>

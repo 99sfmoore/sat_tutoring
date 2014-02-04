@@ -129,6 +129,10 @@ border-color: $my-secondary;
   background-color: $my-primary;
   border-color: $my-primary;
 }
+
+.panel-matrix {
+  page-break-inside: avoid !important;
+}
 .nav-pills > li.active > a, .nav-pills > li.active > a:hover, .nav-pills  > li.active > a:focus  {
   background-color: $my-secondary;
   color: white;
@@ -257,6 +261,7 @@ ul.hw-section {
     content: none;
   }
 
+  
   // div[class|=col-] {float:left;}
   // .col-sm-4 {width:33%}
 }

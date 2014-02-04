@@ -1,11 +1,13 @@
 <% provide(:title, "Matrix for #{@student.full_name}") %>
 
+
 <h1><%= link_to @student.full_name, @student, class: "secondary" %><br> 
 <small>Hit-Try Matrix</small></h1>
 <br>
 
+
 <% @segments.each do |seg| %>
-  <div class="panel panel-primary">
+  <div class="panel panel-primary panel-matrix">
     <div class="panel-heading">
       <h2 class="panel-title"><%=seg.name%></h2>
     </div>
@@ -19,16 +21,16 @@
       <thead>
         <tr>
           <th>Hit Rate</th>
-          <% @try_range.each do |try| %>
+          <% @try_range[seg].each do |try| %>
             <th><%=try %>%</th>
           <% end %>
         </tr>
       </thead>
       </tbody>  
-      <% @hit_range.each do |hit| %>
+      <% @hit_range[seg].each do |hit| %>
         <tr>
           <th><%=hit %>%</th>
-          <% @try_range.each do |try| %>
+          <% @try_range[seg].each do |try| %>
             <td <%='class=td-bordered' if @boxes[seg].include?([hit,try])%>><%= @conversion.scale(seg,hit,try) %> </td>
           <% end %>
         </tr>

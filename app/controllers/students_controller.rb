@@ -121,16 +121,25 @@ class StudentsController < ApplicationController
   def hit_try_matrix
     @student = Student.find(params[:id])
     @conversion = Test.find_by_name("Basic Conversion Chart")
-    @segments = Segment.all
+    @segments = Segment.all.delete_if {|s| s.name == "Vocabulary"}
+    # @segments.delete.where(name: "Vocabulary")
     @tests = Test.find([3,5])
     @boxes = Hash.new{Array.new}
-    @try_range = (50..100).step(5).to_a
-    @hit_range = (50..100).step(10).to_a
+    @try_range = Hash.new{(50..100).step(5).to_a}
+    @hit_range = Hash.new{(50..100).step(10).to_a}
     @segments.each do |seg|
       @tests.each do |test|
         try = @student.try_rate(test,seg)
         hit = @student.hit_rate(test,seg)
-        @boxes[seg] = @boxes[seg]<< [hit.round(-1),(try/5.0).round*5]
+        if @student.full_name == "Kawan Hernandez"
+          @try_range[seg] = (20..100).step(10).to_a
+          @hit_range[seg] = (20..100).step(10).to_a
+          @boxes[seg] = @boxes[seg] << [hit.round(-1),(try/10.0).round*10]
+        else
+          @try_range[seg] = ((try/5 * 5)..100).step(5).to_a if try < 50
+          @hit_range[seg] = ((hit/10 * 10)..100).step(5).to_a if hit < 50
+          @boxes[seg] = @boxes[seg]<< [hit.round(-1),(try/5.0).round*5]
+        end
       end
     end
   end
