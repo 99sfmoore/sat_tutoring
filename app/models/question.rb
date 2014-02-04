@@ -14,7 +14,7 @@ class Question < ActiveRecord::Base
 
   def student_answer(student)
     a = self.answers.where(student: student).first
-    a ? a.answer_choice : "-"
+    a ? a.answer_choice : ""
   end
 
  

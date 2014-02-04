@@ -3,6 +3,7 @@ class Site < ActiveRecord::Base
   has_many :students
   has_many :tutors
   has_many :group_meetings
+  has_many :practice_tests
   belongs_to :team_leader, class_name: 'Tutor', foreign_key: :team_leader_id
 
   def add_students_from_file(filename)

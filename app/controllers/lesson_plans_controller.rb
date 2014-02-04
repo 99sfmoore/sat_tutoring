@@ -15,7 +15,7 @@ class LessonPlansController < ApplicationController
   def create
     @meeting = GroupMeeting.find(params[:group_meeting_id])
     @tutor = Tutor.find(params[:tutor_id])
-    @lessonplan = LessonPlan.create(tutor: @tutor, group_meeting: @meeting, notes: params[:notes], other_hw: params[:other_hw], post_notes: params[:post_notes])
+    @lessonplan = LessonPlan.create(tutor: @tutor, group_meeting: @meeting, notes: params[:notes], vocab_hw: params[:vocab_hw], other_hw: params[:other_hw], post_notes: params[:post_notes])
     4.times do |n|
       @lessonplan.sections << Section.find(params["section#{n}"]) unless params["section#{n}"] == ""
       unless params["homework#{n}"] == ""
@@ -50,7 +50,7 @@ class LessonPlansController < ApplicationController
 
   def update
     @lessonplan = LessonPlan.find(params[:id])
-    @lessonplan.update_attributes(notes: params[:notes], other_hw: params[:other_hw], post_notes: params[:post_notes])
+    @lessonplan.update_attributes(notes: params[:notes], vocab_hw: params[:vocab_hw], other_hw: params[:other_hw], post_notes: params[:post_notes])
     @lessonplan.sections = []
     hw_sections = []
     second_tries = {}
@@ -90,6 +90,15 @@ class LessonPlansController < ApplicationController
 
   def send_hw_emails
     lessonplan = LessonPlan.find(params[:id])
+    if params["vocab"]
+      info = params["vocab"]
+      info.each do |key, value|
+        unless key == "message"
+          s = Student.find(key.to_i)
+          StudentMailer.vocab_email(s, current_user, lessonplan.number, info["message"]).deliver
+        end
+      end
+    end
     lessonplan.homeworks.each do |hw|
       if params[hw.id.to_s]
         info = params[hw.id.to_s]

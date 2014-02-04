@@ -1,29 +1,29 @@
 
 <%= label_tag "All" %>
-<%=check_box_tag "selectAll#{hw.id}", "all", true, class: "checkbox-inline"  %>
+<%=check_box_tag "selectAll#{hw}", "all", true, class: "checkbox-inline"  %>
 
 <% students.each do |s| %>
-    <%= label_tag "#{hw.id}[#{s.id}]", s.first_name %>
-    <%= check_box_tag "#{hw.id}[#{s.id}]", s.id, true, class: "checkbox-inline" %>
+    <%= label_tag "#{hw}[#{s.id}]", s.first_name %>
+    <%= check_box_tag "#{hw}[#{s.id}]", s.id, true, class: "checkbox-inline" %>
 <% end %>
 
 <script>
-$('#selectAll<%=hw.id%>').click(function() {
+$('#selectAll<%=hw%>').click(function() {
    if (this.checked) {
-       $('input[id^="<%=hw.id%>"').each(function() {
+       $('input[id^="<%=hw%>"').each(function() {
            this.checked = true;                        
        });
    } else {
-      $('input[id^="<%=hw.id%>"').each(function() {
+      $('input[id^="<%=hw%>"').each(function() {
            this.checked = false;                     
        });
    } 
 });
 
-// $('input[class="<%=hw.id%>"]').click(function() {
+// $('input[class="<%=hw%>"]').click(function() {
 //   if (!this.checked) {
 //     alert("hi")
-//     $('#selectAll<%=hw.id%>').function() {
+//     $('#selectAll<%=hw%>').function() {
 //       this.checked = false;
 //     }
 //   }

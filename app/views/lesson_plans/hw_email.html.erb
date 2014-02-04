@@ -5,10 +5,24 @@
 </h1>
 
 <%= form_tag send_hw_emails_lesson_plan_path(@lessonplan) do %>
+  <% unless @lessonplan.vocab_hw.nil? or @lessonplan.vocab_hw == "" %>
+    <h4 class="primary">Vocabulary #<%= @lessonplan.number%></h4>
+    <h5 class="strong">Send to:</h5>
+    <%= render 'student_checkboxes', students: @tutor.students, hw:"vocab" %>
+    <h5 class="strong">Assignment:</h5>
+    <p>
+      <%=@lessonplan.vocab_hw%>
+    </p>
+    <div class="form-group">
+      <%= label_tag "vocab[message]", "Message to students" %>
+      <%= text_area_tag "vocab[message]", "", rows: 10, class: "form-control" %>
+    </div>
+  <% end %>
+
   <% @homeworks.each do |hw| %>
     <h4 class="primary"><%= hw.name %></h4>
     <h5 class="strong">Send to:</h5>
-    <%= render 'student_checkboxes', students: @tutor.students, hw:hw %>
+    <%= render 'student_checkboxes', students: @tutor.students, hw:hw.id %>
     <h5 class="strong">Assignment:</h5>
     <% hw.sections.each do |section|%>
       <p>

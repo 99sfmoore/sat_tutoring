@@ -14,22 +14,28 @@
 </div>
 <br><br>
 
-<p class="hw-header">Vocabulary</p>
-<ul class="hw-section">
-  <li> Make flashcards for and learn this week's words in the Vocabulary Book. </li>
-  <li> "Reply All" to SAT Vocabulary Homework #<%=@lessonplan.number %> email with 6 sentences that each use 1 vocabulary word by <%=(@lessonplan.group_meeting.date + 6.days).strftime("%A, %B %e")%>.</li>
-</div>
 
-<% @homeworks.each do |hw| %>
-  <p class="hw-header"><%= hw.segment.name %></p>
+<div class="col-xs-10">
+  <p class="hw-header">Vocabulary</p>
   <ul class="hw-section">
-    <% hw.sections.each do |s| %>
-    <li> Do all questions on <%= s.page_range %> of Kaplan Book. </li> 
-    <%end%>
-    <li> "Reply All" to SAT <%= hw.segment.name%> Homework #<%=@lessonplan.number %> email with your answers by <%=(@lessonplan.group_meeting.date + 6.days).strftime("%A, %B %e")%>.</li>
+    <li> Make flashcards for and learn this week's words from the Vocabulary Book. </li>
+    <li> <%= @lessonplan.vocab_hw %></li>
+    <li> "Reply All" to SAT Vocabulary Homework #<%=@lessonplan.number %> email with your work by <strong><%=(@lessonplan.group_meeting.date + 6.days).strftime("%A, %B %e")%></strong>.</li>
   </ul>
-<%end %>
 
+  <% @homeworks.each do |hw| %>
+    <p class="hw-header"><%= hw.segment.name %></p>
+    <ul class="hw-section">
+      <% hw.sections.each do |s| %>
+      <li> Do all questions on <%= s.page_range %> of Kaplan Book. </li> 
+      <%end%>
+      <li> "Reply All" to SAT <%= hw.segment.name%> Homework #<%=@lessonplan.number %> email with your answers by <% if hw.second_try? %>
+          <strong><%=(@lessonplan.group_meeting.date + 5.days).strftime("%A, %B %e")%></strong>.  Then "Reply All" again with answers to any questions that you missed by 
+          <% end %>
+          <strong><%=(@lessonplan.group_meeting.date + 6.days).strftime("%A, %B %e")%></strong>.</li>
+    </ul>
+  <%end %>
 
-
+  </div>
+</div>
 

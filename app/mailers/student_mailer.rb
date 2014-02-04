@@ -24,4 +24,15 @@ class StudentMailer < ActionMailer::Base
           bcc: @sender.email_for_students,
           subject: @hw.email_subject)
   end
+
+  def vocab_email(student,sender, number, message)
+    @student = student
+    @sender = sender
+    @message = message
+    mail(to: "#{@student.full_name} <#{@student.email}>",
+          from: "#{@sender.full_name} <#{@sender.email_for_students}>",
+          cc: [@student.site.leader_email, @student.site.cp_email, (@student.tutor.email_for_students unless @student.tutor == @sender)],
+          bcc: @sender.email_for_students,
+          subject: "SAT Vocabulary Homework \##{number}")
+  end
 end
