@@ -9,12 +9,12 @@
     <div class="col-xs-3"> 
       <%= image_tag student.avatar.url(:small) %>
     </div>
-    <div class="col-xs-6">
+    <div class="col-xs-8">
       <h3><%= student.full_name %></h3><br>
         <div class="info-block">
         <em><%= student.high_school %></em><br>
         <strong>Registration Number:</strong> <%= "#{rand(10)}#{rand(10)}#{rand(10)}#{rand(10)}#{rand(10)}#{rand(10)}#{rand(10)}#{rand(10)}#{rand(10)}#{rand(10)}" %><br>
-        <strong>Test Date:</strong> <%= @ticket.date.strftime("%A, %B %d, %Y") %><br>
+        <strong>Test Date:</strong> <%= @ticket.date.strftime("%A, %B %-d, %Y") %><br>
         <strong>Test Center:</strong> <%= @site.name %> <br>
       </div>
     </div>

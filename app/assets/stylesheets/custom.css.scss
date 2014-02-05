@@ -251,11 +251,23 @@ ul.hw-section {
   .reg-ticket {
     page-break-after: always;
     padding: 100px 60px 0px 60px;
+    .info-block{
+      font-size: 12pt;
+    }
+    .h4 {
+      font-size: 12pt;
+    }
   }
 
   .reg-ticket:last-of-type {
     page-break-after: never;
   } 
+
+  h1 {
+    font-size: 20pt;
+  }
+
+  
 
   a[href]:after {
     content: none;
