@@ -5,7 +5,8 @@ class TestsController < ApplicationController
 
   def create 
     @test = Test.create(test_params)
-    @test.load_questions_from_file(params[:test][:question_file]) if params[:test][:question_file]
+    @test.assignable = true if params[:test][:assignable]
+    @test.load_questions_from_file(params[:test][:question_file], @test.assignable) if params[:test][:question_file]
     @test.set_conversion(params[:test][:conversion]) if params[:test][:conversion]
     if @test.save
       redirect_to @test

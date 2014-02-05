@@ -13,6 +13,9 @@
       <%=f.label :conversion, "Upload Conversion Chart" %>
       <%= f.file_field :conversion %>
 
+      <%=f.label :assignable, "Assignable?" %>
+      <%=f.check_box :assignable %>
+
       <%= f.submit "Add Test", class: "btn btn-large btn-primary" %>
     <% end %>
   </div>

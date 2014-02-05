@@ -17,8 +17,6 @@ class Question < ActiveRecord::Base
     a ? a.answer_choice : ""
   end
 
- 
-  
   def correct?(student)
     if grid_in?
       student_answer(student).to_f == self.correct_answer.to_f
@@ -43,10 +41,41 @@ class Question < ActiveRecord::Base
     second_try(student) == correct_answer
   end 
 
+  def set_difficulty
+    # puts "I'm here.  Difficulty is #{difficulty} and difficulty_num is #{difficulty_num}"
+    if difficulty_num >= 1 && difficulty_num <= 5
+      # puts "inside num"
+      case difficulty_num
+      when 1 
+        self.difficulty = "Low"
+      when 2 
+        self.difficulty = "Low-Medium"
+      when 3 
+        self.difficulty = "Medium"
+      when 4 
+        self.difficulty = "Medium-High"
+      when 5 
+        self.difficulty = "High"
+      end
+    elsif difficulty.length > 1
+      case difficulty
+      when "Low" 
+        self.difficulty_num = 1
+      when "Medium" 
+        self.difficulty_num = 3
+      when "High" 
+        self.difficulty_num = 5
+      end
+    end
+    # p self
+    # puts "Before save.  Difficulty is #{difficulty} and difficulty_num is #{difficulty_num}"
+    self.save
+  end
+
   private
     def question_params
       params.require(:question).permit(:question_num,
-                                      :category, :difficulty, :correct_answer)
+                                      :category, :difficulty, :correct_answer, :difficulty_num)
     end
 
 end

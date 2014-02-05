@@ -3,15 +3,16 @@ class Test < ActiveRecord::Base
   has_many :questions, through: :sections
   has_many :scores
 
-  def load_questions_from_file(filename)
+  def load_questions_from_file(filename, assignable)
     sections = []
     CSV.foreach(filename.path, headers: true) do |row|
       question_hash = row.to_hash
       segment = Segment.find_by(name: question_hash["segment"])
       category = Category.find_by(name: question_hash["category"])
       question_hash["category"] = category
-      current_section = self.sections.find_or_create_by(section_num: question_hash["section"], segment: segment)
-      current_section.questions.build(question_hash.except("section", "segment"))
+      current_section = self.sections.find_or_create_by(section_num: question_hash["section"], segment: segment, assignable: assignable)
+      q = current_section.questions.build(question_hash.except("section", "segment"))
+      q.set_difficulty
       current_section.save
     end
     self.save
