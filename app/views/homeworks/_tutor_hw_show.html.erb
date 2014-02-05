@@ -2,6 +2,7 @@
 <small><%= @hw.name %></small></h1>
 
 <br><br>
+<div class="hw-display"
 <% @hw.sections.each do |section| %>
   <strong><%= section.name %></strong> 
   <table class = "table table-condensed">
@@ -17,9 +18,18 @@
         <td><%=q.question_num%></td>
         <td><%=q.correct_answer%></td>
         <% @tutor.students.each do |s| %>
-        <td><%= q.student_answer(s) unless q.correct?(s) %></td>
+        <td><%= q.student_answer(s) unless q.correct?(s) %>
+          <% if hw.second_try? %>
+            <% if q.second_correct?(s) %>
+              ✓
+            <% else %>
+               <%= q.second_try(s) %>
+            <% end %>
           <% end %>
+        </td>
+        <% end %>
       </tr>
     <% end %>
   </table>
 <%end %>
+</div>
