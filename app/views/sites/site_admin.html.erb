@@ -7,6 +7,9 @@
 
   <%= link_to "Score Summary", score_summary_site_path(@site) %>
 
+  <%= link_to "Send Group Email",
+    write_group_email_site_path(@site)%>
+
   <h2>Create Sessions</h2>
     <%= form_tag new_site_group_meeting_path(@site), method: "get" do %>
       <%= label_tag :num_of_sessions, "Enter Number of Sessions" %>

@@ -28,7 +28,7 @@ class StudentsController < ApplicationController
   def show
     @student = Student.find(params[:id])
     @tests = Test.find([3,5])
-    @segments = Segment.all
+    @segments = Segment.all_test
     @scores = @student.scores.group_by{|s| s.test}
   end
 
@@ -121,7 +121,7 @@ class StudentsController < ApplicationController
   def hit_try_matrix
     @student = Student.find(params[:id])
     @conversion = Test.find_by_name("Basic Conversion Chart")
-    @segments = Segment.all.delete_if {|s| s.name == "Vocabulary"}
+    @segments = Segment.all_test
     # @segments.delete.where(name: "Vocabulary")
     @tests = Test.find([3,5])
     @boxes = Hash.new{Array.new}
@@ -159,7 +159,7 @@ class StudentsController < ApplicationController
   def scaled_scores
     @student = Student.find(params[:id])
     @tests = Test.find([3,5])
-    @segments = Segment.all
+    @segments = Segment.all_test
     @scores = @student.scores.group_by{|s| s.test}
   end
 

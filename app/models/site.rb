@@ -24,11 +24,12 @@ class Site < ActiveRecord::Base
     CSV.foreach(filepath, headers: true) do |row|
       answer_hash = row.to_hash
       answer_hash["question_num"] = answer_hash["question_num"].to_i
-      answer_hash["section"] = answer_hash["section"].to_i
-      question = Question.where("test_id = ? AND section = ? AND question_num = ?", test, answer_hash["section"], answer_hash["question_num"]).first
+      answer_hash["section_num"] = answer_hash["section_num"].to_i
+      s = test.sections.find_by(section_num: answer_hash["section_num"])
+      question = Question.find_by(section: s, question_num: answer_hash["question_num"])
       self.students.each do |student|
         if answer_hash[student.full_name]
-          student.answers.build(questionlike_id: question.id, questionlike_type: question.class.to_s, answer_choice: answer_hash[student.full_name])
+          student.answers.build(question: question, answer_choice: answer_hash[student.full_name])
         end
       end
     end

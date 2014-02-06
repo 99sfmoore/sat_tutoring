@@ -1,0 +1,17 @@
+<% provide(:title, "Write Group Email") %>
+
+<%= form_tag send_group_email_site_path(@site) do %>
+
+  <div class="form-group">
+    <%= label_tag :subject, "Subject:" %>
+    <%= text_field_tag :subject, "",class: "form-control" %>
+  </div>
+
+  <div class="form-group">
+    <%= label_tag :message, "Message:" %>
+    <%= text_area_tag :message, "", rows: 10, class: "form-control" %>
+  </div>
+
+  <%= submit_tag "Send", class: "btn btn-primary" %>
+
+<% end %>

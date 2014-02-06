@@ -76,6 +76,20 @@ class SitesController < ApplicationController
     @tests = [Test.find(3),Test.find(5)]
   end
 
+  def write_group_email
+    @site = Site.find(params[:id])
+    session[:return_to] = request.referer
+  end
+
+  def send_group_email
+    site = Site.find(params[:id])
+    subject = params[:subject]
+    message = params[:message]
+    StudentMailer.group_email(site, subject, message).deliver
+    redirect_to session.delete(:return_to)
+  end 
+
+
   # def registration_tickets
   #   @site = Site.find(params[:id])
   #   @test = params(:test)

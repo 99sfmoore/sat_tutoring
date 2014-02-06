@@ -9,7 +9,7 @@
   <p>
   <%= link_to "View Group Answers for #{t.name}", tutor_test_path(@tutor, t) %>
   </p>
-  <% Segment.all.each do |s| %>
+  <% Segment.all_test.each do |s| %>
     <p>
       <%= link_to "View #{s.name} Group Performance by Topic for #{t.name}", test_segment_tutor_segment_performance_path(t,s,@tutor) %>
     </p>

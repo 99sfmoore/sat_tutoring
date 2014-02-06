@@ -35,4 +35,12 @@ class StudentMailer < ActionMailer::Base
           bcc: @sender.email_for_students,
           subject: "SAT Vocabulary Homework \##{number}")
   end
+
+  def group_email(site, subject, message)
+    @message = message
+    mail(to: "#{site.cp_contact_name} <#{site.cp_email}>",
+          from: "#{site.team_leader.full_name} <#{site.leader_email}>",
+          bcc: site.students.map {|s| s.email},
+          subject: subject)
+  end
 end
