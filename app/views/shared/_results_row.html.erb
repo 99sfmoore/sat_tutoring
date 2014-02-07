@@ -1,7 +1,7 @@
 <% if single %>
-  <td><%=results[:correct]*results[:count]/100%>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<em><%=results[:correct]%>%</em></td>
-  <td><%=results[:incorrect]*results[:count]/100%>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<em><%=results[:incorrect]%>%</em></td>
-  <td><%=results[:omitted]*results[:count]/100%>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<em><%=results[:omitted]%>%</em></td>
+  <td><%=(results[:correct]*results[:count]/100.0).round%>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<em><%=results[:correct]%>%</em></td>
+  <td><%=(results[:incorrect]*results[:count]/100.0).round%>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<em><%=results[:incorrect]%>%</em></td>
+  <td><%=(results[:omitted]*results[:count]/100.0).round%>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<em><%=results[:omitted]%>%</em></td>
   <td><%=results[:count]%></td>
 <% else %>
   <td><%=results[:correct]%>%</td>
