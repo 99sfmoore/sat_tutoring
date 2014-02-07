@@ -42,9 +42,7 @@ class Question < ActiveRecord::Base
   end 
 
   def set_difficulty
-    # puts "I'm here.  Difficulty is #{difficulty} and difficulty_num is #{difficulty_num}"
-    if difficulty_num >= 1 && difficulty_num <= 5
-      # puts "inside num"
+    if difficulty_num && difficulty_num >= 1 && difficulty_num <= 5
       case difficulty_num
       when 1 
         self.difficulty = "Low"
@@ -67,8 +65,6 @@ class Question < ActiveRecord::Base
         self.difficulty_num = 5
       end
     end
-    # p self
-    # puts "Before save.  Difficulty is #{difficulty} and difficulty_num is #{difficulty_num}"
     self.save
   end
 
