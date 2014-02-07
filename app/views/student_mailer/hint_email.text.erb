@@ -8,8 +8,8 @@ Hi <%= @student.first_name %>,
 <%= section.name_for_students %>
 
   <% hints.each do |h| %>
-    <% q = h.question %>
-#<%=q.question_num %> - <%= h.hint %>
+    <% q = h.first %>
+    #<%=q.question_num %> - <%= h.last %>
 
   <% end %>
 <% end %>

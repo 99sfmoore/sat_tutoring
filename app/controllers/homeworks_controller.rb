@@ -51,7 +51,7 @@ class HomeworksController < ApplicationController
     @hw.sections.each do |section|
       section.questions.each do |q|
         unless q.correct?(@student)
-          @hints[section] = @hints[section] << HwHint.best(q, @student, current_user, @assignment)
+          @hints[section] = @hints[section] << [q, HwHint.best_text(q, @student, current_user, @assignment)]
         end
       end
     end

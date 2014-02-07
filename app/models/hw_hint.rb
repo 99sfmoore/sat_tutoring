@@ -40,4 +40,8 @@ class HwHint < ActiveRecord::Base
     end
   end
 
+  def self.best_text(question, student, tutor, assignment)
+    best_hint = HwHint.best(question, student, tutor, assignment)
+    best_hint ? best_hint.hint : ""
+  end
 end
