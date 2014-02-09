@@ -1,45 +1,58 @@
    <table class="table">
+    <% current_tests = Test.kaplan_taken(student) %>
       <thead>
         <th></th>
-        <th>Test #1</th>
-        <th>Test #2</th>
-        <th>Test #3</th>
-        <th>Test #4</th>
+        <% tests.each do |t| %>
+          <th><%=t.name %></th>
+        <% end %>
+        <th>Change</th>
       </thead>
       <% segments.each do |seg| %>
       <tr>
         <td><%=seg.name%> Correct</td>
         <% tests.each do |test| %>
-          <td><%=student.raw_score(test,seg)[:correct]%></td>
+          <% if student.took?(test) %>
+            <td><%=student.raw_score(test,seg)[:correct]%></td>
+          <% else %>
+            <td></td>
+          <% end %>
         <% end %>
-        <td></td>
-        <td></td>
+         <td></td>
       </tr>
       <tr>
         <td><%=seg.name%> Incorrect</td>
         <% tests.each do |test| %>
-          <td><%=student.raw_score(test,seg)[:incorrect]%></td>
+          <% if student.took?(test) %>
+            <td><%=student.raw_score(test,seg)[:incorrect]%></td>
+          <% else %>
+            <td></td>
+          <% end %>
         <% end %>
-        <td></td>
         <td></td>
       </tr>
       <tr>
         <td><%=seg.name%> Omitted</td>
         <% tests.each do |test| %>
-          <td><%=student.raw_score(test,seg)[:omitted]%></td>
+          <% if student.took?(test) %>
+            <td><%=student.raw_score(test,seg)[:omitted]%></td>
+          <% else %>
+            <td></td>
+          <% end %>
         <% end %>
-        <td></td>
-        <td></td>
+         <td></td>
       </tr>
       <tr>
         <th><%=seg.name%> Raw Score</th>
         <% tests.each do |test| %>
-          <th><a href=<%= test_segment_student_segment_performance_path(test,seg,student)%> rel="tooltip" data-toggle="tooltip" title="See Performance by Topic" data-placement="bottom"><%=student.raw_score(test,seg)[:score]%></a></th>
+          <% if student.took?(test) %>
+            <th><a href=<%= test_segment_student_segment_performance_path(test,seg,student)
+            %> rel="tooltip" data-toggle="tooltip" title="See Performance by Topic" data-placement="bottom"><%=student.raw_score(test,seg)[:score]%></a></th>
+          <% else %>
+            <th></th>
+          <% end %>
         <% end %>
-        <th></th>
-        <th></th>
+        <th><%= student.raw_score(current_tests.last,seg)[:score] - student.raw_score(current_tests.first,seg)[:score] %></th>
       </tr>
-
       <% end %>
     </table>
 
