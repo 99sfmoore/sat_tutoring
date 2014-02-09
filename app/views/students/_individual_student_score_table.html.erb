@@ -1,7 +1,9 @@
 <table class="table">
   <thead>
     <th width="25%"></th>
+    <% current_tests = [] %>
     <% tests.each do |t| %>
+      <% current_tests << t if scores[t] %>
       <th width="15%"><%=t.name%></th>
     <% end %>
     <th width="15%">Change</th>
@@ -10,25 +12,29 @@
     <tr>
     <td><%=seg.name%></td>
     <% tests.each do |t| %>
-      <% if seg.name == "Math" %>
-        <td><%=scores[t].first.math%></td>
-        <% elsif seg.name == "Reading" %>
-        <td><%=scores[t].first.reading%></td>
-        <% elsif seg.name == "Writing" %>
-        <td><%=scores[t].first.writing%></td>
+      <% if scores[t] %>
+        <% if seg.name == "Math" %>
+          <td><%=scores[t].first.math%></td>
+          <% elsif seg.name == "Reading" %>
+          <td><%=scores[t].first.reading%></td>
+          <% elsif seg.name == "Writing" %>
+          <td><%=scores[t].first.writing%></td>
+        <% end %>
+      <% else %>
+        <td></td>
       <% end %>
     <% end %>
     <% if seg.name == "Math" %>
       <td>
-        <%=scores[tests.last].first.math-scores[tests.first].first.math%>
+        <%=scores[current_tests.last].first.math-scores[current_tests.first].first.math%>
       </td>
       <% elsif seg.name == "Reading" %>
       <td>
-        <%=scores[@tests.last].first.reading-scores[tests.first].first.reading%>
+        <%=scores[current_tests.last].first.reading-scores[current_tests.first].first.reading%>
       </td>
       <% elsif seg.name == "Writing" %>
       <td>
-        <%=scores[tests.last].first.writing-scores[tests.first].first.writing%>
+        <%=scores[current_tests.last].first.writing-scores[current_tests.first].first.writing%>
       </td>
     <%end%>
     </tr>
@@ -36,10 +42,14 @@
   <tr>
     <th>Total</th>
     <% tests.each do |t| %>
-    <th><a href=<%=student_test_path(student,t)%> rel="tooltip" data-toggle="tooltip" title="See Student Answers" data-placement="bottom"><%=scores[t].first.total%></a>
-    </th>
+      <% if scores[t] %>
+        <th><a href=<%=student_test_path(student,t)%> rel="tooltip" data-toggle="tooltip" title="See Student Answers" data-placement="bottom"><%=scores[t].first.total%></a>
+        </th>
+      <% else %>
+        <th></th>
+      <% end %>
     <% end %>
-    <th><%=scores[tests.last].first.total-scores[tests.first].first.total%></th>
+    <th><%=scores[current_tests.last].first.total-scores[current_tests.first].first.total%></th>
   </tr>
 </table>
 

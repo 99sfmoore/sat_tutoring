@@ -1,24 +1,23 @@
-<h1>Enter Answers for <%= @student.full_name %></h1>
-<h2><%= @test.name %>
+<h1 class="secondary">Enter Answers for <%= @student.full_name %><br>
+<small><%= @test.name %></small></h1>
 
-  <%= form_tag entered_answers_student_path(@student) do %>
-  <%= hidden_field_tag :test, @test.id %>
+  <%= form_tag entered_answers_test_student_path(@test, @student) do %>
   <table class = "table">
     <th>
       <td>Section</td>
       <td>Question</td>
       <td>Answer</td>
     </th>
-    <% @test.questions.each do |q| %>
+    <% @questions.each do |q| %>
     <tr>
-      <td><%=q.section%><td>
+      <td><%=q.section.section_num%><td>
       <td><%=q.question_num%></td>
       <td><%= text_field_tag "#{q.id}" %></td>
     </tr>
     <% end %>
   </table>
 
-  <%= submit_tag "Enter Answers" %>
+  <%= submit_tag "Save Answers", class: "btn btn-primary" %>
   <% end %>
 
 

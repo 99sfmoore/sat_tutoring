@@ -6,9 +6,9 @@
 </h1>
 
 
-  <% ["Math","CR","Writing"].each do |subject| %>
-      <h3><%= subject %></h3>
-      <% raw_score = @student.raw_score(@test, subject) %>
+  <% Segment.all_test.each do |seg| %>
+      <h3><%= seg.name %></h3>
+      <% raw_score = @student.raw_score(@test, seg) %>
     <table class="table">
     <tr>
       <td>Correct</td><td><%= raw_score[:correct] %></td>

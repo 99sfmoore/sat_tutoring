@@ -60,12 +60,13 @@ class StudentsController < ApplicationController
 
   def enter_answers 
     @student = Student.find(params[:id])
-    @test = Test.find(params[:test])
+    @test = Test.find(params[:test_id])
+    @questions = @test.questions.sort_by {|q| [q.section.section_num, q.question_num]}
   end
 
   def entered_answers
     @student = Student.find(params[:id])
-    @test = Test.find(params[:test])
+    @test = Test.find(params[:test_id])
     @student.enter_answers(@test, params)
     @student.save
     render 'test_score'
@@ -95,7 +96,7 @@ class StudentsController < ApplicationController
 
   def test_score
     @student = Student.find(params[:id])
-    @test = Test.find(params[:test])
+    @test = Test.find(params[:test_id])
     render 'test_score'
   end
 
@@ -122,8 +123,7 @@ class StudentsController < ApplicationController
     @student = Student.find(params[:id])
     @conversion = Test.find_by_name("Basic Conversion Chart")
     @segments = Segment.all_test
-    # @segments.delete.where(name: "Vocabulary")
-    @tests = Test.find([3,5])
+    @tests = Test.kaplan_taken(@student)
     @boxes = Hash.new{Array.new}
     @try_range = Hash.new{(50..100).step(5).to_a}
     @hit_range = Hash.new{(50..100).step(10).to_a}
@@ -158,7 +158,7 @@ class StudentsController < ApplicationController
 
   def scaled_scores
     @student = Student.find(params[:id])
-    @tests = Test.find([3,5])
+    @tests = Test.kaplan
     @segments = Segment.all_test
     @scores = @student.scores.group_by{|s| s.test}
   end

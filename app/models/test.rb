@@ -3,6 +3,15 @@ class Test < ActiveRecord::Base
   has_many :questions, through: :sections
   has_many :scores
 
+  def self.kaplan
+    Test.where("kaplan = ?", true)
+  end
+
+  def self.kaplan_taken(student)
+    Test.kaplan.select{|t| student.took?(t)}
+  end
+
+
   def load_questions_from_file(filename, assignable)
     sections = []
     CSV.foreach(filename.path, headers: true) do |row|

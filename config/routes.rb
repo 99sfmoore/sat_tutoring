@@ -29,6 +29,8 @@ SatApp::Application.routes.draw do
       end
     end
     resources :tests, only: [:show] 
+  
+
     resources :scores, only: [:index]
     
 
@@ -37,8 +39,6 @@ SatApp::Application.routes.draw do
       post :test_score
     end
     member do
-      get :enter_answers
-      post :entered_answers
       get :check_homework
       post :checked_homework
       get :hit_try_matrix
@@ -50,6 +50,8 @@ SatApp::Application.routes.draw do
     resources :segments do
       resources :students do
         get :segment_performance
+        get :enter_answers
+        post :entered_answers
       end
       resources :tutors do
         get :segment_performance
@@ -57,6 +59,11 @@ SatApp::Application.routes.draw do
     end
     resources :students do
       resources :categories, only:[:show]
+      member do
+        get :enter_answers
+        post :entered_answers
+        get :test_score
+      end
     end
   end
   resources :tutors do

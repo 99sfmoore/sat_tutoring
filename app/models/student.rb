@@ -133,6 +133,10 @@ class Student < ActiveRecord::Base
     (tutor.homeworks - open_homeworks).sort_by{|hw| hw.number}
   end
 
+  def took?(test)
+    a = answers.find_by(question_id: test.questions.map{|q| q.id})
+    a ? true : false
+  end
 
 
 end
