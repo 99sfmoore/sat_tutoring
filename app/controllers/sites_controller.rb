@@ -1,3 +1,4 @@
+require 'pry-nav'
 class SitesController < ApplicationController
   def new
     @site = Site.new
@@ -27,9 +28,14 @@ class SitesController < ApplicationController
   def show
     @site = Site.find(params[:id])
     @students = @site.students.sort_by{|s| s.tutor.first_name}
-    @tests = Test.find([3,5])
-    @test1_scores = @students.map {|s| s.scores.where(test_id: @tests.first).first}
-    @test2_scores = @students.map {|s| s.scores.where(test_id: @tests.last).first}
+    @tests = Test.kaplan
+    @scores = Hash.new
+    @students.each do |s|
+      @scores[s] = Hash.new
+      @tests.each do |t|
+        @scores[s][t] = s.scores.find_by(test: t)
+      end
+    end
   end
 
   def site_admin
@@ -88,6 +94,12 @@ class SitesController < ApplicationController
     StudentMailer.group_email(site, subject, message).deliver
     redirect_to session.delete(:return_to)
   end 
+
+  def raw_scores
+    @site = Site.find(params[:id])
+    @students = @site.students.sort_by{|s| s.tutor.first_name}
+    @tests = Test.kaplan
+  end
 
 
   # def registration_tickets

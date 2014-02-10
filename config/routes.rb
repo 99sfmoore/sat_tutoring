@@ -13,6 +13,7 @@ SatApp::Application.routes.draw do
       get :score_summary
       get :write_group_email
       post :send_group_email
+      get :raw_scores
     end
     resources :registration_tickets, only: [:new, :create]
   end

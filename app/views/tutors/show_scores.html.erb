@@ -2,8 +2,11 @@
 
 <%= render 'shared/tutor_header_nav', tutor: @tutor, active_tab: "scores" %>
 
+<h4 class="secondary">Scaled Scores</h4>
+<%= render 'shared/student_score_table', student_list: @students, tests: @tests, scores: @scores %>
 
-<%= render 'shared/student_score_table', student_list: @students, scores1: @test1_scores, scores2: @test2_scores %>
+<h4 class="secondary">Raw Scores</h4>
+<%= render 'shared/student_raw_score_table', student_list: @students, tests: @tests %>
 
 <% @tests.each do |t| %>
   <p>

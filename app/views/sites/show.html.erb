@@ -3,8 +3,10 @@
 
 <%= render 'shared/site_header_nav', site: @site, active_tab: "scores" %> 
 
+<%= link_to "View Raw Scores", raw_scores_site_path(@site)%>
 
-<%= render 'shared/student_score_table', student_list: @students, scores1: @test1_scores, scores2: @test2_scores%>
+<%= render 'shared/student_score_table', student_list: @students, tests: @tests, scores: @scores %>
+
 
 
 

@@ -11,6 +11,10 @@ class Test < ActiveRecord::Base
     Test.kaplan.select{|t| student.took?(t)}
   end
 
+  def short_name
+    name.gsub("Practice ","")
+  end
+
 
   def load_questions_from_file(filename, assignable)
     sections = []

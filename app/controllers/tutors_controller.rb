@@ -39,9 +39,14 @@ class TutorsController < ApplicationController
   def show_scores
     @tutor = Tutor.find(params[:id])
     @students = @tutor.students
-    @tests = Test.find([3,5])
-    @test1_scores = @students.map {|s| s.scores.where(test_id: @tests.first).first}
-    @test2_scores = @students.map {|s| s.scores.where(test_id: @tests.last).first}
+    @tests = Test.kaplan
+    @scores = Hash.new
+    @students.each do |s|
+      @scores[s] = Hash.new
+      @tests.each do |t|
+        @scores[s][t] = s.scores.find_by(test: t)
+      end
+    end
   end
 
   def segment_performance

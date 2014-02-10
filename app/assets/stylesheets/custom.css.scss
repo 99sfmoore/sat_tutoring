@@ -186,6 +186,20 @@ border-color: $my-secondary;
   }
 }
 
+.table-score {
+  tr > th:first-child {
+    text-align: left;
+  }
+  tr > th {
+    text-align: center;
+  }
+  tr > td:first-child {
+    text-align: left;
+  }
+  tr > td {
+    text-align: right;
+  }
+}
 
 
 

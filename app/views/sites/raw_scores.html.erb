@@ -1,0 +1,13 @@
+<% provide(:title, @site.name) %>
+
+
+<%= render 'shared/site_header_nav', site: @site, active_tab: "scores" %> 
+
+<%= link_to "View Scaled Scores", site_path(@site)%>
+
+<%= render 'shared/student_raw_score_table', student_list: @students, tests: @tests %>
+
+
+
+
+

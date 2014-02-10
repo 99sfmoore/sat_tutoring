@@ -1,0 +1,42 @@
+<table class="table table-bordered table-striped table-condensed table-score">
+  <thead>
+    <tr>
+      <th></th>
+        <% tests.each do |t| %>
+          <th colspan="3" class="center"><%=t.short_name%></th>
+        <% end %>
+        <th colspan="3" class="center">Change</th>
+      </div>
+    </tr>
+    <tr>
+    <th>Name</th>
+    <% tests.each do |t| %>
+      <th>M</th>
+      <th>R</th>
+      <th>W</th>
+    <% end %>
+      <th>M</th>
+      <th>R</th>
+      <th>W</th>
+  </tr>
+  </thead>
+  <% student_list.each do |s| %>
+  <% last_test = tests.first %>
+  <tr>
+    <td><%=link_to s.full_name, student_path(s) %></td>
+    <% tests.each do |t| %>
+      <% if s.took?(t) %>
+        <% last_test = t %>
+        <% Segment.all_test.each do |seg| %>
+          <td><%=s.raw_score(t,seg)[:score]%></td>
+        <% end %>
+      <% else %>
+        <td></td><td></td><td></td>
+      <% end %>
+    <% end %>
+    <% Segment.all_test.each do |seg| %>
+    <td><%=s.raw_score(last_test,seg)[:score] - s.raw_score(tests.first,seg)[:score]%></td>
+    <% end %>
+  </tr>
+  <% end %>  
+</table>
