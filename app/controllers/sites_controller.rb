@@ -1,4 +1,3 @@
-require 'pry-nav'
 class SitesController < ApplicationController
   def new
     @site = Site.new
