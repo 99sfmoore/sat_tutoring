@@ -20,6 +20,25 @@
       <th>W</th>
   </tr>
   </thead>
+  <tr>
+    <td><strong>Average</strong></td>
+    <% last_test = tests.first %>
+    <% tests.each do |t| %>
+      <% if RawScore.count(:conditions => {test: t, student_id: student_list}) > 1%>
+        <% last_test = t %>
+        <td><strong><%= RawScore.average(:math, :conditions => {test_id: t.id, student_id: student_list}).round%></strong></td>
+        <td><strong><%= RawScore.average(:reading, :conditions => {test_id: t.id, student_id: student_list}).round%></strong></td>
+        <td><strong><%= RawScore.average(:writing, :conditions => {test_id: t.id, student_id: student_list}).round%></strong></td>
+      <% else %>
+        <% 3.times do %>
+          <td></td>
+        <% end %>
+      <% end %>
+    <% end %>
+    <td><strong><%= RawScore.average(:math, :conditions => {test: last_test, student_id: student_list}).round - RawScore.average(:math, :conditions => {test: tests.first, student_id: student_list}).round%></strong></td>
+    <td><strong><%= RawScore.average(:reading, :conditions => {test: last_test, student_id: student_list}).round - RawScore.average(:reading, :conditions => {test: tests.first, student_id: student_list}).round%></strong></td>
+    <td><strong><%= RawScore.average(:writing, :conditions => {test: last_test, student_id: student_list}).round - RawScore.average(:writing, :conditions => {test: tests.first, student_id: student_list}).round%></strong></td>
+  </tr>
   <% student_list.each do |s| %>
   <% last_test = tests.first %>
   <tr>
@@ -27,16 +46,16 @@
     <% tests.each do |t| %>
       <% if s.took?(t) %>
         <% last_test = t %>
-        <% Segment.all_test.each do |seg| %>
-          <td><%=s.raw_score(t,seg)[:score]%></td>
-        <% end %>
+        <td><%=number_with_precision(scores[s][t].math, precision: 2)%></td>
+        <td><%=number_with_precision(scores[s][t].reading, precision: 2)%></td>
+        <td><%=number_with_precision(scores[s][t].writing, precision: 2)%></td>
       <% else %>
         <td></td><td></td><td></td>
       <% end %>
     <% end %>
-    <% Segment.all_test.each do |seg| %>
-    <td><%=s.raw_score(last_test,seg)[:score] - s.raw_score(tests.first,seg)[:score]%></td>
+    <td><%=number_with_precision(scores[s][last_test].math - scores[s][tests.first].math, precision: 2)%></td>
+    <td><%=number_with_precision(scores[s][last_test].reading - scores[s][tests.first].reading, precision: 2)%></td>
+    <td><%=number_with_precision(scores[s][last_test].writing - scores[s][tests.first].writing, precision: 2)%></td>
     <% end %>
   </tr>
-  <% end %>  
 </table>

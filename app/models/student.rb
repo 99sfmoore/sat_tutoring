@@ -9,6 +9,7 @@ class Student < ActiveRecord::Base
   has_many :scores
   has_many :assignments
   has_many :sections, through: :assignments
+  has_many :raw_scores
 
   has_attached_file :avatar, styles: {
     thumb: '32x32#',
@@ -64,7 +65,7 @@ class Student < ActiveRecord::Base
     assignments.find_by(homework: hw).update_attributes(second_try: "complete")
   end
 
-  def raw_score(test, segment)
+  def my_raw_score(test, segment)
     correct = 0
     incorrect = 0
     omitted = 0

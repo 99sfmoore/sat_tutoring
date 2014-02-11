@@ -98,6 +98,13 @@ class SitesController < ApplicationController
     @site = Site.find(params[:id])
     @students = @site.students.sort_by{|s| s.tutor.first_name}
     @tests = Test.kaplan
+    @scores = Hash.new
+    @students.each do |s|
+      @scores[s] = Hash.new
+      @tests.each do |t|
+        @scores[s][t] = s.raw_scores.find_by(test: t)
+      end
+    end
   end
 
 

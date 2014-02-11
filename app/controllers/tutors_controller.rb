@@ -41,10 +41,13 @@ class TutorsController < ApplicationController
     @students = @tutor.students
     @tests = Test.kaplan
     @scores = Hash.new
+    @raw_scores = Hash.new
     @students.each do |s|
       @scores[s] = Hash.new
+      @raw_scores[s] = Hash.new
       @tests.each do |t|
         @scores[s][t] = s.scores.find_by(test: t)
+        @raw_scores[s][t] = s.raw_scores.find_by(test: t)
       end
     end
   end

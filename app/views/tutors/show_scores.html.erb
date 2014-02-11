@@ -6,7 +6,7 @@
 <%= render 'shared/student_score_table', student_list: @students, tests: @tests, scores: @scores %>
 
 <h4 class="secondary">Raw Scores</h4>
-<%= render 'shared/student_raw_score_table', student_list: @students, tests: @tests %>
+<%= render 'shared/student_raw_score_table', student_list: @students, tests: @tests, scores: @raw_scores %>
 
 <% @tests.each do |t| %>
   <p>

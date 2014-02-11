@@ -22,6 +22,60 @@
       <th>Total</th>
   </tr>
   </thead>
+  <tr>
+    <td><strong>Average</strong></td>
+      <% last_test = tests.first %>
+    <% tests.each do |t| %>
+      <% if Score.count(:conditions => {test: t, student_id: student_list}) > 1%>
+        <% last_test = t %>
+        <td><strong><% m = Score.average(:math, :conditions => {test_id: t.id, student_id: student_list}).round%><%=m%></strong></td>
+        <td><strong><% r = Score.average(:reading, :conditions => {test_id: t.id, student_id: student_list}).round%><%=r%></strong></td>
+        <td><strong><% w = Score.average(:writing, :conditions => {test_id: t.id, student_id: student_list}).round%><%=w%></strong></td>
+        <td><strong><%= m + r + w %></strong></td>
+      <% else %>
+        <% 4.times do %>
+          <td></td>
+        <% end %>
+      <% end %>
+    <% end %>
+    <td><strong><% m = Score.average(:math, :conditions => {test: last_test, student_id: student_list}).round - Score.average(:math, :conditions => {test: tests.first, student_id: student_list}).round%><%=m%></strong></td>
+    <td><strong><% r = Score.average(:reading, :conditions => {test: last_test, student_id: student_list}).round - Score.average(:reading, :conditions => {test: tests.first, student_id: student_list}).round%><%=r%></strong></td>
+    <td><strong><% w = Score.average(:writing, :conditions => {test: last_test, student_id: student_list}).round - Score.average(:writing, :conditions => {test: tests.first, student_id: student_list}).round%><%=w%></strong></td>
+    <td><strong><%= m + r + w %></strong></td>
+  </tr>
+  <% if student_list.count > 5 %>
+  <tr>
+    <td><strong>Maximum</strong></td>
+    <% tests.each do |t| %>
+      <% if Score.count(:conditions => {test: t, student_id: student_list}) > 1%>
+        <td><strong><% m = Score.maximum(:math, :conditions => {test_id: t.id, student_id: student_list}).round%><%=m%></strong></td>
+        <td><strong><% r = Score.maximum(:reading, :conditions => {test_id: t.id, student_id: student_list}).round%><%=r%></strong></td>
+        <td><strong><% w = Score.maximum(:writing, :conditions => {test_id: t.id, student_id: student_list}).round%><%=w%></strong></td>
+        <td><strong><%= scores.values.map{|v| v[t]}.map{|score| score.total}.max %> </strong></td>
+      <% else %>
+        <% 4.times do %>
+          <td></td>
+        <% end %>
+      <% end %>
+    <% end %>
+  </tr>
+  <tr>
+    <td><strong>Minimum</strong></td>
+    <% tests.each do |t| %>
+      <% if Score.count(:conditions => {test: t, student_id: student_list}) > 1%>
+      <td><strong><% m = Score.minimum(:math, :conditions => {test_id: t.id, student_id: student_list}).round%><%=m%></strong></td>
+      <td><strong><% r = Score.minimum(:reading, :conditions => {test_id: t.id, student_id: student_list}).round%><%=r%></strong></td>
+      <td><strong><% w = Score.minimum(:writing, :conditions => {test_id: t.id, student_id: student_list}).round%><%=w%></strong></td>
+      <td><strong><%= scores.values.map{|v| v[t]}.map{|score| score.total}.min %> </strong></td>
+        <% else %>
+        <% 4.times do %>
+        <td></td>
+        <% end %>
+        <% end %>
+    <% end %>
+  </tr>
+  <% end %>
+
   <% student_list.each do |s| %>
   <% last_test = tests.first %>
   <tr>
