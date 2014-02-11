@@ -26,18 +26,18 @@
     <% tests.each do |t| %>
       <% if RawScore.count(:conditions => {test: t, student_id: student_list}) > 1%>
         <% last_test = t %>
-        <td><strong><%= RawScore.average(:math, :conditions => {test_id: t.id, student_id: student_list}).round%></strong></td>
-        <td><strong><%= RawScore.average(:reading, :conditions => {test_id: t.id, student_id: student_list}).round%></strong></td>
-        <td><strong><%= RawScore.average(:writing, :conditions => {test_id: t.id, student_id: student_list}).round%></strong></td>
+        <td><strong><%= number_with_precision(RawScore.average(:math, :conditions => {test_id: t.id, student_id: student_list}),precision: 2)%></strong></td>
+        <td><strong><%= number_with_precision(RawScore.average(:reading, :conditions => {test_id: t.id, student_id: student_list}),precision: 2)%></strong></td>
+        <td><strong><%= number_with_precision(RawScore.average(:writing, :conditions => {test_id: t.id, student_id: student_list}),precision: 2)%></strong></td>
       <% else %>
         <% 3.times do %>
           <td></td>
         <% end %>
       <% end %>
     <% end %>
-    <td><strong><%= RawScore.average(:math, :conditions => {test: last_test, student_id: student_list}).round - RawScore.average(:math, :conditions => {test: tests.first, student_id: student_list}).round%></strong></td>
-    <td><strong><%= RawScore.average(:reading, :conditions => {test: last_test, student_id: student_list}).round - RawScore.average(:reading, :conditions => {test: tests.first, student_id: student_list}).round%></strong></td>
-    <td><strong><%= RawScore.average(:writing, :conditions => {test: last_test, student_id: student_list}).round - RawScore.average(:writing, :conditions => {test: tests.first, student_id: student_list}).round%></strong></td>
+    <td><strong><%= number_with_precision(RawScore.average(:math, :conditions => {test: last_test, student_id: student_list})- RawScore.average(:math, :conditions => {test: tests.first, student_id: student_list}),precision: 2)%></strong></td>
+    <td><strong><%= number_with_precision(RawScore.average(:reading, :conditions => {test: last_test, student_id: student_list})- RawScore.average(:reading, :conditions => {test: tests.first, student_id: student_list}),precision: 2)%></strong></td>
+    <td><strong><%= number_with_precision(RawScore.average(:writing, :conditions => {test: last_test, student_id: student_list})- RawScore.average(:writing, :conditions => {test: tests.first, student_id: student_list}),precision: 2)%></strong></td>
   </tr>
   <% student_list.each do |s| %>
   <% last_test = tests.first %>
