@@ -260,6 +260,14 @@ ul.hw-section {
     display: none;
   }
 
+  .nav-tabs{
+    display: none;
+  }
+
+  .no-print{
+    display: none;
+  }
+
   .wtf {
     page-break-before: always;
   }
@@ -279,8 +287,20 @@ ul.hw-section {
     page-break-after: never;
   } 
 
+  .score-report {
+    page-break-after: always;
+  }
+
+  .score-report:last-of-type {
+    page-break-after: never;
+  } 
+
   h1 {
     font-size: 20pt;
+  }
+
+  h3 {
+    font-size: 14pt;
   }
 
   

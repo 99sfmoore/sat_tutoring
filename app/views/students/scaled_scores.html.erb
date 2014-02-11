@@ -11,7 +11,7 @@
     <%= render 'raw_score_table', student: @student, tests: @tests, scores: @scores, segments: @segments %>
   </div>
   <div class="h4 col-sm-offset10">
-    <%= link_to "View Hit-Try Matrix", hit_try_matrix_student_path(@student) %>
+    <%= link_to "View Hit-Try Matrix", hit_try_matrix_student_path(@student), class: "no-print" %>
   </div>
 </div>
 

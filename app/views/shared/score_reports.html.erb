@@ -1,0 +1,17 @@
+<% provide(:title, "Score Reports") %>
+
+<% @students.each do |s|%>
+<h1><%=s.full_name%></h1>
+
+<div class="row score-report">
+  <div class="col-sm-10 col-sm-offset1">
+  <h3 class="secondary">Scaled Scores</h3>
+    <%= render 'students/individual_student_score_table', student: s, tests: @tests, scores: s.scores.group_by{|s| s.test}, segments: @segments %>
+
+  <h3 class="secondary">Raw Scores</h3>
+    <%= render 'students/raw_score_table', student: s, tests: @tests, segments: @segments %>
+  </div>
+</div>
+<%end %>
+
+

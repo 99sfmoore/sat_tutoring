@@ -107,6 +107,14 @@ class SitesController < ApplicationController
     end
   end
 
+  def score_reports
+    @site = Site.find(params[:id])
+    @students = @site.students
+    @tests = Test.kaplan
+    @segments = Segment.all_test
+    render 'shared/score_reports'
+  end
+
 
   # def registration_tickets
   #   @site = Site.find(params[:id])

@@ -1,14 +1,16 @@
 <%= render 'shared/site_header_nav', site: @site, active_tab: "admin" %> 
 
 
-  <%= link_to "Create Registration Tickets", new_site_registration_ticket_path(@site), class: "btn btn-primary" %>
-  <%= link_to "Upload Test Answers",import_answers_site_path(@site), class: "btn btn-primary" %>
-  <%= link_to "Enter Test Scores",enter_scores_site_path(@site), class: "btn btn-primary" %>
+  <%= link_to "Create Registration Tickets", new_site_registration_ticket_path(@site), class: "btn btn-primary" %><br>
+  <%= link_to "Upload Test Answers",import_answers_site_path(@site), class: "btn btn-primary" %><br>
+  <%= link_to "Enter Test Scores",enter_scores_site_path(@site), class: "btn btn-primary" %><br>
 
-  <%= link_to "Score Summary", score_summary_site_path(@site) %>
+  <%= link_to "Score Summary", score_summary_site_path(@site) %><br>
 
   <%= link_to "Send Group Email",
-    write_group_email_site_path(@site)%>
+    write_group_email_site_path(@site)%><br>
+
+  <%= link_to "Print Score Reports", score_reports_site_path(@site) %>
 
   <h2>Create Sessions</h2>
     <%= form_tag new_site_group_meeting_path(@site), method: "get" do %>
