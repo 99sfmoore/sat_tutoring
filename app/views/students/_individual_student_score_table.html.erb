@@ -1,10 +1,10 @@
-<table class="table">
+<table class="table table-score">
   <thead>
     <th width="25%"></th>
     <% current_tests = [] %>
     <% tests.each do |t| %>
       <% current_tests << t if scores[t] %>
-      <th width="15%"><%=t.name%></th>
+      <th width="15%"><%=t.short_name%></th>
     <% end %>
     <th width="15%">Change</th>
   </thead>
@@ -43,13 +43,13 @@
     <th>Total</th>
     <% tests.each do |t| %>
       <% if scores[t] %>
-        <th><a href=<%=student_test_path(student,t)%> rel="tooltip" data-toggle="tooltip" title="See Student Answers" data-placement="bottom"><%=scores[t].first.total%></a>
-        </th>
+        <td><strong><a href=<%=student_test_path(student,t)%> rel="tooltip" data-toggle="tooltip" title="See Student Answers" data-placement="bottom"><%=scores[t].first.total%></a></strong>
+        </td>
       <% else %>
-        <th></th>
+        <td></td>
       <% end %>
     <% end %>
-    <th><%=scores[current_tests.last].first.total-scores[current_tests.first].first.total%></th>
+    <td><strong><%=scores[current_tests.last].first.total-scores[current_tests.first].first.total%></strong></td>
   </tr>
 </table>
 

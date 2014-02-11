@@ -1,9 +1,9 @@
-   <table class="table">
+   <table class="table table-score">
     <% current_tests = Test.kaplan_taken(student) %>
       <thead>
         <th></th>
         <% tests.each do |t| %>
-          <th><%=t.name %></th>
+          <th><%=t.short_name %></th>
         <% end %>
         <th>Change</th>
       </thead>
@@ -12,7 +12,7 @@
         <td><%=seg.name%> Correct</td>
         <% tests.each do |test| %>
           <% if student.took?(test) %>
-            <td><%=student.raw_score(test,seg)[:correct]%></td>
+            <td><%=student.my_raw_score(test,seg)[:correct]%></td>
           <% else %>
             <td></td>
           <% end %>
@@ -23,7 +23,7 @@
         <td><%=seg.name%> Incorrect</td>
         <% tests.each do |test| %>
           <% if student.took?(test) %>
-            <td><%=student.raw_score(test,seg)[:incorrect]%></td>
+            <td><%=student.my_raw_score(test,seg)[:incorrect]%></td>
           <% else %>
             <td></td>
           <% end %>
@@ -34,7 +34,7 @@
         <td><%=seg.name%> Omitted</td>
         <% tests.each do |test| %>
           <% if student.took?(test) %>
-            <td><%=student.raw_score(test,seg)[:omitted]%></td>
+            <td><%=student.my_raw_score(test,seg)[:omitted]%></td>
           <% else %>
             <td></td>
           <% end %>
@@ -45,13 +45,13 @@
         <th><%=seg.name%> Raw Score</th>
         <% tests.each do |test| %>
           <% if student.took?(test) %>
-            <th><a href=<%= test_segment_student_segment_performance_path(test,seg,student)
-            %> rel="tooltip" data-toggle="tooltip" title="See Performance by Topic" data-placement="bottom"><%=student.raw_score(test,seg)[:score]%></a></th>
+            <td><strong><a href=<%= test_segment_student_segment_performance_path(test,seg,student)
+            %> rel="tooltip" data-toggle="tooltip" title="See Performance by Topic" data-placement="bottom"><%=student.my_raw_score(test,seg)[:score]%></a></strong></td>
           <% else %>
-            <th></th>
+            <td></td>
           <% end %>
         <% end %>
-        <th><%= student.raw_score(current_tests.last,seg)[:score] - student.raw_score(current_tests.first,seg)[:score] %></th>
+        <td><strong><%= student.my_raw_score(current_tests.last,seg)[:score] - student.my_raw_score(current_tests.first,seg)[:score] %></strong></td>
       </tr>
       <% end %>
     </table>
