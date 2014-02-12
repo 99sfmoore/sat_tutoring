@@ -46,7 +46,16 @@
         <% tests.each do |test| %>
           <% if student.took?(test) %>
             <td><strong><a href=<%= test_segment_student_segment_performance_path(test,seg,student)
-            %> rel="tooltip" data-toggle="tooltip" title="See Performance by Topic" data-placement="bottom"><%=student.my_raw_score(test,seg)[:score]%></a></strong></td>
+            %> rel="tooltip" data-toggle="tooltip" title="See Performance by Topic" data-placement="bottom">
+              <% case seg.name %>
+              <% when "Math" %>
+                <%=raw_scores[test].first.math%>
+              <% when "Reading" %>
+                <%=raw_scores[test].first.reading%>
+              <% when "Writing" %>
+                <%=raw_scores[test].first.writing%>
+              <% end %>
+            </a></strong></td>
           <% else %>
             <td></td>
           <% end %>

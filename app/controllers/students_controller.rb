@@ -161,6 +161,7 @@ class StudentsController < ApplicationController
     @tests = Test.kaplan
     @segments = Segment.all_test
     @scores = @student.scores.group_by{|s| s.test}
+    @raw_scores = @student.raw_scores.group_by{|s| s.test}
   end
 
 
