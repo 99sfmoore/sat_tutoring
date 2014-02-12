@@ -34,7 +34,11 @@ class Question < ActiveRecord::Base
   end
 
   def second_try(student)
-    answers.find_by(student: student).second_try
+    if a = answers.find_by(student: student)
+      a.second_try
+    else
+      ""
+    end
   end
 
   def second_correct?(student)
