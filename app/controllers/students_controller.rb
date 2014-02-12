@@ -137,7 +137,7 @@ class StudentsController < ApplicationController
           @boxes[seg] = @boxes[seg] << [hit.round(-1),(try/10.0).round*10]
         else
           @try_range[seg] = ((try/5 * 5)..100).step(5).to_a if try < @try_range[seg].first
-          @hit_range[seg] = ((hit/10 * 10)..80).step(5).to_a if hit < @hit_range[seg].first
+          @hit_range[seg] = ((hit/10 * 10)..100).step(10).to_a if hit < @hit_range[seg].first
           @boxes[seg] = @boxes[seg]<< [hit.round(-1),(try/5.0).round*5]
         end
       end
