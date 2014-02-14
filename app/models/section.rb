@@ -24,6 +24,10 @@ class Section < ActiveRecord::Base
     end
   end
 
+  def self.assignable
+    Section.where(assignable: true).sort_by{|s| [s.start_page || 700, (s.test || Test.find(4)).name, s.section_num]}
+  end
+
   def page_range
     if start_page == end_page
       return "#{start_page}"

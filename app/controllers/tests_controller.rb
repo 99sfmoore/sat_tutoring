@@ -15,6 +15,20 @@ class TestsController < ApplicationController
     end
   end
 
+  def edit
+    @test = Test.find(params[:id])
+  end
+
+  def update
+    @test = Test.find(params[:id])
+    params[:assignable] ? assignable = true : assignable = false
+    @test.update_attributes(assignable: assignable)
+    @test.sections.each do |s|
+      s.update_attributes(assignable: assignable)
+    end
+    render 'show'
+  end
+
   def show
     @test = Test.find(params[:id])
     if params[:student_id]
