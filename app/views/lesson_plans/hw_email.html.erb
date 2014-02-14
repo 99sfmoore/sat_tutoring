@@ -6,7 +6,7 @@
 
 <%= form_tag send_hw_emails_lesson_plan_path(@lessonplan) do %>
   <% unless @lessonplan.vocab_hw.nil? or @lessonplan.vocab_hw == "" %>
-    <h4 class="primary">Vocabulary #<%= @lessonplan.number%></h4>
+    <h4 class="primary">Homework #<%= @lessonplan.number%> - Vocabulary</h4>
     <h5 class="strong">Send to:</h5>
     <%= render 'student_checkboxes', students: @tutor.students, hw:"vocab" %>
     <h5 class="strong">Assignment:</h5>
@@ -15,7 +15,7 @@
     </p>
     <div class="form-group">
       <%= label_tag "vocab[message]", "Message to students" %>
-      <%= text_area_tag "vocab[message]", default_message(Segment.find_by(name: Vocabulary)), rows: 10, class: "form-control" %>
+      <%= text_area_tag "vocab[message]", default_message("Vocabulary"), rows: 10, class: "form-control" %>
     </div>
   <% end %>
 
@@ -32,7 +32,7 @@
 
     <div class="form-group">
       <%= label_tag "#{hw.id}[message]", "Message to students" %>
-      <%= text_area_tag "#{hw.id}[message]", default_message(hw.segment), rows: 10, class: "form-control" %>
+      <%= text_area_tag "#{hw.id}[message]", default_message(hw.segment.name), rows: 10, class: "form-control" %>
     </div>
   <% end %>
 
