@@ -11,4 +11,8 @@ class LessonPlan < ActiveRecord::Base
   def number
     group_meeting.session_number
   end
+
+  def date
+    group_meeting.date
+  end
 end
