@@ -4,7 +4,7 @@ namespace :seed do
     t = Test.find(10)
     ["Danika","Tiffany"].each do |n|
       s = Student.find_by(first_name: n)
-      s.raw_scores_build(test: t, 
+      s.raw_scores.build(test: t, 
                         math: s.my_raw_score(test, Segment.find_by(name: "Math"))[:score],
                         reading: s.my_raw_score(test, Segment.find_by(name: "Reading"))[:score],
                         writing: s.my_raw_score(test, Segment.find_by(name: "Writing"))[:score])
