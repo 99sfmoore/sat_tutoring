@@ -38,6 +38,11 @@ class Student < ActiveRecord::Base
       q.answers.build(student: self, answer_choice: answer)
       q.save
     end
+    self.raw_scores.build(test: test, 
+                          math: my_raw_score(test, Segment.find_by(name: "Math")),
+                          reading: my_raw_score(test, Segment.find_by(name: "Reading")),
+                          writing: my_raw_score(test, Segment.find_by(name: "Writing")))
+    self.save
   end
 
   def check_homework(hw,param_hash)
