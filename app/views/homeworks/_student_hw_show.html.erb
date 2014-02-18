@@ -2,8 +2,9 @@
 <small><%= @hw.name %></small></h1>
 <%=link_to "Send Hints", send_hints_student_homework_path(@student, @hw), class: "btn btn-primary" %>
 <br><br>
+<%= render 'hw_performance', hw: @hw, student: @student %>
 <% @hw.sections.each do |section| %>
-  <strong><%= section.name %></strong> 
+  <strong><%= section.name %></strong>
   <table class = "table">
     <tr>
       <th>Question #</th>

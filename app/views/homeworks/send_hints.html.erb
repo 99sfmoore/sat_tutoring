@@ -32,7 +32,7 @@
     <% end %>
   </table>
 <% end %>
-
+<%= render 'hw_performance', hw: @hw, student: @student %>
 <%= form_tag [:send_email, @student, @hw] do %>
   <div class="form-group">
     <%= label_tag :message, "Message to Student" %>

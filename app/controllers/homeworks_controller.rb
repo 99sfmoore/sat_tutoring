@@ -31,7 +31,7 @@ class HomeworksController < ApplicationController
     @student = Student.find(params[:student_id])
     @student.check_homework(@hw,params)
     @student.save
-    render 'shared/homework_result'
+    redirect_to [@student, @hw]
   end
 
   def send_hints

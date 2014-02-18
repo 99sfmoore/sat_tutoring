@@ -1,0 +1,9 @@
+<% correct = 0 %>
+<% total = 0 %>
+<% hw.sections.each do |section| %>
+  <% correct += section.questions.select {|q| q.correct?(@student)}.count %>
+  <% total += section.questions.count %>
+<% end %>
+<p><strong>
+  Performance: <%="#{correct}/#{total} correct, #{((correct.to_f/total.to_f)*100).round}%"%>
+</strong></p>
