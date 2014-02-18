@@ -39,9 +39,9 @@ class Student < ActiveRecord::Base
       q.save
     end
     self.raw_scores.build(test: test, 
-                          math: my_raw_score(test, Segment.find_by(name: "Math")),
-                          reading: my_raw_score(test, Segment.find_by(name: "Reading")),
-                          writing: my_raw_score(test, Segment.find_by(name: "Writing")))
+                          math: my_raw_score(test, Segment.find_by(name: "Math")).score,
+                          reading: my_raw_score(test, Segment.find_by(name: "Reading")).score,
+                          writing: my_raw_score(test, Segment.find_by(name: "Writing")).score)
     self.save
   end
 
