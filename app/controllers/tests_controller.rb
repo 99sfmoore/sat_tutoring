@@ -30,6 +30,8 @@ class TestsController < ApplicationController
     @test.sections.each do |s|
       s.update_attributes(assignable: assignable)
     end
+    @test.set_conversion(params[:conversion]) if params[:conversion]
+    @test.save
     render 'show'
   end
 
