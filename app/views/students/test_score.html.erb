@@ -38,15 +38,17 @@
     <td>Correct Answer</td>
     <td>Student Answer</td>
   </thead>
-  <% @test.questions.each do |q| %>
-  <tr>
-    <td><%=q.segment %></td>
-    <td><%=q.section_num %></td>
-    <td><%=q.question_num%></td>
-    <td><%=q.category %></td>
-    <td><%=q.difficulty %></td>
-    <td><%=q.correct_answer%></td>
-    <td><%=q.answers.where("student_id = ?", @student).first.answer_choice%></td>
-  </tr>
+  <% @test.sections.order(:section_num).each do |s| %>
+    <% s.questions.order(:question_num).each do |q| %>
+      <tr>
+        <td><%=q.segment.name %></td>
+        <td><%=q.section_num %></td>
+        <td><%=q.question_num%></td>
+        <td><%=q.category %></td>
+        <td><%=q.difficulty %></td>
+        <td><%=q.correct_answer%></td>
+        <td><%=q.answers.where("student_id = ?", @student).first.answer_choice%></td>
+      </tr>
+    <% end %>
   <% end %>
 
