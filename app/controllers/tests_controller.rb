@@ -17,6 +17,10 @@ class TestsController < ApplicationController
 
   def edit
     @test = Test.find(params[:id])
+    if params[:student_id]
+      @student = Student.find(params[:student_id]) 
+      redirect_to enter_answers_test_student_path(@test, @student)
+    end
   end
 
   def update

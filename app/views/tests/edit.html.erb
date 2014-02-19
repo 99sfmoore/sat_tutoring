@@ -1,7 +1,6 @@
 <% provide(:title, @test.name) %>
 
 <h1 class="secondary">Edit <%=@test.name %></h1>
-
 <%= form_tag test_path(@test), method: :put do %>
   <%=label_tag :assignable, "Assignable?" %>
   <%=check_box_tag :assignable, "assignable", @test.assignable? %>

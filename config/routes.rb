@@ -30,7 +30,7 @@ SatApp::Application.routes.draw do
         post :second_checked_homework
       end
     end
-    resources :tests, only: [:show] 
+    resources :tests, only: [:show, :edit] 
   
 
     resources :scores, only: [:index]
@@ -59,7 +59,7 @@ SatApp::Application.routes.draw do
         get :segment_performance
       end
     end
-    resources :students do
+    resources :students do 
       resources :categories, only:[:show]
       member do
         get :enter_answers

@@ -6,13 +6,15 @@
     <th>
       <td>Section</td>
       <td>Question</td>
-      <td>Answer</td>
+      <td>Correct Answer</td>
+      <td>Student Answer</td>
     </th>
     <% @questions.each do |q| %>
     <tr>
       <td><%=q.section.section_num%><td>
       <td><%=q.question_num%></td>
-      <td><%= text_field_tag "#{q.id}" %></td>
+      <td><%=q.correct_answer%></td>
+      <td><%= text_field_tag "#{q.id}", q.student_answer(@student) %></td>
     </tr>
     <% end %>
   </table>

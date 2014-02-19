@@ -35,11 +35,12 @@ class Student < ActiveRecord::Base
   def enter_answers(test,param_hash)
     test.questions.each do |q|
       answer = param_hash[q.id.to_s]
-      q.answers.build(student: self, answer_choice: answer)
+      student_answer = q.answers.find_or_initialize_by(student: self)
+      student_answer.update_attributes(answer_choice: answer)
       q.save
     end
-    self.raw_scores.build(test: test, 
-                          math: my_raw_score(test, Segment.find_by(name: "Math"))[:score],
+    raw = self.raw_scores.find_or_initialize_by(test: test) 
+    raw.update_attributes(math: my_raw_score(test, Segment.find_by(name: "Math"))[:score],
                           reading: my_raw_score(test, Segment.find_by(name: "Reading"))[:score],
                           writing: my_raw_score(test, Segment.find_by(name: "Writing"))[:score])
     self.save
