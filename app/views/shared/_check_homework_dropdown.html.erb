@@ -3,23 +3,6 @@
     Check Homework <span class="caret"></span>
   </button>
   <ul class="dropdown-menu", role="menu">
-    <% student.open_homeworks.each do |hw| %>
-      <li><%= link_to hw.name, check_homework_student_homework_path(student, hw)%></li>
-    <% end %>
-    <% unless student.send_hints_homeworks.empty? %>
-      <li class="divider"></li>
-        <li><em>Send Hints</em></li>
-      <% student.send_hints_homeworks.each do |hw| %>
-        <li><%= link_to hw.name, send_hints_student_homework_path(student, hw) %></li>
-      <% end %>
-    <% end %>
-
-    <% unless student.second_try_homeworks.empty? %>
-      <li class="divider"></li>
-      <li><em>Second Try</em></li>
-      <% student.second_try_homeworks.each do |hw| %>
-      <li><%= link_to hw.name, second_try_student_homework_path(student, hw) %></li>
-      <% end %>
-    <% end %>
+    <%= render 'shared/current_hw_list', student: student %>
   </ul>
 </div>
