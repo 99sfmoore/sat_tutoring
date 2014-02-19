@@ -57,12 +57,12 @@ class Test < ActiveRecord::Base
   def scaled_score(raw_score, segment = nil)
     score_conversion = ActiveSupport::JSON.decode(self.conversion)
     scores = score_conversion[raw_score.round.to_s]
-    return 200 if raw_score < 6
-    if segment == "Math"
+    return 200 if raw_score < -3
+    if segment.name == "Math"
       return scores["math"].to_i
-    elsif segment == "CR"
+    elsif segment.name == "Reading"
       return scores["reading"].to_i
-    elsif segment == "Writing"
+    elsif segment.name == "Writing"
       return scores["writing_mc"].to_i
     else
       return scores
