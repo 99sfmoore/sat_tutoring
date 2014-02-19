@@ -23,7 +23,7 @@
       <td>Raw Score</td><td><%= raw_score[:score] %></td>
     </tr>
     <tr>
-      <td>Scaled Score</td><td> <%=@test.scaled_score(raw_score[:score])%></td>
+      <td>Scaled Score</td><td> <%=@test.scaled_score(raw_score[:score], seg)%></td>                       
     </tr>
     </table>
     <% end %>
