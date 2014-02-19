@@ -1,15 +1,8 @@
 namespace :seed do
-  desc "give difficulty integer values for ordering of questions"
-  task :difficulty_integers => :environment do
-    Question.all(:conditions => {:difficulty_num => nil}).each do |q|
-      if q.difficulty == "Low"
-        q.difficulty_num = 1
-      elsif q.difficulty == "Medium"
-        q.difficulty_num = 3
-      elsif q.difficulty == "High"
-        q.difficulty_num = 5
-      end
-      q.save
-    end
+  desc "update Donnette HW Status"
+  task :donnette_hw_status => :environment do
+    s = Student.find_by(first_name: "Donnette")
+    a = s.assignments.find_by(second_try: "pending")
+    a.update_attributes(send_hints: true, second_try: "")
   end
 end

@@ -17,10 +17,7 @@
       Homework <span class="caret"></span>
     </a>
     <ul class="dropdown-menu">
-      <% student.open_homeworks.each do |hw| %>
-        <li> <%= link_to "Check #{hw.name}", check_homework_student_homework_path(student, hw)%>
-        <li>
-      <% end %>
+      <%= render 'shared/current_hw_list', student: student %>
       <li class="divider"></li>
       <li> <%= link_to "Past Homeworks", student_homeworks_path(student) %></li>
     </ul>

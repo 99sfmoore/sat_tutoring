@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140210233303) do
+ActiveRecord::Schema.define(version: 20140219161635) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -34,6 +34,7 @@ ActiveRecord::Schema.define(version: 20140210233303) do
     t.datetime "updated_at"
     t.integer  "homework_id"
     t.string   "second_try"
+    t.boolean  "send_hints"
   end
 
   create_table "assignments_hw_hints", force: true do |t|

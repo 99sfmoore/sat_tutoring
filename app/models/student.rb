@@ -55,7 +55,7 @@ class Student < ActiveRecord::Base
       end
     end
     a = self.assignments.build(homework: hw, complete: true)
-    a.update_attributes(second_try: "pending") if hw.second_try?
+    a.update_attributes(send_hints: true)
     self.save
   end
 
@@ -134,6 +134,10 @@ class Student < ActiveRecord::Base
 
   def second_try_homeworks
     self.assignments.where("second_try = ?", "pending").map {|a| a.homework}
+  end
+
+  def send_hints_homeworks
+    self.assignments.select {|a| a.send_hints?}.map {|a| a.homework}
   end
 
   def past_homeworks

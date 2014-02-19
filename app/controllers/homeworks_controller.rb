@@ -57,6 +57,8 @@ class HomeworksController < ApplicationController
     end
     StudentMailer.hint_email(@student, current_user, @hw,@message, @hints).deliver
     flash[:success] = "Homework hint email sent to #{@student.first_name}."
+    @assignment.update_attributes(send_hints: false)
+    @assignment.update_attributes(second_try: "pending") if @hw.second_try?
     redirect_to current_user
   end
 
