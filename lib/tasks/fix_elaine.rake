@@ -1,6 +1,6 @@
 namespace :seed do
   desc "fix Elaine test score"
-  task :fix_elaine => :envieronment do
+  task :fix_elaine => :environment do
     s = Student.find_by(first_name: "Elaine")
     t = Test.find(5)
     e_score = s.scores.find_by(test: t)
