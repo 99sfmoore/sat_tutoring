@@ -24,19 +24,21 @@
         <td></td>
       <% end %>
     <% end %>
-    <% if seg.name == "Math" %>
-      <td>
-        <%=scores[current_tests.last].first.math-scores[current_tests.first].first.math%>
-      </td>
-      <% elsif seg.name == "Reading" %>
-      <td>
-        <%=scores[current_tests.last].first.reading-scores[current_tests.first].first.reading%>
-      </td>
-      <% elsif seg.name == "Writing" %>
-      <td>
-        <%=scores[current_tests.last].first.writing-scores[current_tests.first].first.writing%>
-      </td>
-    <%end%>
+    <% unless current_tests.empty? %>
+      <% if seg.name == "Math" %>
+        <td>
+          <%=scores[current_tests.last].first.math-scores[current_tests.first].first.math%>
+        </td>
+        <% elsif seg.name == "Reading" %>
+        <td>
+          <%=scores[current_tests.last].first.reading-scores[current_tests.first].first.reading%>
+        </td>
+        <% elsif seg.name == "Writing" %>
+        <td>
+          <%=scores[current_tests.last].first.writing-scores[current_tests.first].first.writing%>
+        </td>
+      <%end%>
+    <% end %>
     </tr>
   <% end %>
   <tr>
@@ -49,7 +51,7 @@
         <td></td>
       <% end %>
     <% end %>
-    <td><strong><%=scores[current_tests.last].first.total-scores[current_tests.first].first.total%></strong></td>
+    <td><strong><%=scores[current_tests.last].first.total-scores[current_tests.first].first.total unless current_tests.empty? %></strong></td>
   </tr>
 </table>
 

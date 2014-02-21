@@ -1,4 +1,3 @@
-
 class Site < ActiveRecord::Base
   has_many :students
   has_many :tutors
@@ -34,6 +33,11 @@ class Site < ActiveRecord::Base
       end
     end
     self.students.each do |student|
+      student.save
+      student.raw_scores.build(test: test, 
+                              math: student.my_raw_score(test, Segment.find_by(name: "Math"))[:score],
+                              reading: student.my_raw_score(test, Segment.find_by(name: "Reading"))[:score],
+                              writing: student.my_raw_score(test, Segment.find_by(name: "Writing"))[:score])
       student.save
     end
   end

@@ -38,10 +38,12 @@
         <% end %>
       <% end %>
     <% end %>
-    <td><strong><% m = Score.average(:math, :conditions => {test: last_test, student_id: student_list}).round - Score.average(:math, :conditions => {test: tests.first, student_id: student_list}).round%><%=m%></strong></td>
-    <td><strong><% r = Score.average(:reading, :conditions => {test: last_test, student_id: student_list}).round - Score.average(:reading, :conditions => {test: tests.first, student_id: student_list}).round%><%=r%></strong></td>
-    <td><strong><% w = Score.average(:writing, :conditions => {test: last_test, student_id: student_list}).round - Score.average(:writing, :conditions => {test: tests.first, student_id: student_list}).round%><%=w%></strong></td>
-    <td><strong><%= m + r + w %></strong></td>
+    <% if Score.count(:conditions => {test: last_test, student_id: student_list}) > 1%>  
+      <td><strong><% m = Score.average(:math, :conditions => {test: last_test, student_id: student_list}).round - Score.average(:math, :conditions => {test: tests.first, student_id: student_list}).round%><%=m%></strong></td>
+      <td><strong><% r = Score.average(:reading, :conditions => {test: last_test, student_id: student_list}).round - Score.average(:reading, :conditions => {test: tests.first, student_id: student_list}).round%><%=r%></strong></td>
+      <td><strong><% w = Score.average(:writing, :conditions => {test: last_test, student_id: student_list}).round - Score.average(:writing, :conditions => {test: tests.first, student_id: student_list}).round%><%=w%></strong></td>
+      <td><strong><%= m + r + w %></strong></td>
+    <% end %>
   </tr>
   <% if student_list.count > 5 %>
   <tr>
@@ -91,10 +93,12 @@
         <td></td><td></td><td></td><td></td>
       <% end %>
     <% end %>
-    <td><%=scores[s][last_test].math - scores[s][tests.first].math%></td>
-    <td><%=scores[s][last_test].reading - scores[s][tests.first].reading%></td>
-    <td><%=scores[s][last_test].writing - scores[s][tests.first].writing%></td>
-    <td><strong><%=scores[s][last_test].total - scores[s][tests.first].total%><strong></td>
+    <% if Score.count(:conditions => {test: last_test, student_id: student_list}) > 1%>  
+      <td><%=scores[s][last_test].math - scores[s][tests.first].math%></td>
+      <td><%=scores[s][last_test].reading - scores[s][tests.first].reading%></td>
+      <td><%=scores[s][last_test].writing - scores[s][tests.first].writing%></td>
+      <td><strong><%=scores[s][last_test].total - scores[s][tests.first].total%><strong></td>
+    <% end %>
   </tr>
   <% end %>
   <tr>

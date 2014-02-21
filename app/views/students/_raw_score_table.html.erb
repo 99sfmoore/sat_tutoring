@@ -60,7 +60,7 @@
             <td></td>
           <% end %>
         <% end %>
-        <td><strong><%= student.my_raw_score(current_tests.last,seg)[:score] - student.my_raw_score(current_tests.first,seg)[:score] %></strong></td>
+        <td><strong><%= student.my_raw_score(current_tests.last,seg)[:score] - student.my_raw_score(current_tests.first,seg)[:score] unless current_tests.empty? %></strong></td>
       </tr>
       <% end %>
     </table>

@@ -39,7 +39,7 @@ class SitesController < ApplicationController
 
   def site_admin
     @site = Site.find(params[:id])
-    if @site.team_leader != current_user
+    unless current_user == @site.team_leader || current_user.admin?
       redirect_to @site
     end
   end
