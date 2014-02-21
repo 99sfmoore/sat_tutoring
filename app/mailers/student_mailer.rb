@@ -8,7 +8,8 @@ class StudentMailer < ActionMailer::Base
     @hints = hints
     mail(to: "#{@student.full_name} <#{@student.email}>",
           from: "#{@sender.full_name} <#{@sender.email_for_students}>",
-          cc: [@student.site.leader_email, @student.site.cp_email, (@student.tutor.email_for_students unless @student.tutor == @sender)],
+          cc: [@student.site.leader_email, @student.site.cp_email, (@student.tutor.email_for_students unless @student.tutor == @sender),
+            ("insafjaleel@gmail.com" if @student.tutor == Tutor.find_by(last_name:"Lam") && @sender.last_name != "Jaleel")],
           bcc: @sender.email_for_students,
           subject: @hw.email_subject)
   end
@@ -20,7 +21,8 @@ class StudentMailer < ActionMailer::Base
     @message = message
     mail(to: "#{@student.full_name} <#{@student.email}>",
           from: "#{@sender.full_name} <#{@sender.email_for_students}>",
-          cc: [@student.site.leader_email, @student.site.cp_email, (@student.tutor.email_for_students unless @student.tutor == @sender)],
+          cc: [@student.site.leader_email, @student.site.cp_email, (@student.tutor.email_for_students unless @student.tutor == @sender),
+             ("insafjaleel@gmail.com" if @student.tutor == Tutor.find_by(last_name:"Lam") && @sender.last_name != "Jaleel")],
           bcc: @sender.email_for_students,
           subject: @hw.email_subject)
   end
@@ -31,7 +33,8 @@ class StudentMailer < ActionMailer::Base
     @message = message
     mail(to: "#{@student.full_name} <#{@student.email}>",
           from: "#{@sender.full_name} <#{@sender.email_for_students}>",
-          cc: [@student.site.leader_email, @student.site.cp_email, (@student.tutor.email_for_students unless @student.tutor == @sender)],
+          cc: [@student.site.leader_email, @student.site.cp_email, (@student.tutor.email_for_students unless @student.tutor == @sender),
+            ("insafjaleel@gmail.com" if @student.tutor == Tutor.find_by(last_name:"Lam") && @sender.last_name != "Jaleel")],
           bcc: @sender.email_for_students,
           subject: "SAT Vocabulary Homework \##{number}")
   end
