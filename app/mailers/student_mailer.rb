@@ -46,4 +46,15 @@ class StudentMailer < ActionMailer::Base
           bcc: site.students.map {|s| s.email},
           subject: subject)
   end
+
+  def picture_email(student, message)
+    @student = student
+    @message = message
+    attachments['SAT_Picture.jpg'] = File.read(open(@student.avatar.url(:original)))
+    mail(to: "#{@student.full_name} <#{@student.email}",
+        from: @student.site.leader_email,
+        cc: [@student.site.cp_email, @student.tutor.email_for_students],
+        bcc: @student.site.leader_email,
+        subject: "Picture for SAT Registration")
+  end
 end

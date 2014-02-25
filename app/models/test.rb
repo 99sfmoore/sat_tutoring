@@ -63,7 +63,7 @@ class Test < ActiveRecord::Base
     elsif segment.name == "Reading"
       return scores["reading"].to_i
     elsif segment.name == "Writing"
-      return scores["writing_mc"].to_i
+      return scores["writing_mc"].to_i  
     else
       return scores
     end

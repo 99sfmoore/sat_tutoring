@@ -13,6 +13,8 @@ SatApp::Application.routes.draw do
       get :score_summary
       get :write_group_email
       post :send_group_email
+      get :write_picture_emails
+      post :send_picture_emails
       get :raw_scores
       get :score_reports
     end

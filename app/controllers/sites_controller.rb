@@ -94,6 +94,23 @@ class SitesController < ApplicationController
     redirect_to session.delete(:return_to)
   end 
 
+  def write_picture_emails
+    @site = Site.find(params[:id])
+    session[:return_to] = request.referer
+  end
+
+  def send_picture_emails
+    site = Site.find(params[:id])
+    message = params[:message]
+    site.students.each do |s|
+      StudentMailer.picture_email(s, message).deliver
+    end
+    redirect_to session.delete(:return_to)
+  end 
+
+
+
+
   def raw_scores
     @site = Site.find(params[:id])
     @students = @site.students.sort_by{|s| s.tutor.first_name}
