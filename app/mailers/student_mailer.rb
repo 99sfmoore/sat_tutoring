@@ -43,7 +43,7 @@ class StudentMailer < ActionMailer::Base
     @message = message
     mail(to: "#{site.cp_contact_name} <#{site.cp_email}>",
           from: "#{site.team_leader.full_name} <#{site.leader_email}>",
-          bcc: site.students.map {|s| s.email}, site.leader_email,
+          bcc: site.students.map {|s| s.email},
           subject: subject)
   end
 
