@@ -27,7 +27,7 @@ class StudentsController < ApplicationController
 
   def show
     @student = Student.find(params[:id])
-    @tests = Test.find([3,5])
+    @tests = Test.kaplan_taken(@student)
     @segments = Segment.all_test
     @scores = @student.scores.group_by{|s| s.test}
   end
